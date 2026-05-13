@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Nurha Business Group — Excellence In What We Do</title>
+<meta name="description" content="Nurha Business Group — 28 years of excellence across 9 companies. Agriculture, Real Estate, Mining, Manufacturing and more. Addis Ababa, Ethiopia."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════
+   THEME TOKENS
+══════════════════════════════════════════ */
+:root{
+  --amber:    #E8601A;
+  --amber2:   #F07A30;
+  --brown:    #7B2A12;
+  --brown2:   #C04A20;
+  --gold:     #C9923A;
+  --gold2:    #E8B060;
+}
+[data-theme="dark"]{
+  --bg:     #0c0a08;
+  --bg2:    #120e0a;
+  --bg3:    #1a1208;
+  --card:   rgba(255,255,255,.04);
+  --card2:  rgba(255,255,255,.07);
+  --border: rgba(232,96,26,.18);
+  --border2:rgba(255,255,255,.07);
+  --text:   #f5ede4;
+  --text2:  #9a8070;
+  --text3:  #4a3830;
+  --shadow: rgba(0,0,0,.7);
+  --glow:   0 0 80px rgba(232,96,26,.18);
+  --grain:  .03;
+  --logo-f: invert(0) brightness(1.1);
+}
+[data-theme="light"]{
+  --bg:     #faf7f4;
+  --bg2:    #f5ede4;
+  --bg3:    #ede4d8;
+  --card:   #ffffff;
+  --card2:  #fdf9f6;
+  --border: rgba(232,96,26,.2);
+  --border2:rgba(0,0,0,.07);
+  --text:   #1a0e08;
+  --text2:  #7a5a48;
+  --text3:  #c0a090;
+  --shadow: rgba(0,0,0,.12);
+  --glow:   0 8px 40px rgba(232,96,26,.15);
+  --grain:  .018;
+  --logo-f: invert(0) brightness(1);
+}
+
+/* ══════════════════════════════════════════
+   RESET & GLOBALS
+══════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);color:var(--text);
+  overflow-x:hidden;cursor:none;
+  transition:background .5s,color .5s;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:99px}
+a,button{cursor:none}
+img{display:block;max-width:100%}
+
+/* ══════════════════════════════════════════
+   GRAIN
+══════════════════════════════════════════ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ══════════════════════════════════════════
+   SCROLL PROGRESS
+══════════════════════════════════════════ */
+#spb{
+  position:fixed;top:0;left:0;z-index:9990;height:2.5px;width:0%;
+  background:linear-gradient(90deg,var(--brown),var(--amber),var(--gold2));
+  transition:width .1s linear;border-radius:0 2px 2px 0;
+}
+
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════════════ */
+.c-dot{
+  position:fixed;width:7px;height:7px;border-radius:50%;
+  background:var(--amber);z-index:99998;pointer-events:none;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 12px rgba(232,96,26,.7);
+  transition:width .2s,height .2s;
+}
+.c-ring{
+  position:fixed;width:34px;height:34px;border-radius:50%;
+  border:1.5px solid rgba(232,96,26,.45);z-index:99997;pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:transform .08s linear,width .25s,height .25s;
+}
+
+/* ══════════════════════════════════════════
+   LOADER
+══════════════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;z-index:99999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity .5s,visibility .5s;
+}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{height:72px;object-fit:contain;animation:lgo .5s ease both}
+@keyframes lgo{from{opacity:0;transform:scale(.8) translateY(10px)}to{opacity:1;transform:none}}
+.loader-bar{width:180px;height:2px;background:var(--border2);border-radius:99px;overflow:hidden}
+.loader-bar::after{
+  content:'';display:block;height:100%;
+  background:linear-gradient(90deg,var(--brown),var(--amber),var(--gold2));
+  border-radius:99px;
+  animation:lp .55s cubic-bezier(.77,0,.18,1) both;
+}
+@keyframes lp{from{width:0}to{width:100%}}
+
+/* ══════════════════════════════════════════
+   FLOATING NAV
+══════════════════════════════════════════ */
+nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  z-index:1000;
+  display:flex;align-items:center;gap:6px;
+  padding:7px 12px 7px 14px;
+  background:rgba(12,10,8,.72);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--border2);border-radius:99px;
+  transition:background .4s,border-color .4s,box-shadow .4s;
+  box-shadow:0 8px 32px rgba(0,0,0,.35);
+  white-space:nowrap;
+}
+[data-theme="light"] nav{background:rgba(250,247,244,.85)}
+nav.scrolled{border-color:var(--border);box-shadow:0 12px 48px rgba(0,0,0,.3)}
+.nav-logo img{height:36px;object-fit:contain;filter:var(--logo-f)}
+.nav-div{width:1px;height:20px;background:var(--border2);margin:0 4px}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{
+  text-decoration:none;color:var(--text2);font-size:13px;font-weight:500;letter-spacing:.2px;
+  padding:6px 12px;border-radius:99px;transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--border2)}
+.nav-cta{
+  padding:8px 18px;border-radius:99px;font-weight:700;font-size:13px;
+  background:linear-gradient(135deg,var(--amber),var(--brown2));
+  color:#fff;text-decoration:none;margin-left:6px;
+  transition:transform .25s,box-shadow .25s,opacity .25s;
+  box-shadow:0 4px 20px rgba(232,96,26,.35);
+}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 8px 28px rgba(232,96,26,.5)}
+.theme-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);
+  background:var(--card);color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:background .3s,transform .4s;
+  margin-left:4px;position:relative;overflow:hidden;
+}
+.theme-btn:hover{transform:rotate(20deg);color:var(--amber)}
+.theme-btn .sun,.theme-btn .moon{position:absolute;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+[data-theme="dark"] .sun{transform:scale(1);opacity:1}
+[data-theme="dark"] .moon{transform:scale(0) rotate(-90deg);opacity:0}
+[data-theme="light"] .sun{transform:scale(0) rotate(90deg);opacity:0}
+[data-theme="light"] .moon{transform:scale(1);opacity:1}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:8px;background:none;border:none}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text);border-radius:2px;transition:.3s}
+
+/* Mobile sidebar */
+.mob-overlay{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,.55)}
+.mob-overlay.open{display:block}
+.mobile-menu{
+  position:fixed;top:0;right:0;bottom:0;z-index:998;
+  width:min(280px,82vw);background:var(--bg3);
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:flex-start;
+  padding:80px 28px 40px;gap:4px;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{
+  font-size:15px;font-weight:600;color:var(--text);text-decoration:none;
+  padding:12px 14px;border-radius:8px;width:100%;transition:color .2s,background .2s;
+}
+.mobile-menu a:hover{color:var(--amber);background:var(--card)}
+.mobile-menu .nav-cta{margin-top:16px;text-align:center;font-size:14px;padding:13px 18px}
+.mob-close{
+  position:absolute;top:18px;right:18px;
+  background:var(--card2);border:1px solid var(--border2);
+  color:var(--text);font-size:16px;width:36px;height:36px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:120px 6vw 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:url('https://nurhabusinessgroup.com/assets/galaryImages/19.jpg');
+  background-size:cover;background-position:center 30%;
+  filter:brightness(.28) saturate(.7);
+  transition:filter .5s;
+}
+[data-theme="light"] .hero-bg{filter:brightness(.55) saturate(.8)}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(135deg,rgba(12,10,8,.85) 0%,rgba(122,42,18,.25) 60%,transparent 100%);
+}
+[data-theme="light"] .hero-overlay{
+  background:linear-gradient(135deg,rgba(250,247,244,.9) 0%,rgba(232,96,26,.12) 60%,transparent 100%);
+}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:1}
+.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(232,96,26,.12),transparent 70%);top:-150px;right:-100px;animation:o1 12s ease-in-out infinite alternate}
+.orb-2{width:450px;height:450px;background:radial-gradient(circle,rgba(122,42,18,.2),transparent 70%);bottom:-100px;left:-80px;animation:o2 15s ease-in-out infinite alternate}
+@keyframes o1{0%{transform:translate(0,0)}100%{transform:translate(-60px,80px) scale(1.1)}}
+@keyframes o2{0%{transform:translate(0,0)}100%{transform:translate(60px,-60px) scale(1.15)}}
+
+.hero-inner{position:relative;z-index:2;max-width:760px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:7px 16px;border-radius:99px;margin-bottom:28px;
+  background:rgba(232,96,26,.1);border:1px solid rgba(232,96,26,.25);
+  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber2);
+  animation:fadeUp .6s ease both;
+}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:puls 2s ease-in-out infinite}
+@keyframes puls{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.55);opacity:.4}}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,6.5vw,90px);font-weight:900;line-height:1.06;
+  color:var(--text);margin-bottom:24px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hi-amber{
+  background:linear-gradient(135deg,var(--amber),var(--gold2),var(--amber));
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+.hero-sub{
+  font-size:clamp(16px,1.5vw,19px);color:var(--text2);
+  line-height:1.72;margin-bottom:40px;max-width:540px;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-btns{
+  display:flex;gap:14px;flex-wrap:wrap;
+  animation:fadeUp .7s .3s ease both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:99px;font-weight:700;font-size:15px;
+  background:linear-gradient(135deg,var(--amber),var(--brown2));
+  color:#fff;text-decoration:none;
+  transition:transform .25s,box-shadow .25s,opacity .25s;
+  box-shadow:0 8px 32px rgba(232,96,26,.4);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(232,96,26,.55);opacity:.95}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 26px;border-radius:99px;font-weight:600;font-size:15px;
+  border:1px solid var(--border);color:var(--text);text-decoration:none;
+  background:rgba(255,255,255,.05);backdrop-filter:blur(12px);
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.btn-ghost:hover{border-color:var(--amber);transform:translateY(-2px)}
+
+.hero-stats{
+  display:flex;gap:36px;margin-top:56px;padding-top:36px;
+  border-top:1px solid var(--border2);flex-wrap:wrap;
+  animation:fadeUp .7s .4s ease both;
+}
+.stat-n{
+  font-family:'Syne',sans-serif;font-size:38px;font-weight:800;
+  background:linear-gradient(135deg,var(--amber),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;
+}
+.stat-l{font-size:11px;color:var(--text2);margin-top:5px;letter-spacing:.5px;text-transform:uppercase}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* Scroll cue */
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);
+}
+.scroll-ring{
+  width:28px;height:28px;border-radius:50%;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.scroll-ring::after{
+  content:'';width:4px;height:4px;border-radius:50%;background:var(--amber);
+  animation:sb 2s ease infinite;
+}
+@keyframes sb{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(4px);opacity:.4}}
+
+/* ══════════════════════════════════════════
+   MARQUEE
+══════════════════════════════════════════ */
+.marquee-sec{
+  padding:18px 0;overflow:hidden;
+  border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
+  background:var(--bg2);
+}
+.marquee-track{display:flex;width:max-content;animation:mq 35s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.mq-item{
+  white-space:nowrap;padding:0 32px;
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:600;
+  color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:28px;
+}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ══════════════════════════════════════════
+   SECTION COMMONS
+══════════════════════════════════════════ */
+section:not(.marquee-sec){padding:110px 6vw}
+.sec-label{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--amber);margin-bottom:14px;
+  padding:4px 12px;border-radius:4px;
+  background:rgba(232,96,26,.08);border:1px solid rgba(232,96,26,.18);
+}
+.sec-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,4vw,52px);font-weight:900;letter-spacing:-.5px;line-height:1.1;margin-bottom:14px;
+}
+.sec-sub{font-size:16px;color:var(--text2);line-height:1.72;max-width:560px}
+
+/* Reveals */
+.rev{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.rev.vis{opacity:1;transform:none}
+.rev-l{opacity:0;transform:translateX(-30px);transition:opacity .7s,transform .7s}
+.rev-l.vis{opacity:1;transform:none}
+.rev-r{opacity:0;transform:translateX(30px);transition:opacity .7s,transform .7s}
+.rev-r.vis{opacity:1;transform:none}
+
+/* ══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+#about{background:var(--bg)}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.about-right{position:relative}
+.about-img-main{
+  width:100%;height:460px;object-fit:cover;border-radius:20px;
+  filter:brightness(.88) saturate(.9);
+  box-shadow:0 40px 80px var(--shadow);
+}
+.about-badge{
+  position:absolute;bottom:-20px;left:-20px;
+  padding:20px 24px;border-radius:16px;
+  background:linear-gradient(135deg,var(--amber),var(--brown2));
+  color:#fff;box-shadow:0 20px 40px rgba(232,96,26,.4);
+}
+.ab-val{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:1}
+.ab-lbl{font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.5px}
+.about-text .sec-sub{max-width:100%}
+.about-pts{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.ap{
+  display:flex;align-items:flex-start;gap:14px;padding:18px;
+  border-radius:12px;background:var(--card);border:1px solid var(--border2);
+  transition:border-color .2s,background .2s;
+}
+.ap:hover{border-color:var(--border);background:var(--card2)}
+.ap-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.ap h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.ap p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ══════════════════════════════════════════
+   DIVISIONS
+══════════════════════════════════════════ */
+#divisions{background:var(--bg2)}
+.div-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:56px;flex-wrap:wrap;gap:24px;
+}
+.div-header .sec-sub{margin-bottom:0}
+.div-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.div-card{
+  background:var(--bg3);border-radius:18px;overflow:hidden;
+  border:1px solid var(--border2);
+  transition:border-color .3s,transform .35s,box-shadow .35s;
+  position:relative;
+}
+.div-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 28px 60px var(--shadow),var(--glow)}
+.div-img-wrap{overflow:hidden;height:180px;position:relative;background:var(--bg2)}
+.div-img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.8) saturate(.85);
+  transition:filter .4s,transform .45s;display:block;
+}
+.div-card:hover .div-img{filter:brightness(.95) saturate(1);transform:scale(1.06)}
+.div-cat{
+  position:absolute;top:12px;left:12px;
+  padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.cat-agri{background:rgba(34,140,60,.25);border:1px solid rgba(34,140,60,.4);color:#5de87a}
+.cat-ind{background:rgba(232,96,26,.2);border:1px solid rgba(232,96,26,.35);color:var(--amber2)}
+.cat-con{background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.35);color:#7bb8f5}
+.cat-trade{background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.35);color:#c084fc}
+.div-body{padding:22px}
+.div-body h3{
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+  margin-bottom:8px;color:var(--text);
+}
+.div-body p{font-size:13px;color:var(--text2);line-height:1.65}
+.div-arrow{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+  font-size:12px;font-weight:600;color:var(--amber);text-decoration:none;
+  transition:gap .2s;
+}
+.div-arrow:hover{gap:10px}
+
+/* ══════════════════════════════════════════
+   STATS BAND
+══════════════════════════════════════════ */
+#stats-band{
+  background:linear-gradient(135deg,var(--brown) 0%,#3a1408 50%,var(--brown) 100%);
+  padding:80px 6vw;text-align:center;
+  position:relative;overflow:hidden;
+}
+#stats-band::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(232,96,26,.15),transparent);
+}
+.stats-inner{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  position:relative;z-index:1;
+}
+.stat-block{padding:32px 20px;position:relative}
+.stat-block::after{
+  content:'';position:absolute;top:20%;right:0;width:1px;height:60%;
+  background:rgba(255,255,255,.12);
+}
+.stat-block:last-child::after{display:none}
+.sb-val{
+  font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,68px);
+  font-weight:900;color:#fff;line-height:1;
+}
+.sb-val span{color:var(--gold2)}
+.sb-lbl{font-size:13px;color:rgba(255,255,255,.6);margin-top:10px;letter-spacing:.5px}
+
+/* ══════════════════════════════════════════
+   SECTORS
+══════════════════════════════════════════ */
+#sectors{background:var(--bg)}
+.sectors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.sector-card{
+  padding:36px 28px;border-radius:20px;
+  background:var(--card);border:1px solid var(--border2);
+  position:relative;overflow:hidden;
+  transition:border-color .3s,background .3s,transform .3s;
+}
+.sector-card::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:160px;height:160px;border-radius:50%;
+  transition:transform .4s,opacity .4s;opacity:.08;
+}
+.sc-agri::before{background:radial-gradient(circle,#22c55e,transparent);transform:scale(1)}
+.sc-build::before{background:radial-gradient(circle,#3b82f6,transparent);transform:scale(1)}
+.sc-ind::before{background:radial-gradient(circle,var(--amber),transparent);transform:scale(1)}
+.sector-card:hover{border-color:var(--border);background:var(--card2);transform:translateY(-4px)}
+.sector-card:hover::before{transform:scale(1.3);opacity:.14}
+.sc-icon{font-size:32px;margin-bottom:20px}
+.sc-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:12px}
+.sc-desc{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:20px}
+.sc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sc-list li{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--text2);
+}
+.sc-list li::before{
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════ */
+#gallery{background:var(--bg2)}
+.gal-scroll{
+  display:flex;gap:14px;overflow-x:auto;padding-bottom:16px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:var(--amber) var(--bg);
+  margin-top:48px;
+}
+.gal-scroll::-webkit-scrollbar{height:3px}
+.gal-scroll::-webkit-scrollbar-thumb{background:var(--amber);border-radius:99px}
+.gal-item{
+  flex-shrink:0;width:360px;height:250px;
+  border-radius:16px;overflow:hidden;scroll-snap-align:start;
+  position:relative;cursor:none;
+}
+.gal-item img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.75) saturate(.85);
+  transition:transform .5s,filter .5s;display:block;
+}
+.gal-item:hover img{transform:scale(1.07);filter:brightness(.92) saturate(1)}
+.gal-caption{
+  position:absolute;bottom:0;left:0;right:0;padding:16px;
+  background:linear-gradient(to top,rgba(12,10,8,.88),transparent);
+  font-size:13px;font-weight:600;color:#fff;
+  transform:translateY(4px);opacity:0;transition:opacity .3s,transform .3s;
+}
+.gal-item:hover .gal-caption{opacity:1;transform:translateY(0)}
+
+/* ══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+#contact{background:var(--bg)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:18px;margin-top:36px}
+.ci{
+  display:flex;align-items:flex-start;gap:14px;padding:18px;
+  border-radius:12px;background:var(--card);border:1px solid var(--border2);
+  transition:border-color .2s,background .2s;
+}
+.ci:hover{border-color:var(--border);background:var(--card2)}
+.ci-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  background:rgba(232,96,26,.1);
+}
+.ci-label{font-size:11px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.ci-val{font-size:14px;font-weight:600;color:var(--text)}
+.ci-val a{color:var(--text);text-decoration:none;transition:color .2s}
+.ci-val a:hover{color:var(--amber)}
+
+/* Form */
+.form-wrap{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;padding:36px;
+}
+.form-wrap h3{
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+  margin-bottom:24px;
+}
+.fg{position:relative;margin-bottom:20px}
+.fg input,.fg textarea,.fg select{
+  width:100%;padding:16px 16px 8px;border-radius:10px;
+  background:var(--bg2);border:1px solid var(--border2);color:var(--text);
+  font-size:14px;font-family:'Inter',sans-serif;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{
+  border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,96,26,.12);
+}
+.fg label{
+  position:absolute;left:16px;top:14px;font-size:13px;color:var(--text3);
+  pointer-events:none;transition:top .2s,font-size .2s,color .2s;
+}
+.fg input:focus~label,.fg input:not(:placeholder-shown)~label,
+.fg textarea:focus~label,.fg textarea:not(:placeholder-shown)~label{
+  top:5px;font-size:10px;color:var(--amber);letter-spacing:.5px;text-transform:uppercase;
+}
+.fg input,.fg textarea{padding-top:22px}
+.fg textarea{height:110px;resize:vertical}
+.form-submit{
+  width:100%;padding:15px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,var(--amber),var(--brown2));
+  color:#fff;font-weight:700;font-size:15px;
+  transition:transform .25s,box-shadow .25s,opacity .25s;
+  box-shadow:0 8px 24px rgba(232,96,26,.35);
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,96,26,.5);opacity:.95}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  background:var(--bg2);
+  border-top:1px solid var(--border2);
+  padding:56px 6vw 32px;
+}
+.foot-inner{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;
+}
+.foot-brand img{height:52px;object-fit:contain;filter:var(--logo-f);margin-bottom:16px}
+.foot-brand p{font-size:14px;color:var(--text2);line-height:1.7;max-width:240px}
+.foot-col h4{font-size:11px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.foot-col a{
+  display:block;font-size:13px;color:var(--text2);text-decoration:none;
+  margin-bottom:10px;transition:color .2s;
+}
+.foot-col a:hover{color:var(--amber)}
+.foot-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:24px;border-top:1px solid var(--border2);
+  font-size:12px;color:var(--text3);flex-wrap:wrap;gap:12px;
+}
+.foot-soc{display:flex;gap:10px}
+.foot-soc a{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--card);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;text-decoration:none;color:var(--text2);
+  transition:background .2s,border-color .2s,color .2s;
+}
+.foot-soc a:hover{background:rgba(232,96,26,.12);border-color:var(--amber);color:var(--amber)}
+
+/* ══════════════════════════════════════════
+   BACK TO TOP
+══════════════════════════════════════════ */
+#btt{
+  position:fixed;bottom:24px;right:24px;z-index:500;
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(135deg,var(--amber),var(--brown2));
+  border:none;color:#fff;font-size:16px;
+  display:none;align-items:center;justify-content:center;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 8px 24px rgba(232,96,26,.4);
+}
+#btt.show{display:flex}
+#btt:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,96,26,.55)}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:1100px){
+  .about-inner{grid-template-columns:1fr;gap:48px}
+  .about-right{order:-1}
+  .foot-inner{grid-template-columns:1fr 1fr;gap:32px}
+  .sectors-grid{grid-template-columns:1fr 1fr;gap:16px}
+}
+@media(max-width:900px){
+  .div-grid{grid-template-columns:1fr 1fr}
+  .contact-inner{grid-template-columns:1fr;gap:40px}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:1px}
+  .stat-block::after{display:none}
+}
+@media(max-width:768px){
+  .c-dot,.c-ring{display:none !important}
+  body{cursor:auto}a,button{cursor:pointer}
+  section:not(.marquee-sec){padding:72px 5vw}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  nav{max-width:calc(100vw - 20px);top:10px}
+  .hero-stats{gap:20px}
+  .stat-n{font-size:30px}
+  .about-img-main{height:320px}
+  .about-badge{left:12px;bottom:-16px}
+  .gal-item{width:280px;height:200px}
+}
+@media(max-width:600px){
+  .div-grid{grid-template-columns:1fr}
+  .sectors-grid{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .foot-inner{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-ghost{justify-content:center}
+  .scroll-cue{display:none}
+}
+@media(hover:none){
+  .div-card:hover{transform:none}
+  .sector-card:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="c-dot" id="cDot"></div>
+<div class="c-ring" id="cRing"></div>
+<div id="spb"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <img class="loader-logo" src="https://nurhabusinessgroup.com/logo.png" alt="Nurha Business Group"/>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- MOBILE OVERLAY + MENU -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMob()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#about"     onclick="closeMob()">About</a>
+  <a href="#divisions" onclick="closeMob()">Divisions</a>
+  <a href="#sectors"   onclick="closeMob()">Sectors</a>
+  <a href="#gallery"   onclick="closeMob()">Gallery</a>
+  <a href="#contact"   onclick="closeMob()">Contact</a>
+  <a href="#contact" class="nav-cta" onclick="closeMob()">Get In Touch</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="https://nurhabusinessgroup.com/logo.png" alt="Nurha Business Group"/>
+  </a>
+  <div class="nav-div"></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#divisions">Divisions</a>
+    <a href="#sectors">Sectors</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+    <span class="sun">☀️</span>
+    <span class="moon">🌙</span>
+  </button>
+  <a href="#contact" class="nav-cta">Get In Touch</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      Established 1996 · Addis Ababa, Ethiopia
+    </div>
+
+    <h1 class="hero-title">
+      Excellence<br/>
+      In <span class="hi-amber">Everything</span><br/>
+      We Do.
+    </h1>
+
+    <p class="hero-sub">
+      From the fields of Addis Strawberry Farm to the skyline of Nurha Real Estate —
+      a family of 9 companies, 300 employees, and 28 years of relentless growth
+      across Ethiopia and beyond.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#divisions" class="btn-primary">Explore Our Companies →</a>
+      <a href="#contact" class="btn-ghost">Partner With Us</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-n" data-count="300">0</div>
+        <div class="stat-l">Employees</div>
+      </div>
+      <div>
+        <div class="stat-n" data-count="9">0</div>
+        <div class="stat-l">Companies</div>
+      </div>
+      <div>
+        <div class="stat-n" data-count="28">0</div>
+        <div class="stat-l">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-n" data-count="4">0</div>
+        <div class="stat-l">Awards Won</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-ring"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-sec">
+  <div class="marquee-track">
+    <div class="mq-item">
+      <span class="mq-dot"></span>Nurha Lift
+      <span class="mq-dot"></span>Nurha Coal Mining
+      <span class="mq-dot"></span>Raha Milk
+      <span class="mq-dot"></span>Nurha Real Estate
+      <span class="mq-dot"></span>Nurha Marble & Granite
+      <span class="mq-dot"></span>Addis Strawberry Farm
+      <span class="mq-dot"></span>Raha Strawberry Jam
+      <span class="mq-dot"></span>Nuredin Juice & Jam
+      <span class="mq-dot"></span>Humana Milk Ethiopia
+    </div>
+    <div class="mq-item" aria-hidden="true">
+      <span class="mq-dot"></span>Nurha Lift
+      <span class="mq-dot"></span>Nurha Coal Mining
+      <span class="mq-dot"></span>Raha Milk
+      <span class="mq-dot"></span>Nurha Real Estate
+      <span class="mq-dot"></span>Nurha Marble & Granite
+      <span class="mq-dot"></span>Addis Strawberry Farm
+      <span class="mq-dot"></span>Raha Strawberry Jam
+      <span class="mq-dot"></span>Nuredin Juice & Jam
+      <span class="mq-dot"></span>Humana Milk Ethiopia
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ABOUT ══════ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-text rev-l">
+      <span class="sec-label">Our Story</span>
+      <h2 class="sec-title">Built on one<br/>philosophy.</h2>
+      <p class="sec-sub">
+        Since 1996, Nurha Business Group has operated on a single guiding principle —
+        <em>"everything we do, however small or big, will be at the best quality."</em>
+        Founded by Nuredin Hassen in Addis Ababa, what began as a single venture
+        has grown into a diversified conglomerate spanning agriculture, real estate,
+        manufacturing, and industrial services.
+      </p>
+      <div class="about-pts">
+        <div class="ap">
+          <span class="ap-icon">🌱</span>
+          <div>
+            <h4>Rooted in Ethiopia</h4>
+            <p>Every company we build creates jobs, drives growth, and serves Ethiopian communities — from strawberry fields to urban high-rises.</p>
+          </div>
+        </div>
+        <div class="ap">
+          <span class="ap-icon">🤝</span>
+          <div>
+            <h4>16+ Year Global Partnerships</h4>
+            <p>Our Humana Milk partnership spans over 16 years, distributing world-class infant nutrition across Ethiopia.</p>
+          </div>
+        </div>
+        <div class="ap">
+          <span class="ap-icon">🏆</span>
+          <div>
+            <h4>Award-Winning Excellence</h4>
+            <p>Four awards recognising our commitment to quality, sustainability, and community impact across our business sectors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-right rev-r" style="transition-delay:.1s">
+      <img class="about-img-main"
+           src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg"
+           alt="Nurha Real Estate — architectural render"/>
+      <div class="about-badge">
+        <div class="ab-val">1996</div>
+        <div class="ab-lbl">Est. Addis Ababa 🇪🇹</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DIVISIONS ══════ -->
+<section id="divisions">
+  <div class="div-header rev">
+    <div>
+      <span class="sec-label">Business Divisions</span>
+      <h2 class="sec-title">9 Companies.<br/>One Group.</h2>
+    </div>
+    <p class="sec-sub">Each company operates independently yet draws strength from the group's shared vision of quality and excellence.</p>
+  </div>
+
+  <div class="div-grid">
+
+    <div class="div-card rev" style="transition-delay:.05s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/nurha%20lift.png" alt="Nurha Lift"
+             onerror="this.style.background='linear-gradient(135deg,#1a0e08,#3a1a08)';this.remove()"/>
+        <span class="div-cat cat-ind">Industrial</span>
+      </div>
+      <div class="div-body">
+        <h3>Nurha Lift</h3>
+        <p>Importing and installing premium building elevators for commercial and residential properties across Ethiopia. Tailored solutions for every structure.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.08s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/nurha%20mining.png" alt="Nurha Coal Mining"
+             onerror="this.style.background='linear-gradient(135deg,#0a0808,#1e1010)';this.remove()"/>
+        <span class="div-cat cat-ind">Mining</span>
+      </div>
+      <div class="div-body">
+        <h3>Nurha Coal Mining</h3>
+        <p>Efficient, sustainable coal extraction and processing using cutting-edge technology and environmentally responsible practices.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.11s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk"
+             onerror="this.style.background='linear-gradient(135deg,#041808,#0a2c10)';this.remove()"/>
+        <span class="div-cat cat-agri">Agriculture</span>
+      </div>
+      <div class="div-body">
+        <h3>Raha Milk</h3>
+        <p>Pasteurized and homogenized dairy products of the highest quality — from local farms straight to Ethiopian tables with Raha's trusted brand.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.14s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/real%20estate%20nurha.png" alt="Nurha Real Estate"
+             onerror="this.style.background='linear-gradient(135deg,#080a18,#101830)';this.remove()"/>
+        <span class="div-cat cat-con">Real Estate</span>
+      </div>
+      <div class="div-body">
+        <h3>Nurha Real Estate</h3>
+        <p>Premium residential and commercial property development shaping Addis Ababa's skyline with modern, sustainable architectural design.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.17s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Nurha Marble and Granite"
+             onerror="this.style.background='linear-gradient(135deg,#0e0e10,#1a1a20)';this.remove()"/>
+        <span class="div-cat cat-con">Construction</span>
+      </div>
+      <div class="div-body">
+        <h3>Nurha Marble & Granite</h3>
+        <p>Top-tier natural stone for architectural and design projects. A diverse range of premium marble and granite for discerning clients.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.2s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm"
+             onerror="this.style.background='linear-gradient(135deg,#180808,#2e0a0a)';this.remove()"/>
+        <span class="div-cat cat-agri">Agriculture</span>
+      </div>
+      <div class="div-body">
+        <h3>Addis Strawberry Farm</h3>
+        <p>Sustainable strawberry cultivation using innovative agricultural practices. Exporting fresh strawberries to Dubai, Djibouti, and Yemen.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.23s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Strawberry Jam"
+             onerror="this.style.background='linear-gradient(135deg,#180a08,#2c0e0a)';this.remove()"/>
+        <span class="div-cat cat-agri">Food</span>
+      </div>
+      <div class="div-body">
+        <h3>Raha Strawberry Jam</h3>
+        <p>Handcrafted using the ripest, juiciest strawberries with a recipe that perfectly balances natural sweetness and vibrant flavour.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.26s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/nuredin%20juice.png" alt="Nuredin Juice and Jam"
+             onerror="this.style.background='linear-gradient(135deg,#0e1008,#181e0a)';this.remove()"/>
+        <span class="div-cat cat-agri">Beverage</span>
+      </div>
+      <div class="div-body">
+        <h3>Nuredin Juice & Jam</h3>
+        <p>Premium fruit juices and preserves crafted from Ethiopia's finest produce. Natural, wholesome, and full of flavour.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+    <div class="div-card rev" style="transition-delay:.29s">
+      <div class="div-img-wrap">
+        <img class="div-img" src="https://nurhabusinessgroup.com/humana%20pic.png" alt="Humana Milk Ethiopia"
+             onerror="this.style.background='linear-gradient(135deg,#081018,#0a1c28)';this.remove()"/>
+        <span class="div-cat cat-trade">Trade</span>
+      </div>
+      <div class="div-body">
+        <h3>Nurha / Humana Milk</h3>
+        <p>Ethiopia's trusted distributor of Humana infant nutrition — a 16+ year international partnership delivering world-class baby products.</p>
+        <span class="div-arrow">Learn More →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════ STATS BAND ══════ -->
+<div id="stats-band">
+  <div class="stats-inner">
+    <div class="stat-block rev" style="transition-delay:.0s">
+      <div class="sb-val"><span id="s1">0</span></div>
+      <div class="sb-lbl">Employees Nationwide</div>
+    </div>
+    <div class="stat-block rev" style="transition-delay:.08s">
+      <div class="sb-val"><span id="s2">0</span></div>
+      <div class="sb-lbl">Operating Companies</div>
+    </div>
+    <div class="stat-block rev" style="transition-delay:.16s">
+      <div class="sb-val"><span id="s3">0</span>+</div>
+      <div class="sb-lbl">Years of Excellence</div>
+    </div>
+    <div class="stat-block rev" style="transition-delay:.24s">
+      <div class="sb-val"><span id="s4">0</span></div>
+      <div class="sb-lbl">Awards & Recognition</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SECTORS ══════ -->
+<section id="sectors">
+  <div class="rev" style="text-align:center;max-width:600px;margin:0 auto">
+    <span class="sec-label">Business Sectors</span>
+    <h2 class="sec-title">Three pillars.<br/>One empire.</h2>
+    <p class="sec-sub" style="margin:0 auto">Nurha's portfolio spans three core sectors, creating a resilient conglomerate that drives Ethiopia's economy forward.</p>
+  </div>
+
+  <div class="sectors-grid">
+    <div class="sector-card sc-agri rev" style="transition-delay:.05s">
+      <div class="sc-icon">🌿</div>
+      <h3 class="sc-title">Agriculture & Food</h3>
+      <p class="sc-desc">From farm to table — Ethiopia's finest agricultural products cultivated, processed, and distributed with care and quality.</p>
+      <ul class="sc-list">
+        <li>Addis Strawberry Farm</li>
+        <li>Raha Milk Manufacturing</li>
+        <li>Raha Strawberry Jam</li>
+        <li>Nuredin Juice & Jam</li>
+        <li>Humana Infant Nutrition</li>
+      </ul>
+    </div>
+    <div class="sector-card sc-build rev" style="transition-delay:.1s">
+      <div class="sc-icon">🏗️</div>
+      <h3 class="sc-title">Construction & Real Estate</h3>
+      <p class="sc-desc">Building Ethiopia's future with premium real estate developments, natural stone solutions, and vertical mobility systems.</p>
+      <ul class="sc-list">
+        <li>Nurha Real Estate</li>
+        <li>Nurha Marble & Granite</li>
+        <li>Nurha Lift</li>
+      </ul>
+    </div>
+    <div class="sector-card sc-ind rev" style="transition-delay:.15s">
+      <div class="sc-icon">⛏️</div>
+      <h3 class="sc-title">Industrial & Mining</h3>
+      <p class="sc-desc">Sustainable resource extraction powering Ethiopia's growth — using modern technology and responsible environmental practices.</p>
+      <ul class="sc-list">
+        <li>Nurha Coal Mining</li>
+        <li>Sustainable Operations</li>
+        <li>Modern Processing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GALLERY ══════ -->
+<section id="gallery">
+  <div class="rev">
+    <span class="sec-label">Gallery</span>
+    <h2 class="sec-title">Our work,<br/>in pictures.</h2>
+  </div>
+  <div class="gal-scroll rev" style="transition-delay:.1s">
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg" alt="Nurha Real Estate Development"/>
+      <div class="gal-caption">Nurha Real Estate — Addis Ababa</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm"/>
+      <div class="gal-caption">Addis Strawberry Farm</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Nurha Marble & Granite"/>
+      <div class="gal-caption">Nurha Marble & Granite</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk"/>
+      <div class="gal-caption">Raha Pasteurized Milk</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Strawberry Jam"/>
+      <div class="gal-caption">Raha Strawberry Jam</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/nuredin%20juice.png" alt="Nuredin Juice"/>
+      <div class="gal-caption">Nuredin Juice & Jam</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/humana%20pic.png" alt="Humana Milk"/>
+      <div class="gal-caption">Humana Infant Nutrition</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/nurha%20lift.png" alt="Nurha Lift"/>
+      <div class="gal-caption">Nurha Lift — Building Elevators</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="rev-l">
+      <span class="sec-label">Get In Touch</span>
+      <h2 class="sec-title">Let's build<br/>something great.</h2>
+      <p class="sec-sub">Whether you're looking for a business partnership, a quality product, or an investment opportunity — we're ready to connect.</p>
+
+      <div class="contact-info">
+        <div class="ci">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Address</div>
+            <div class="ci-val">Sarbet Gebriel, Carl Square<br/>Addis Ababa, Ethiopia</div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📞</div>
+          <div>
+            <div class="ci-label">Phone</div>
+            <div class="ci-val"><a href="tel:+251911221155">+251 911 221 155</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val"><a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">🌐</div>
+          <div>
+            <div class="ci-label">Website</div>
+            <div class="ci-val"><a href="https://nurhabusinessgroup.com" target="_blank">nurhabusinessgroup.com</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rev-r" style="transition-delay:.1s">
+      <div class="form-wrap">
+        <h3>Send a Message</h3>
+        <form onsubmit="handleForm(event)">
+          <div class="fg">
+            <input type="text" id="fname" placeholder=" " required/>
+            <label for="fname">Full Name</label>
+          </div>
+          <div class="fg">
+            <input type="email" id="femail" placeholder=" " required/>
+            <label for="femail">Email Address</label>
+          </div>
+          <div class="fg">
+            <input type="text" id="fsubj" placeholder=" "/>
+            <label for="fsubj">Subject</label>
+          </div>
+          <div class="fg">
+            <textarea id="fmsg" placeholder=" " required></textarea>
+            <label for="fmsg">Message</label>
+          </div>
+          <button type="submit" class="form-submit">Send Message ✓</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <img src="https://nurhabusinessgroup.com/logo.png" alt="Nurha Business Group"/>
+      <p>Excellence in everything we do — a family of 9 companies building Ethiopia's future since 1996.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Companies</h4>
+      <a href="#divisions">Nurha Lift</a>
+      <a href="#divisions">Nurha Real Estate</a>
+      <a href="#divisions">Nurha Marble & Granite</a>
+      <a href="#divisions">Nurha Coal Mining</a>
+    </div>
+    <div class="foot-col">
+      <h4>Products</h4>
+      <a href="#divisions">Raha Milk</a>
+      <a href="#divisions">Raha Strawberry Jam</a>
+      <a href="#divisions">Nuredin Juice & Jam</a>
+      <a href="#divisions">Humana Milk</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="tel:+251911221155">+251 911 221 155</a>
+      <a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a>
+      <a href="#">Sarbet Gebriel, Addis Ababa</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2025 Nurha Business Group. All rights reserved.</span>
+    <div class="foot-soc">
+      <a href="https://nurhabusinessgroup.com" title="Website" target="_blank">🌐</a>
+      <a href="mailto:rightfreshfarm@gmail.com" title="Email">✉</a>
+      <a href="tel:+251911221155" title="Call">📞</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Loader ── */
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+    document.body.style.overflow = 'auto';
+    initCounters();
+  }, 400);
+});
+document.body.style.overflow = 'hidden';
+
+/* ── Theme ── */
+const html = document.documentElement;
+const saved = localStorage.getItem('nurha-theme');
+if (saved) html.setAttribute('data-theme', saved);
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const cur = html.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  // Radial reveal
+  const btn = document.getElementById('themeBtn');
+  const r = btn.getBoundingClientRect();
+  const cx = r.left + r.width/2, cy = r.top + r.height/2;
+  const rpl = document.createElement('div');
+  const sz = Math.hypot(window.innerWidth, window.innerHeight) * 2.2;
+  rpl.style.cssText = `position:fixed;z-index:99990;border-radius:50%;pointer-events:none;
+    left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;
+    transform:translate(-50%,-50%) scale(0);
+    background:${next==='light'?'#faf7f4':'#0c0a08'};
+    transition:transform .55s cubic-bezier(.4,0,.2,1);`;
+  document.body.appendChild(rpl);
+  requestAnimationFrame(() => { rpl.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  setTimeout(() => { html.setAttribute('data-theme', next); localStorage.setItem('nurha-theme', next); }, 220);
+  setTimeout(() => { rpl.remove(); }, 620);
+});
+
+/* ── Cursor ── */
+const dot = document.getElementById('cDot');
+const ring = document.getElementById('cRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+(function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+
+/* ── Nav & scroll ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('btt').classList.toggle('show', window.scrollY > 400);
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('spb').style.width = pct + '%';
+});
+
+/* ── Mobile menu ── */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('mobOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('mobClose').addEventListener('click', closeMob);
+function closeMob() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── Reveal on scroll ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: .1 });
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el => observer.observe(el));
+
+/* ── Hero stat counters ── */
+function initCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const t = parseInt(el.dataset.count);
+    if (!t) return;
+    let c = 0; const step = Math.max(1, Math.ceil(t / 50));
+    const iv = setInterval(() => {
+      c = Math.min(c + step, t);
+      el.textContent = c + (t >= 100 ? '+' : t > 10 ? '+' : '');
+      if (c >= t) clearInterval(iv);
+    }, 22);
+  });
+}
+
+/* ── Stats band counters ── */
+function countTo(id, target, suffix='') {
+  let c = 0; const step = Math.max(1, Math.ceil(target / 60));
+  const el = document.getElementById(id);
+  const iv = setInterval(() => {
+    c = Math.min(c + step, target);
+    el.textContent = c + suffix;
+    if (c >= target) clearInterval(iv);
+  }, 20);
+}
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      countTo('s1', 300, '+');
+      countTo('s2', 9, '');
+      countTo('s3', 28, '');
+      countTo('s4', 4, '');
+      statsObs.disconnect();
+    }
+  });
+}, { threshold: .4 });
+statsObs.observe(document.getElementById('stats-band'));
+
+/* ── Form ── */
+function handleForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+  setTimeout(() => {
+    btn.textContent = 'Send Message ✓';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</body>
+</html>
