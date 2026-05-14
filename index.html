@@ -6,7 +6,7 @@
 <title>Nurha Business Group — Excellence In What We Do</title>
 <meta name="description" content="Nurha Business Group — 28 years of excellence across 9 companies spanning agriculture, real estate, mining and manufacturing. Addis Ababa, Ethiopia."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&family=Cormorant+Garant:wght@600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -159,7 +159,7 @@ nav.scrolled{background:rgba(8,5,3,.82);backdrop-filter:blur(24px);-webkit-backd
 .hp-item{padding:16px 20px;background:rgba(8,5,3,.6);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.07);margin-bottom:1px;transition:background .2s}
 .hp-item:hover{background:rgba(232,96,26,.1)}
 [data-theme="light"] .hp-item{background:rgba(253,250,246,.75)}
-.hp-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;background:linear-gradient(135deg,var(--amber),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.hp-val{font-family:'Oswald',sans-serif;font-size:34px;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,var(--amber),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
 .hp-lbl{font-size:10px;color:var(--text2);margin-top:4px;letter-spacing:.8px;text-transform:uppercase;font-family:'Syne',sans-serif}
 
 /* Scroll cue */
@@ -207,8 +207,10 @@ section:not(.mq-sec){padding:120px 6vw}
 .story-left{position:sticky;top:120px;padding-bottom:40px}
 .story-year{font-family:'Playfair Display',serif;font-size:clamp(80px,12vw,160px);font-weight:900;line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(232,96,26,.15);margin-bottom:24px;user-select:none}
 .story-left .sec-sub{max-width:100%;margin-bottom:28px}
-.story-founder{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:10px;background:var(--card);border:1px solid var(--border2);margin-top:32px}
-.sf-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--brown));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff}
+.story-founder{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;background:var(--card);border:1px solid var(--border2);margin-top:32px;transition:border-color .2s}
+.story-founder:hover{border-color:var(--border)}
+.sf-avatar{width:52px;height:52px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(232,96,26,.35)}
+.sf-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .sf-name{font-weight:700;font-size:14px}
 .sf-title{font-size:12px;color:var(--text2);margin-top:2px}
 
@@ -233,8 +235,8 @@ section:not(.mq-sec){padding:120px 6vw}
 .ig-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .ig-item:hover{background:var(--bg3)}
 .ig-item:hover::before{transform:scaleX(1)}
-.ig-val{font-family:'Playfair Display',serif;font-size:clamp(52px,6vw,80px);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--text),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.ig-suffix{font-size:32px}
+.ig-val{font-family:'Oswald',sans-serif;font-size:clamp(56px,6.5vw,88px);font-weight:700;letter-spacing:2px;line-height:1;background:linear-gradient(135deg,var(--text),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ig-suffix{font-size:36px;font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:1px}
 .ig-lbl{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--text2);margin-top:12px;letter-spacing:1.5px;text-transform:uppercase}
 .ig-desc{font-size:13px;color:var(--text3);margin-top:6px;line-height:1.5}
 
@@ -280,15 +282,34 @@ section:not(.mq-sec){padding:120px 6vw}
    FOUNDER QUOTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #founder{padding:120px 6vw;background:var(--bg2);position:relative;overflow:hidden}
-.fq-bg{position:absolute;inset:0;background-image:url('https://nurhabusinessgroup.com/assets/galaryImages/19.jpg');background-size:cover;background-position:center;filter:brightness(.08) saturate(.3)}
-[data-theme="light"] .fq-bg{filter:brightness(.22) saturate(.4)}
-.fq-inner{position:relative;z-index:1;max-width:820px;margin:0 auto;text-align:center}
-.fq-open{font-family:'Playfair Display',serif;font-size:120px;line-height:.7;color:var(--amber);opacity:.35;display:block;margin-bottom:24px}
-.fq-quote{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,38px);font-weight:700;font-style:italic;line-height:1.45;color:var(--text);margin-bottom:40px}
-.fq-author{display:flex;align-items:center;justify-content:center;gap:16px}
-.fq-line{width:40px;height:1px;background:var(--amber)}
+.fq-bg{position:absolute;inset:0;background-image:url('https://nurhabusinessgroup.com/assets/galaryImages/19.jpg');background-size:cover;background-position:center;filter:brightness(.06) saturate(.3)}
+[data-theme="light"] .fq-bg{filter:brightness(.18) saturate(.4)}
+.fq-inner{position:relative;z-index:1;max-width:960px;margin:0 auto}
+.fq-layout{display:grid;grid-template-columns:320px 1fr;gap:80px;align-items:center}
+@media(max-width:900px){.fq-layout{grid-template-columns:1fr;text-align:center;gap:40px}}
+
+/* Founder portrait */
+.fq-portrait-wrap{position:relative}
+.fq-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:20px;display:block;filter:grayscale(15%) brightness(.95);box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(232,96,26,.2)}
+.fq-photo-frame{position:absolute;inset:0;border-radius:20px;background:linear-gradient(to top,rgba(8,5,3,.8) 0%,transparent 50%);pointer-events:none}
+.fq-photo-accent{position:absolute;bottom:-12px;right:-12px;width:80px;height:80px;border-radius:14px;background:linear-gradient(135deg,var(--amber),var(--brown2));display:flex;align-items:center;justify-content:center}
+.fq-photo-accent svg{width:36px;height:36px;color:#fff;opacity:.9}
+.fq-photo-yr{position:absolute;top:16px;left:16px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:rgba(255,255,255,.6);text-transform:uppercase}
+
+/* Quote text right side */
+.fq-text-side{display:flex;flex-direction:column;justify-content:center}
+.fq-open{font-family:'Playfair Display',serif;font-size:100px;line-height:.7;color:var(--amber);opacity:.4;display:block;margin-bottom:16px}
+.fq-quote{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,34px);font-weight:700;font-style:italic;line-height:1.5;color:var(--text);margin-bottom:36px}
+.fq-author{display:flex;align-items:center;gap:16px}
+@media(max-width:900px){.fq-author{justify-content:center}}
+.fq-line{width:40px;height:1px;background:var(--amber);flex-shrink:0}
 .fq-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber)}
 .fq-role{font-size:12px;color:var(--text2);margin-top:4px}
+.fq-stats{display:flex;gap:32px;margin-top:40px;padding-top:40px;border-top:1px solid var(--hr)}
+@media(max-width:900px){.fq-stats{justify-content:center}}
+.fqs-item{}
+.fqs-val{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:1px;color:var(--amber);line-height:1}
+.fqs-lbl{font-size:11px;color:var(--text2);margin-top:4px;letter-spacing:.5px;font-family:'Syne',sans-serif}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SECTORS
@@ -298,7 +319,8 @@ section:not(.mq-sec){padding:120px 6vw}
 .sect-card{padding:40px 32px;border-radius:18px;background:var(--card);border:1px solid var(--border2);position:relative;overflow:hidden;transition:border-color .3s,transform .35s,box-shadow .35s}
 .sect-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 28px 56px var(--shadow)}
 .sect-bg-num{position:absolute;right:-10px;bottom:-20px;font-family:'Playfair Display',serif;font-size:140px;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(232,96,26,.05);line-height:1;user-select:none;pointer-events:none}
-.sect-icon-wrap{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:24px;position:relative;z-index:1}
+.sect-icon-wrap{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;z-index:1}
+.sect-icon-wrap svg{width:26px;height:26px}
 .si-a{background:rgba(34,197,94,.1)}
 .si-c{background:rgba(59,130,246,.1)}
 .si-i{background:rgba(232,96,26,.1)}
@@ -322,7 +344,7 @@ section:not(.mq-sec){padding:120px 6vw}
 .tl-item:nth-child(even) .tl-right{padding-left:40px}
 .tl-dot{display:flex;align-items:center;justify-content:center;padding-top:4px}
 .tl-circle{width:14px;height:14px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(232,96,26,.15),0 0 20px rgba(232,96,26,.3);flex-shrink:0}
-.tl-year{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--amber);margin-bottom:6px}
+.tl-year{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:6px}
 .tl-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px}
 .tl-desc{font-size:13px;color:var(--text2);line-height:1.65}
 
@@ -334,13 +356,15 @@ section:not(.mq-sec){padding:120px 6vw}
 .reach-markets{display:flex;flex-direction:column;gap:14px;margin-top:32px}
 .rm{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s,background .2s,transform .2s}
 .rm:hover{border-color:var(--border);background:var(--card2);transform:translateX(6px)}
-.rm-flag{font-size:24px;flex-shrink:0}
+.rm-flag{width:40px;height:28px;border-radius:4px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.rm-flag img{width:100%;height:100%;object-fit:cover;display:block}
+.rm-flag svg{width:24px;height:24px;color:var(--amber)}
 .rm-name{font-weight:700;font-size:15px;margin-bottom:3px}
 .rm-detail{font-size:12px;color:var(--text2)}
 .reach-visual{position:relative}
 .reach-img{width:100%;height:480px;object-fit:cover;border-radius:20px;filter:brightness(.8) saturate(.85);box-shadow:0 40px 80px var(--shadow)}
 .reach-badge{position:absolute;bottom:-20px;right:-20px;padding:20px 24px;border-radius:14px;background:linear-gradient(135deg,var(--amber),var(--brown2));color:#fff;box-shadow:0 20px 40px rgba(232,96,26,.4);text-align:center}
-.rb-val{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;line-height:1}
+.rb-val{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;letter-spacing:2px;line-height:1}
 .rb-lbl{font-size:11px;opacity:.85;margin-top:4px;letter-spacing:.5px}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -348,6 +372,7 @@ section:not(.mq-sec){padding:120px 6vw}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #gallery{background:var(--bg2)}
 .gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:220px 220px;gap:12px;margin-top:48px}
+.gal-grid-2{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;height:180px}
 .gal-item{border-radius:14px;overflow:hidden;position:relative}
 .gal-item:first-child{grid-row:span 2}
 .gal-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.8);transition:transform .55s cubic-bezier(.16,1,.3,1),filter .4s;display:block}
@@ -363,7 +388,7 @@ section:not(.mq-sec){padding:120px 6vw}
 .cinfo{display:flex;flex-direction:column;gap:16px;margin-top:36px}
 .ci{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s,background .2s}
 .ci:hover{border-color:var(--border);background:var(--card2)}
-.ci-ico{width:44px;height:44px;border-radius:10px;background:rgba(232,96,26,.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-ico{width:44px;height:44px;border-radius:10px;background:rgba(232,96,26,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--amber)}
 .ci-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
 .ci-val{font-size:14px;font-weight:600;color:var(--text)}
 .ci-val a{color:var(--text);text-decoration:none;transition:color .2s}
@@ -435,7 +460,7 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   .hero-panel{display:none}
   .hero-stats-mob{display:flex;gap:20px;flex-wrap:wrap;margin-top:32px}
   .hsm{text-align:center}
-  .hsm-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--amber)}
+  .hsm-val{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;letter-spacing:1.5px;color:var(--amber)}
   .hsm-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;font-family:'Syne',sans-serif}
   .div-grid{grid-template-columns:1fr}
   .sect-grid{grid-template-columns:1fr}
@@ -474,7 +499,9 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
 </div>
 
 <!-- BACK TO TOP -->
-<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <!-- PAGE DOTS -->
 <div class="page-dots" id="pageDots">
@@ -517,7 +544,8 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   </div>
   <div class="nav-right">
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
-      <span class="sun">☀️</span><span class="moon">🌙</span>
+      <span class="sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
+      <span class="moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
     </button>
     <a href="#contact" class="nav-cta">Get In Touch</a>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -535,7 +563,7 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
 
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow"><span class="epulse"></span>Established 1996 · Addis Ababa, Ethiopia 🇪🇹</div>
+      <div class="hero-eyebrow"><span class="epulse"></span>Established 1996 · Addis Ababa, Ethiopia <img src="https://flagcdn.com/w20/et.png" alt="Ethiopia" style="display:inline;height:12px;border-radius:2px;vertical-align:middle;margin-left:4px" loading="lazy"/></div>
       <h1 class="hero-h">
         <span class="line">Built on</span>
         <span class="line"><em>Excellence.</em></span>
@@ -595,7 +623,10 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
       <h2 class="sec-h">One philosophy.<br/>28 years strong.</h2>
       <p class="sec-sub">Everything we do, however small or big, will be at the best quality. This single belief — held by founder Nuredin Hassen since 1996 — has been the engine behind everything Nurha Business Group has become.</p>
       <div class="story-founder">
-        <div class="sf-avatar">N</div>
+        <div class="sf-avatar">
+          <img src="./nuredin.jpg" alt="Nuredin Hassen"
+               onerror="this.outerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#E8601A,#7B2A12);display:flex;align-items:center;justify-content:center;font-family:serif;font-size:22px;font-weight:900;color:#fff\'>N</div>'"/>
+        </div>
         <div>
           <div class="sf-name">Nuredin Hassen</div>
           <div class="sf-title">Founder &amp; Chairman, Nurha Business Group</div>
@@ -800,20 +831,43 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
 </section>
 
 <!-- ══════════════════ FOUNDER QUOTE ══════════════════ -->
-<section id="founder" style="padding:160px 6vw;position:relative;overflow:hidden">
+<section id="founder">
   <div class="fq-bg"></div>
   <div class="fq-inner">
-    <span class="fq-open rev">"</span>
-    <blockquote class="fq-quote rev" style="--d:.1s">
-      Everything we do, however small or big,<br/>will be at the best quality.
-    </blockquote>
-    <div class="fq-author rev" style="--d:.2s">
-      <div class="fq-line"></div>
-      <div>
-        <div class="fq-name">Nuredin Hassen</div>
-        <div class="fq-role">Founder &amp; Chairman, Nurha Business Group · Est. 1996</div>
+    <div class="fq-layout">
+
+      <!-- Portrait -->
+      <div class="fq-portrait-wrap rev-l">
+        <img class="fq-photo" src="./nuredin.jpg"
+             alt="Nuredin Hassen — Founder &amp; Chairman"
+             onerror="this.src='https://nurhabusinessgroup.com/assets/galaryImages/19.jpg';this.style.objectPosition='center center'"/>
+        <div class="fq-photo-frame"></div>
+        <div class="fq-photo-yr">Since 1996</div>
+        <div class="fq-photo-accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
+        </div>
       </div>
-      <div class="fq-line"></div>
+
+      <!-- Quote -->
+      <div class="fq-text-side">
+        <span class="fq-open rev">"</span>
+        <blockquote class="fq-quote rev" style="--d:.1s">
+          Everything we do, however small or big, will be at the best quality.
+        </blockquote>
+        <div class="fq-author rev" style="--d:.2s">
+          <div class="fq-line"></div>
+          <div>
+            <div class="fq-name">Nuredin Hassen</div>
+            <div class="fq-role">Founder &amp; Chairman, Nurha Business Group · Est. 1996</div>
+          </div>
+        </div>
+        <div class="fq-stats rev" style="--d:.3s">
+          <div class="fqs-item"><div class="fqs-val">28+</div><div class="fqs-lbl">Years in Business</div></div>
+          <div class="fqs-item"><div class="fqs-val">9</div><div class="fqs-lbl">Companies Built</div></div>
+          <div class="fqs-item"><div class="fqs-val">300+</div><div class="fqs-lbl">Livelihoods Created</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -828,7 +882,9 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   <div class="sect-grid">
     <div class="sect-card rev" style="--d:.06s">
       <div class="sect-bg-num">1</div>
-      <div class="sect-icon-wrap si-a">🌿</div>
+      <div class="sect-icon-wrap si-a" style="color:#4ade80">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      </div>
       <h3 class="sect-title">Agriculture &amp; Food</h3>
       <p class="sect-desc">From farm to table — cultivated, processed, and distributed with Ethiopia's finest produce and an unwavering standard of quality.</p>
       <ul class="sect-list">
@@ -841,7 +897,9 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
     </div>
     <div class="sect-card rev" style="--d:.12s">
       <div class="sect-bg-num">2</div>
-      <div class="sect-icon-wrap si-c">🏗️</div>
+      <div class="sect-icon-wrap si-c" style="color:#7bb5f5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="9" height="14" rx="1"/><rect x="13" y="3" width="9" height="18" rx="1"/><path d="M2 21h20"/><path d="M5 10h3M5 13h3M5 16h3M16 7h3M16 10h3M16 13h3"/></svg>
+      </div>
       <h3 class="sect-title">Construction &amp; Real Estate</h3>
       <p class="sect-desc">Building Ethiopia's future — premium developments, natural stone solutions, and vertical mobility systems for modern urban living.</p>
       <ul class="sect-list">
@@ -852,7 +910,9 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
     </div>
     <div class="sect-card rev" style="--d:.18s">
       <div class="sect-bg-num">3</div>
-      <div class="sect-icon-wrap si-i">⛏️</div>
+      <div class="sect-icon-wrap si-i" style="color:var(--amber2)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5c0 1.5-1.5 4-2 5.5l-3 3c-1.5.5-4 2-5.5 2a2.5 2.5 0 0 1 0-5c.5 0 .8 0 1.4-.2l5.1-5.2C10.8 2 11.1 2 11.5 2a2.5 2.5 0 0 1 3 .5z"/><path d="m3 21 9-9"/><path d="M9.5 14.5 16 8l2.5 2.5-6.5 6.5-2.5-2.5z"/><path d="m18 8 2-2-2-2-4 4"/></svg>
+      </div>
       <h3 class="sect-title">Industrial &amp; Mining</h3>
       <p class="sect-desc">Sustainable resource extraction and industrial operations powering Ethiopia's growth with modern technology and environmental responsibility.</p>
       <ul class="sect-list">
@@ -947,20 +1007,20 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
       <p class="sec-sub">Nurha's agricultural products reach international markets — a testament to the quality of Ethiopian produce and the group's commitment to global standards.</p>
       <div class="reach-markets">
         <div class="rm rev" style="--d:.08s">
-          <div class="rm-flag">🇦🇪</div>
+          <div class="rm-flag"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" loading="lazy"/></div>
           <div><div class="rm-name">Dubai, UAE</div><div class="rm-detail">Fresh strawberries &amp; premium agricultural exports</div></div>
         </div>
         <div class="rm rev" style="--d:.14s">
-          <div class="rm-flag">🇩🇯</div>
+          <div class="rm-flag"><img src="https://flagcdn.com/w40/dj.png" alt="Djibouti" loading="lazy"/></div>
           <div><div class="rm-name">Djibouti</div><div class="rm-detail">Regular fresh produce shipments via Horn of Africa routes</div></div>
         </div>
         <div class="rm rev" style="--d:.2s">
-          <div class="rm-flag">🇾🇪</div>
+          <div class="rm-flag"><img src="https://flagcdn.com/w40/ye.png" alt="Yemen" loading="lazy"/></div>
           <div><div class="rm-name">Yemen</div><div class="rm-detail">Agricultural exports supporting regional food supply</div></div>
         </div>
         <div class="rm rev" style="--d:.26s">
-          <div class="rm-flag">🌍</div>
-          <div><div class="rm-name">Humana International</div><div class="rm-detail">16+ year partnership distributing world-class infant nutrition across Ethiopia</div></div>
+          <div class="rm-flag"><img src="https://flagcdn.com/w40/et.png" alt="Ethiopia" loading="lazy"/></div>
+          <div><div class="rm-name">Ethiopia (Humana Partnership)</div><div class="rm-detail">16+ year exclusive distribution of world-class infant nutrition</div></div>
         </div>
       </div>
     </div>
@@ -982,24 +1042,45 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   </div>
   <div class="gal-grid rev" style="--d:.1s;margin-top:48px">
     <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg" alt="Nurha Real Estate"/>
+      <img src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg" alt="Nurha Real Estate" loading="lazy"/>
       <div class="gal-cap">Real Estate Development</div>
     </div>
     <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Strawberry Farm"/>
+      <img src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Strawberry Farm" loading="lazy"/>
       <div class="gal-cap">Addis Strawberry Farm</div>
     </div>
     <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk"/>
+      <img src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk" loading="lazy"/>
       <div class="gal-cap">Raha Milk</div>
     </div>
     <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Marble & Granite"/>
-      <div class="gal-cap">Marble &amp; Granite</div>
+      <img src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Marble & Granite" loading="lazy"/>
+      <div class="gal-cap">Nurha Marble &amp; Granite</div>
     </div>
     <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Jam"/>
+      <img src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Jam" loading="lazy"/>
       <div class="gal-cap">Raha Strawberry Jam</div>
+    </div>
+  </div>
+  <!-- Second row gallery -->
+  <div class="gal-grid-2 rev" style="--d:.2s;margin-top:12px">
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/assets/galaryImages/1.jpg" alt="Nurha Operations" loading="lazy"
+           onerror="this.closest('.gal-item').style.display='none'"/>
+      <div class="gal-cap">Operations</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/assets/galaryImages/2.jpg" alt="Nurha Projects" loading="lazy"
+           onerror="this.closest('.gal-item').style.display='none'"/>
+      <div class="gal-cap">Our Projects</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/nuredin%20juice.png" alt="Nuredin Juice" loading="lazy"/>
+      <div class="gal-cap">Nuredin Juice &amp; Jam</div>
+    </div>
+    <div class="gal-item">
+      <img src="https://nurhabusinessgroup.com/nurha%20lift.png" alt="Nurha Lift" loading="lazy"/>
+      <div class="gal-cap">Nurha Lift</div>
     </div>
   </div>
 </section>
@@ -1012,10 +1093,22 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
       <h2 class="sec-h">Let's build<br/>something great.</h2>
       <p class="sec-sub">Whether you're seeking a business partnership, a quality product, or an investment opportunity — Nurha Business Group is ready to connect.</p>
       <div class="cinfo">
-        <div class="ci"><div class="ci-ico">📍</div><div><div class="ci-lbl">Address</div><div class="ci-val">Sarbet Gebriel, Carl Square<br/>Addis Ababa, Ethiopia</div></div></div>
-        <div class="ci"><div class="ci-ico">📞</div><div><div class="ci-lbl">Phone</div><div class="ci-val"><a href="tel:+251911221155">+251 911 221 155</a></div></div></div>
-        <div class="ci"><div class="ci-ico">✉️</div><div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a></div></div></div>
-        <div class="ci"><div class="ci-ico">🌐</div><div><div class="ci-lbl">Website</div><div class="ci-val"><a href="https://nurhabusinessgroup.com" target="_blank">nurhabusinessgroup.com</a></div></div></div>
+        <div class="ci">
+          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ci-lbl">Address</div><div class="ci-val">Sarbet Gebriel, Carl Square<br/>Addis Ababa, Ethiopia</div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ci-lbl">Phone</div><div class="ci-val"><a href="tel:+251911221155">+251 911 221 155</a></div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+          <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a></div></div>
+        </div>
+        <div class="ci">
+          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg></div>
+          <div><div class="ci-lbl">Website</div><div class="ci-val"><a href="https://nurhabusinessgroup.com" target="_blank">nurhabusinessgroup.com</a></div></div>
+        </div>
       </div>
     </div>
     <div class="form-box rev-r" style="--d:.1s">
@@ -1067,9 +1160,15 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   <div class="foot-bottom">
     <span>© 2025 Nurha Business Group. All rights reserved. · Addis Ababa, Ethiopia 🇪🇹</span>
     <div class="ft-soc">
-      <a href="mailto:rightfreshfarm@gmail.com" title="Email">✉</a>
-      <a href="tel:+251911221155" title="Call">📞</a>
-      <a href="https://nurhabusinessgroup.com" target="_blank" title="Website">🌐</a>
+      <a href="mailto:rightfreshfarm@gmail.com" title="Email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+      <a href="tel:+251911221155" title="Call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a href="https://nurhabusinessgroup.com" target="_blank" title="Website">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg>
+      </a>
     </div>
   </div>
 </footer>
