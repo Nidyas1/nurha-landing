@@ -458,7 +458,7 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   .hamburger{display:flex}
   nav{height:60px;padding:0 5vw}
   .hero-panel{display:none}
-  .hero-stats-mob{display:flex;gap:20px;flex-wrap:wrap;margin-top:32px}
+  .hero-stats-mob{display:flex !important;gap:20px;flex-wrap:wrap;margin-top:32px}
   .hsm{text-align:center}
   .hsm-val{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;letter-spacing:1.5px;color:var(--amber)}
   .hsm-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;font-family:'Syne',sans-serif}
@@ -574,8 +574,8 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
         <a href="#divisions" class="btn-p">Explore Our Companies →</a>
         <a href="#story" class="btn-g">Our Story</a>
       </div>
-      <!-- Mobile-only stats -->
-      <div class="hero-stats-mob">
+      <!-- Mobile-only stats (hidden on desktop via JS below) -->
+      <div class="hero-stats-mob" style="display:none">
         <div class="hsm"><div class="hsm-val">300+</div><div class="hsm-lbl">Employees</div></div>
         <div class="hsm"><div class="hsm-val">9</div><div class="hsm-lbl">Companies</div></div>
         <div class="hsm"><div class="hsm-val">28+</div><div class="hsm-lbl">Years</div></div>
