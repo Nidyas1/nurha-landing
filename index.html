@@ -279,6 +279,64 @@ section:not(.mq-sec){padding:120px 6vw}
 .dc-tag{padding:3px 9px;border-radius:3px;font-size:11px;background:var(--card2);border:1px solid var(--border2);color:var(--text2)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STRAWBERRY FARM SPOTLIGHT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#strawberry{background:var(--bg2);overflow:hidden}
+.sf-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:580px}
+
+/* Left visual panel */
+.sf-visual{position:relative;overflow:hidden;min-height:500px}
+.sf-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(.9);transition:transform 8s ease}
+#strawberry:hover .sf-bg-img{transform:scale(1.04)}
+.sf-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,20,8,.85) 0%,rgba(8,28,12,.6) 50%,transparent 100%)}
+.sf-visual-content{position:relative;z-index:1;padding:56px 52px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.sf-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:4px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);color:#4ade80;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content}
+.sf-badge svg{width:12px;height:12px}
+.sf-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.sf-stat{padding:20px 18px;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.06)}
+.sf-stat:first-child{border-radius:12px 0 0 0}
+.sf-stat:nth-child(2){border-radius:0 12px 0 0}
+.sf-stat:nth-child(3){border-radius:0 0 0 12px}
+.sf-stat:last-child{border-radius:0 0 12px 0}
+.sf-stat-val{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:0;line-height:1}
+.sf-stat-val span{font-size:18px;color:#4ade80}
+.sf-stat-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.2px;text-transform:uppercase;margin-top:6px}
+
+/* Right content panel */
+.sf-content{padding:64px 60px;display:flex;flex-direction:column;justify-content:center;gap:0}
+.sf-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sf-eyebrow-line{width:32px;height:1px;background:#4ade80}
+.sf-eyebrow-txt{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4ade80}
+.sf-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,46px);font-weight:700;line-height:1.15;margin-bottom:20px}
+.sf-title em{color:#4ade80;font-style:italic}
+.sf-desc{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:36px}
+.sf-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
+.sf-feat{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-radius:10px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s}
+.sf-feat:hover{border-color:rgba(34,197,94,.3)}
+.sf-feat-icon{width:32px;height:32px;border-radius:8px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4ade80}
+.sf-feat-icon svg{width:15px;height:15px}
+.sf-feat-body{}
+.sf-feat-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:2px}
+.sf-feat-desc{font-size:11px;color:var(--text2);line-height:1.5}
+.sf-exports{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--hr)}
+.sf-export-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--text2);text-transform:uppercase;margin-right:4px}
+.sf-flag{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:5px;background:var(--card);border:1px solid var(--border2);font-size:12px;font-weight:500;color:var(--text);transition:border-color .2s}
+.sf-flag:hover{border-color:rgba(34,197,94,.35)}
+.sf-flag img{height:14px;border-radius:2px;display:inline}
+
+@media(max-width:960px){
+  .sf-inner{grid-template-columns:1fr}
+  .sf-visual{min-height:340px}
+  .sf-visual-content{padding:32px}
+  .sf-content{padding:40px 32px}
+  .sf-stat-val{font-size:24px}
+}
+@media(max-width:640px){
+  .sf-features{grid-template-columns:1fr}
+  .sf-stat-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    FOUNDER QUOTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #founder{padding:120px 6vw;background:var(--bg2);position:relative;overflow:hidden}
@@ -509,6 +567,7 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   <div class="pd" data-sec="story"></div>
   <div class="pd" data-sec="impact"></div>
   <div class="pd" data-sec="divisions"></div>
+  <div class="pd" data-sec="strawberry"></div>
   <div class="pd" data-sec="sectors"></div>
   <div class="pd" data-sec="timeline"></div>
   <div class="pd" data-sec="reach"></div>
@@ -521,8 +580,9 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
 <div class="mob-menu" id="mobMenu">
   <button class="mob-x" id="mobX">✕</button>
   <a href="#story"     onclick="closeMob()">Our Story</a>
-  <a href="#divisions" onclick="closeMob()">Divisions</a>
-  <a href="#sectors"   onclick="closeMob()">Sectors</a>
+  <a href="#divisions"   onclick="closeMob()">Divisions</a>
+  <a href="#strawberry" onclick="closeMob()">Strawberry Farm</a>
+  <a href="#sectors"    onclick="closeMob()">Sectors</a>
   <a href="#timeline"  onclick="closeMob()">Journey</a>
   <a href="#reach"     onclick="closeMob()">Global Reach</a>
   <a href="#contact"   onclick="closeMob()">Contact</a>
@@ -537,6 +597,7 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
   <div class="nav-center">
     <a href="#story">Our Story</a>
     <a href="#divisions">Divisions</a>
+    <a href="#strawberry">Farm</a>
     <a href="#sectors">Sectors</a>
     <a href="#timeline">Journey</a>
     <a href="#reach">Global</a>
@@ -824,6 +885,100 @@ footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32p
         <h3 class="dc-title">Nurha / Humana Milk</h3>
         <p class="dc-desc">Ethiopia's trusted distributor of Humana infant nutrition — a landmark 16+ year international partnership bringing world-class baby nutrition products to Ethiopian families.</p>
         <div class="dc-tags"><span class="dc-tag">Humana</span><span class="dc-tag">Infant Nutrition</span><span class="dc-tag">16+ Years</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ STRAWBERRY FARM SPOTLIGHT ══════════════════ -->
+<section id="strawberry">
+  <div class="sf-inner">
+
+    <!-- Visual Left -->
+    <div class="sf-visual rev-l">
+      <img class="sf-bg-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm fields"
+           onerror="this.closest('.sf-visual').style.background='linear-gradient(135deg,#061209,#0e2410)'"/>
+      <div class="sf-overlay"></div>
+      <div class="sf-visual-content">
+        <div class="sf-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+          Ethiopia's Premier Strawberry Farm
+        </div>
+        <div class="sf-stat-grid rev" style="--d:.15s">
+          <div class="sf-stat">
+            <div class="sf-stat-val">110<span>+</span></div>
+            <div class="sf-stat-lbl">Total Employees</div>
+          </div>
+          <div class="sf-stat">
+            <div class="sf-stat-val">93<span>%</span></div>
+            <div class="sf-stat-lbl">Women Workforce</div>
+          </div>
+          <div class="sf-stat">
+            <div class="sf-stat-val">3</div>
+            <div class="sf-stat-lbl">Export Countries</div>
+          </div>
+          <div class="sf-stat">
+            <div class="sf-stat-val">20<span>+</span></div>
+            <div class="sf-stat-lbl">Years Operating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Right -->
+    <div class="sf-content rev-r" style="--d:.08s">
+      <div class="sf-eyebrow">
+        <div class="sf-eyebrow-line"></div>
+        <span class="sf-eyebrow-txt">Addis Strawberry Farm</span>
+      </div>
+      <h2 class="sf-title">Ethiopia's finest<br/><em>strawberries,</em><br/>grown for the world.</h2>
+      <p class="sf-desc">Founded in 2004 and rooted in Addis Ababa, Addis Strawberry Farm has grown into Ethiopia's premier strawberry cultivation operation. Using sustainable, innovative farming methods, the farm produces the finest-grade berries — exported fresh to Dubai, Djibouti, and Yemen — and stands as a model of women-empowered agriculture.</p>
+
+      <div class="sf-features">
+        <div class="sf-feat rev" style="--d:.1s">
+          <div class="sf-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <div class="sf-feat-body">
+            <div class="sf-feat-name">Sustainable Farming</div>
+            <div class="sf-feat-desc">Eco-conscious cultivation with minimal chemical inputs and water-efficient irrigation systems</div>
+          </div>
+        </div>
+        <div class="sf-feat rev" style="--d:.14s">
+          <div class="sf-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="sf-feat-body">
+            <div class="sf-feat-name">Women-Empowered</div>
+            <div class="sf-feat-desc">93 of 110+ employees are women — transforming livelihoods in the Addis Ababa region</div>
+          </div>
+        </div>
+        <div class="sf-feat rev" style="--d:.18s">
+          <div class="sf-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="sf-feat-body">
+            <div class="sf-feat-name">International Export</div>
+            <div class="sf-feat-desc">Fresh strawberries shipped to Dubai, Djibouti &amp; Yemen — meeting international quality standards</div>
+          </div>
+        </div>
+        <div class="sf-feat rev" style="--d:.22s">
+          <div class="sf-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="sf-feat-body">
+            <div class="sf-feat-name">Premium Quality</div>
+            <div class="sf-feat-desc">Hand-picked, graded, and cold-chain handled — from harvest to international markets within 24 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sf-exports rev" style="--d:.28s">
+        <span class="sf-export-label">Exports to</span>
+        <div class="sf-flag"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" loading="lazy"/> Dubai, UAE</div>
+        <div class="sf-flag"><img src="https://flagcdn.com/w40/dj.png" alt="Djibouti" loading="lazy"/> Djibouti</div>
+        <div class="sf-flag"><img src="https://flagcdn.com/w40/ye.png" alt="Yemen" loading="lazy"/> Yemen</div>
       </div>
     </div>
 
