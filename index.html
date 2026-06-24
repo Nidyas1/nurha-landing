@@ -983,17 +983,19 @@ let chartT = null, chartP = null;
 
 /* ── Persist ─────────────────── */
 function persist() {
-  localStorage.setItem('edu2', JSON.stringify({
+  localStorage.setItem('edu3', JSON.stringify({
     weekCfg: S.weekCfg, scores: S.scores, approvals: S.approvals
   }));
 }
 function hydrate() {
-  const d = localStorage.getItem('edu2');
+  const d = localStorage.getItem('edu3');
   if (!d) { seed(); return; }
   const p = JSON.parse(d);
   S.weekCfg   = p.weekCfg   || {};
   S.scores    = p.scores    || {};
   S.approvals = p.approvals || {};
+  // Seed if data exists but scores are empty (stale state from earlier version)
+  if (!Object.keys(S.scores).length) seed();
 }
 
 function seed() {
