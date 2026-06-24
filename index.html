@@ -1,1494 +1,1174 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="am">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Nurha Business Group — Excellence In What We Do</title>
-<meta name="description" content="Nurha Business Group — 28 years of excellence across 9 companies spanning agriculture, real estate, mining and manufacturing. Addis Ababa, Ethiopia."/>
+<title>የክረምት ትምህርት ምዘና ሲስተም · Winter Education Assessment</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&family=Cormorant+Garant:wght@600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   TOKENS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ── TOKENS ─────────────────────────────────────── */
 :root{
-  --amber:#E8601A; --amber2:#F07A30; --amber3:#FF9A5C;
-  --brown:#7B2A12; --brown2:#C04A20;
-  --gold:#C9923A;  --gold2:#E8B878;
-}
-[data-theme="dark"]{
-  --bg:#080503; --bg2:#100A06; --bg3:#1A1008;
-  --card:rgba(255,255,255,.038); --card2:rgba(255,255,255,.065);
-  --border:rgba(232,96,26,.16); --border2:rgba(255,255,255,.07);
-  --text:#F5EDE0; --text2:#907060; --text3:#3A2818;
-  --shadow:rgba(0,0,0,.75); --glow:0 0 80px rgba(232,96,26,.16);
-  --grain:.032; --logo-f:brightness(1.1) saturate(1);
-  --hr:rgba(255,255,255,.06);
-}
-[data-theme="light"]{
-  --bg:#FDFAF6; --bg2:#F7F0E8; --bg3:#EDE4D6;
-  --card:#FFFFFF; --card2:#FDF8F4;
-  --border:rgba(232,96,26,.2); --border2:rgba(0,0,0,.06);
-  --text:#1A0E06; --text2:#7A5A48; --text3:#C8B0A0;
-  --shadow:rgba(0,0,0,.1); --glow:0 8px 40px rgba(232,96,26,.14);
-  --grain:.016; --logo-f:brightness(1) saturate(1);
-  --hr:rgba(0,0,0,.06);
+  --bg:#060d08; --bg2:#0c160e; --bg3:#112014;
+  --card:rgba(255,255,255,.04); --card2:rgba(255,255,255,.07);
+  --primary:#10b981; --primary2:#34d399; --primary3:#6ee7b7;
+  --accent:#f59e0b; --accent2:#fbbf24;
+  --red:#ef4444; --red2:#f87171;
+  --border:rgba(16,185,129,.18); --border2:rgba(255,255,255,.07);
+  --text:#f0fdf4; --text2:#6ee7b7; --text3:#1e3a28;
+  --shadow:rgba(0,0,0,.7);
+  --radius:14px; --radius-sm:8px;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RESET
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ── RESET ──────────────────────────────────────── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;transition:background .5s,color .5s}
+html{font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--amber);border-radius:99px}
-a,button{cursor:none}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:99px}
 img{display:block;max-width:100%}
+button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
 
-/* Grain */
-body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:var(--grain);
+/* ── TYPOGRAPHY ─────────────────────────────────── */
+.am{font-family:'Noto Sans Ethiopic','Inter',sans-serif}
+.sec-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--primary);display:block;margin-bottom:10px}
+.sec-h{font-family:'Noto Sans Ethiopic',serif;font-size:clamp(22px,2.5vw,36px);font-weight:700;line-height:1.3;color:var(--text)}
+.sec-sub{font-size:14px;color:var(--text2);line-height:1.7}
+
+/* ── VIEWS ──────────────────────────────────────── */
+.view{display:none;min-height:100vh;animation:fadeIn .35s ease}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── GRAIN ──────────────────────────────────────── */
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px}
+  background-size:180px}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CURSOR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.c-dot{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--amber);z-index:99998;pointer-events:none;transform:translate(-50%,-50%);box-shadow:0 0 14px rgba(232,96,26,.7),0 0 28px rgba(232,96,26,.35);transition:width .2s,height .2s,opacity .2s}
-.c-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(232,96,26,.4);z-index:99997;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
-.c-dot.expand{width:14px;height:14px}
-.c-ring.expand{width:52px;height:52px;border-color:var(--amber)}
+/* ══════════ HOME ══════════════════════════════════ */
+#view-home{background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(16,185,129,.12),transparent),var(--bg)}
+.home-wrap{max-width:1100px;margin:0 auto;padding:60px 6vw 80px}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCROLL BAR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#spb{position:fixed;top:0;left:0;z-index:9990;height:2px;width:0%;background:linear-gradient(90deg,var(--brown),var(--amber),var(--gold2));border-radius:0 2px 2px 0;transition:width .08s linear}
+/* Hero */
+.home-hero{text-align:center;padding:80px 0 60px;border-bottom:1px solid var(--border2)}
+.home-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:99px;border:1px solid var(--border);background:rgba(16,185,129,.08);color:var(--primary2);font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:28px}
+.home-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--primary);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.home-title{font-family:'Noto Sans Ethiopic',sans-serif;font-size:clamp(28px,4.5vw,62px);font-weight:900;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,var(--text) 40%,var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-subtitle{font-family:'Syne',sans-serif;font-size:clamp(13px,1.5vw,17px);color:var(--text2);letter-spacing:.5px;margin-bottom:8px}
+.home-desc{max-width:640px;margin:20px auto 0;font-size:14px;color:var(--text2);line-height:1.75}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   LOADER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .6s,visibility .6s}
-#loader.done{opacity:0;visibility:hidden}
-.l-logo{height:64px;object-fit:contain;animation:lgo .5s ease both;filter:var(--logo-f)}
-@keyframes lgo{from{opacity:0;transform:scale(.82) translateY(12px)}to{opacity:1;transform:none}}
-.l-bar{width:160px;height:1.5px;background:var(--border2);border-radius:99px;overflow:hidden}
-.l-bar::after{content:'';display:block;height:100%;background:linear-gradient(90deg,var(--brown),var(--amber),var(--gold2));animation:lp .5s cubic-bezier(.77,0,.18,1) both}
-@keyframes lp{from{width:0}to{width:100%}}
+/* Login cards */
+.home-portals{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:56px 0 0}
+.portal-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:40px 36px;text-align:center;transition:border-color .3s,transform .35s,box-shadow .35s;cursor:pointer;position:relative;overflow:hidden}
+.portal-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:20px}
+.portal-card.teacher::before{background:radial-gradient(circle at 50% 0%,rgba(16,185,129,.12),transparent 70%)}
+.portal-card.parent::before{background:radial-gradient(circle at 50% 0%,rgba(245,158,11,.1),transparent 70%)}
+.portal-card:hover{transform:translateY(-6px);box-shadow:0 32px 64px var(--shadow)}
+.portal-card.teacher:hover{border-color:var(--primary)}
+.portal-card.parent:hover{border-color:var(--accent)}
+.portal-card::before,.portal-card:hover::before{opacity:1}
+.portal-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:30px}
+.portal-card.teacher .portal-icon{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25)}
+.portal-card.parent .portal-icon{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25)}
+.portal-title{font-family:'Noto Sans Ethiopic',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px}
+.portal-title-en{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:14px}
+.portal-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:24px}
+.portal-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border-radius:8px;font-weight:700;font-size:13px;border:none;transition:all .2s}
+.portal-card.teacher .portal-btn{background:linear-gradient(135deg,var(--primary),#059669);color:#fff}
+.portal-card.parent .portal-btn{background:linear-gradient(135deg,var(--accent),#d97706);color:#fff}
+.portal-btn:hover{transform:scale(1.04)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   NAV
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(8,5,3,.0);backdrop-filter:blur(0px);border-bottom:1px solid transparent;transition:all .4s}
-nav.scrolled{background:rgba(8,5,3,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom-color:var(--border2)}
-[data-theme="light"] nav.scrolled{background:rgba(253,250,246,.9)}
-.nav-logo img{height:38px;object-fit:contain;filter:var(--logo-f)}
-.nav-center{display:flex;align-items:center;gap:2px}
-.nav-center a{text-decoration:none;color:var(--text2);font-size:13px;font-weight:500;letter-spacing:.2px;padding:7px 14px;border-radius:6px;transition:color .2s,background .2s;position:relative}
-.nav-center a::after{content:'';position:absolute;bottom:2px;left:14px;right:14px;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .25s}
-.nav-center a:hover{color:var(--text)}
-.nav-center a:hover::after{transform:scaleX(1)}
+/* Feature strip */
+.home-features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.hf-card{padding:24px;border-radius:14px;background:var(--card);border:1px solid var(--border2)}
+.hf-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:18px}
+.hf-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.hf-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+@media(max-width:700px){
+  .home-portals{grid-template-columns:1fr}
+  .home-features{grid-template-columns:1fr 1fr}
+}
+@media(max-width:500px){.home-features{grid-template-columns:1fr}}
+
+/* ══════════ LOGIN MODALS ══════════════════════════ */
+.modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease}
+.modal-bg.hidden{display:none}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;width:100%;max-width:420px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);color:var(--text2);font-size:16px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{color:var(--text)}
+.modal-title{font-family:'Noto Sans Ethiopic',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:28px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:7px;letter-spacing:.3px}
+.field input,.field select{width:100%;padding:11px 14px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:14px;transition:border-color .2s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--primary)}
+.field select option{background:var(--bg2)}
+.btn-primary{width:100%;padding:13px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#059669);color:#fff;font-weight:700;font-size:14px;border:none;margin-top:8px;transition:opacity .2s,transform .2s}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.form-error{font-size:12px;color:var(--red2);margin-top:6px;display:none}
+
+/* ══════════ SHARED NAV ════════════════════════════ */
+.app-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:62px;background:rgba(6,13,8,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#059669);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-brand-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px}
+.nav-brand-sub{font-size:10px;color:var(--text2)}
 .nav-right{display:flex;align-items:center;gap:10px}
-.theme-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);background:var(--card);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .3s,transform .4s;position:relative;overflow:hidden}
-.theme-btn:hover{transform:rotate(20deg);color:var(--amber)}
-.theme-btn .sun,.theme-btn .moon{position:absolute;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s}
-[data-theme="dark"] .sun{transform:scale(1);opacity:1}[data-theme="dark"] .moon{transform:scale(0) rotate(-90deg);opacity:0}
-[data-theme="light"] .sun{transform:scale(0) rotate(90deg);opacity:0}[data-theme="light"] .moon{transform:scale(1);opacity:1}
-.nav-cta{padding:9px 22px;border-radius:6px;font-weight:700;font-size:13px;background:linear-gradient(135deg,var(--amber),var(--brown2));color:#fff;text-decoration:none;transition:transform .2s,box-shadow .2s,opacity .2s;box-shadow:0 4px 18px rgba(232,96,26,.35)}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,96,26,.5);opacity:.95}
-.hamburger{display:none;flex-direction:column;gap:5px;padding:8px;background:none;border:none}
-.hamburger span{display:block;width:22px;height:1.5px;background:var(--text);border-radius:2px;transition:.3s}
+.nav-week-badge{padding:5px 14px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid var(--border);color:var(--primary2);font-family:'Syne',sans-serif;font-size:12px;font-weight:700}
+.btn-logout{padding:7px 16px;border-radius:7px;background:var(--card2);border:1px solid var(--border2);color:var(--text2);font-size:12px;font-weight:600;transition:all .2s}
+.btn-logout:hover{border-color:var(--red);color:var(--red2)}
 
-/* Page dots */
-.page-dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:10px}
-.pd{width:6px;height:6px;border-radius:50%;background:var(--border2);border:1px solid var(--text3);transition:background .3s,transform .3s,height .3s,border-radius .3s}
-.pd.active{background:var(--amber);height:22px;border-radius:3px;border-color:var(--amber)}
+/* ══════════ TEACHER VIEW ══════════════════════════ */
+#view-teacher{background:var(--bg)}
+.teacher-wrap{max-width:1200px;margin:0 auto;padding:32px 6vw 80px;display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+@media(max-width:900px){.teacher-wrap{grid-template-columns:1fr}}
 
-/* Mobile sidebar */
-.mob-ov{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
-.mob-ov.open{display:block}
-.mob-menu{position:fixed;top:0;right:0;bottom:0;z-index:998;width:min(300px,84vw);background:var(--bg3);border-left:1px solid var(--border);display:flex;flex-direction:column;padding:80px 28px 40px;gap:4px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
-.mob-menu.open{transform:translateX(0)}
-.mob-menu a{font-size:15px;font-weight:600;color:var(--text);text-decoration:none;padding:13px 14px;border-radius:10px;width:100%;transition:color .2s,background .2s}
-.mob-menu a:hover{color:var(--amber);background:var(--card)}
-.mob-menu .nav-cta{margin-top:20px;text-align:center;font-size:14px;padding:14px;border-radius:10px}
-.mob-x{position:absolute;top:20px;right:20px;background:var(--card2);border:1px solid var(--border2);color:var(--text);font-size:16px;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* Week & task config sidebar */
+.sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:80px}
+.panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:22px}
+.panel-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary2);margin-bottom:16px}
 
-/* Back to top */
-#btt{position:fixed;bottom:28px;right:28px;z-index:500;width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--amber),var(--brown2));border:none;color:#fff;font-size:18px;display:none;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(232,96,26,.4)}
-#btt.show{display:flex}
-#btt:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(232,96,26,.55)}
+/* Week selector */
+.week-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.week-btn{padding:9px 6px;border-radius:7px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;transition:all .2s;text-align:center}
+.week-btn:hover{border-color:var(--border);color:var(--text)}
+.week-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   HERO
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#hero{min-height:100vh;display:flex;align-items:flex-end;padding:0 6vw 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:0;will-change:transform}
-.hero-bg img{width:100%;height:120%;object-fit:cover;object-position:center 30%;display:block;filter:brightness(.22) saturate(.6);transition:filter .6s}
-[data-theme="light"] .hero-bg img{filter:brightness(.48) saturate(.75)}
-.hero-gradient{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,var(--bg) 0%,rgba(8,5,3,.6) 40%,transparent 80%)}
-[data-theme="light"] .hero-gradient{background:linear-gradient(to top,var(--bg) 0%,rgba(253,250,246,.5) 40%,transparent 80%)}
+/* Task config */
+.task-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)}
+.task-item:last-child{border-bottom:none}
+.task-check{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.task-info{flex:1;min-width:0}
+.task-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:12px;font-weight:600;line-height:1.3}
+.task-name-en{font-size:10px;color:var(--text2)}
+.task-type-badge{font-size:9px;padding:2px 6px;border-radius:3px;flex-shrink:0}
+.task-type-badge.daily{background:rgba(16,185,129,.12);color:var(--primary2)}
+.task-type-badge.weekly{background:rgba(245,158,11,.1);color:var(--accent2)}
+.weight-display{margin-top:12px;padding:10px 14px;border-radius:8px;background:rgba(16,185,129,.06);border:1px solid var(--border);font-size:12px;color:var(--text2);text-align:center}
+.weight-display strong{color:var(--primary2);font-family:'Syne',sans-serif;font-size:15px}
 
-/* Amber accent line left side */
-.hero-accent{position:absolute;left:0;top:0;bottom:0;width:3px;z-index:2;background:linear-gradient(to bottom,transparent,var(--amber),transparent)}
+/* Student roster */
+.roster-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.roster-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.btn-save{padding:10px 24px;border-radius:8px;background:linear-gradient(135deg,var(--primary),#059669);color:#fff;font-weight:700;font-size:13px;border:none;transition:all .2s;display:flex;align-items:center;gap:6px}
+.btn-save:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.btn-save.saved{background:linear-gradient(135deg,#059669,#047857)}
 
-.hero-inner{position:relative;z-index:3;width:100%;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:40px}
+.student-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;transition:border-color .2s}
+.student-card:hover{border-color:var(--border)}
+.student-card-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border2);cursor:pointer;user-select:none}
+.student-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#059669);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
+.student-name-wrap{flex:1;margin-left:12px}
+.student-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:14px;font-weight:700}
+.student-name-en{font-size:11px;color:var(--text2)}
+.student-weekly-score{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;min-width:54px;text-align:right}
+.student-expand-icon{font-size:12px;color:var(--text2);margin-left:10px;transition:transform .2s}
+.student-card.open .student-expand-icon{transform:rotate(180deg)}
+.student-card-body{display:none;padding:20px}
+.student-card.open .student-card-body{display:block}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.score-field{background:var(--bg2);border-radius:9px;padding:12px 14px;border:1px solid var(--border2)}
+.score-field label{display:block;font-family:'Noto Sans Ethiopic',sans-serif;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px;line-height:1.4}
+.score-input-wrap{display:flex;align-items:center;gap:8px}
+.score-input{width:62px;padding:6px 10px;border-radius:6px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:15px;font-weight:700;font-family:'Syne',sans-serif;text-align:center;transition:border-color .2s}
+.score-input:focus{outline:none;border-color:var(--primary)}
+.score-max{font-size:11px;color:var(--text2)}
+.score-weight{font-size:10px;color:var(--primary2);margin-top:4px;font-family:'Syne',sans-serif}
+.comment-field{margin-top:4px}
+.comment-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.comment-field textarea{width:100%;padding:9px 12px;border-radius:8px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-size:12px;line-height:1.5;resize:none;transition:border-color .2s}
+.comment-field textarea:focus{outline:none;border-color:var(--primary)}
 
-.hero-text{}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:4px;margin-bottom:24px;background:rgba(232,96,26,.08);border:1px solid rgba(232,96,26,.22);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber);animation:fu .7s ease both}
-.epulse{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:puls 2s ease-in-out infinite}
-@keyframes puls{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.4}}
+/* Save toast */
+.toast{position:fixed;bottom:28px;right:28px;padding:13px 22px;border-radius:10px;background:var(--primary);color:#fff;font-weight:700;font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.16,1,.3,1)}
+.toast.show{transform:none;opacity:1}
 
-.hero-h{font-family:'Playfair Display',serif;font-size:clamp(52px,7.5vw,108px);font-weight:900;line-height:1.02;letter-spacing:-2px;margin-bottom:28px;overflow:hidden}
-.hero-h .line{display:block;animation:fu .8s ease both}
-.hero-h .line:nth-child(2){animation-delay:.08s}
-.hero-h .line:nth-child(3){animation-delay:.16s}
-.hero-h em{font-style:italic;background:linear-gradient(135deg,var(--amber),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;animation:shimmer 5s linear infinite}
-@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-@keyframes fu{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+/* ══════════ PARENT VIEW ═══════════════════════════ */
+#view-parent{background:var(--bg)}
+.parent-wrap{max-width:1000px;margin:0 auto;padding:32px 6vw 80px}
 
-.hero-sub{font-size:clamp(15px,1.4vw,18px);color:var(--text2);line-height:1.8;max-width:520px;animation:fu .8s .24s ease both;margin-bottom:36px}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fu .8s .32s ease both}
-.btn-p{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:6px;font-weight:700;font-size:15px;background:linear-gradient(135deg,var(--amber),var(--brown2));color:#fff;text-decoration:none;transition:transform .25s,box-shadow .25s;box-shadow:0 8px 32px rgba(232,96,26,.4)}
-.btn-p:hover{transform:translateY(-3px);box-shadow:0 18px 48px rgba(232,96,26,.55)}
-.btn-g{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:6px;font-weight:600;font-size:15px;border:1px solid var(--border);color:var(--text);text-decoration:none;background:rgba(255,255,255,.04);backdrop-filter:blur(12px);transition:border-color .2s,background .2s,transform .2s}
-.btn-g:hover{border-color:var(--amber);transform:translateY(-3px)}
+/* Student header */
+.student-header{display:flex;align-items:center;gap:20px;padding:24px 28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--border2);margin-bottom:28px}
+.sh-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#059669);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:22px;font-weight:900;color:#fff;flex-shrink:0}
+.sh-info{flex:1}
+.sh-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:19px;font-weight:700;margin-bottom:2px}
+.sh-meta{font-size:12px;color:var(--text2)}
+.sh-week-nav{display:flex;align-items:center;gap:8px}
+.sh-week-nav button{width:32px;height:32px;border-radius:7px;background:var(--card2);border:1px solid var(--border2);color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
+.sh-week-nav button:hover{border-color:var(--border);color:var(--text)}
+.sh-week-num{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;min-width:64px;text-align:center;color:var(--text)}
 
-/* Hero stats panel (right) */
-.hero-panel{display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;animation:fu .8s .4s ease both;min-width:170px}
-.hp-item{padding:16px 20px;background:rgba(8,5,3,.6);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.07);margin-bottom:1px;transition:background .2s}
-.hp-item:hover{background:rgba(232,96,26,.1)}
-[data-theme="light"] .hp-item{background:rgba(253,250,246,.75)}
-.hp-val{font-family:'Oswald',sans-serif;font-size:34px;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,var(--amber),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
-.hp-lbl{font-size:10px;color:var(--text2);margin-top:4px;letter-spacing:.8px;text-transform:uppercase;font-family:'Syne',sans-serif}
-
-/* Scroll cue */
-.scroll-cue{position:absolute;bottom:28px;left:6vw;z-index:3;display:flex;align-items:center;gap:12px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);animation:fu .8s .5s ease both}
-.sc-line{width:40px;height:1px;background:linear-gradient(90deg,var(--amber),transparent)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MARQUEE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.mq-sec{padding:16px 0;overflow:hidden;border-top:1px solid var(--hr);border-bottom:1px solid var(--hr);background:var(--bg2)}
-.mq-track{display:flex;width:max-content;animation:mq 32s linear infinite}
-.mq-track:hover{animation-play-state:paused}
-.mq-item{white-space:nowrap;padding:0 36px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:32px}
-.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   GLOBALS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-section:not(.mq-sec){padding:120px 6vw}
-.sec-label{display:inline-block;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:14px;padding:4px 12px;border-radius:3px;background:rgba(232,96,26,.07);border:1px solid rgba(232,96,26,.16)}
-.sec-h{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,56px);font-weight:900;letter-spacing:-.5px;line-height:1.08;margin-bottom:14px}
-.sec-sub{font-size:16px;color:var(--text2);line-height:1.76;max-width:560px}
-
-/* Clip reveal text */
-.clip-reveal{overflow:hidden}
-.clip-reveal span{display:inline-block;transform:translateY(100%);opacity:0;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .6s;transition-delay:var(--d,0s)}
-.clip-reveal.vis span{transform:translateY(0);opacity:1}
-
-/* Fade reveals */
-.rev{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease;transition-delay:var(--d,0s)}
-.rev.vis{opacity:1;transform:none}
-.rev-l{opacity:0;transform:translateX(-28px);transition:opacity .75s,transform .75s;transition-delay:var(--d,0s)}
-.rev-l.vis{opacity:1;transform:none}
-.rev-r{opacity:0;transform:translateX(28px);transition:opacity .75s,transform .75s;transition-delay:var(--d,0s)}
-.rev-r.vis{opacity:1;transform:none}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   STORY / ABOUT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#story{background:var(--bg);overflow:hidden}
-.story-inner{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start}
-
-/* Sticky left */
-.story-left{position:sticky;top:120px;padding-bottom:40px}
-.story-year{font-family:'Playfair Display',serif;font-size:clamp(80px,12vw,160px);font-weight:900;line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(232,96,26,.15);margin-bottom:24px;user-select:none}
-.story-left .sec-sub{max-width:100%;margin-bottom:28px}
-.story-founder{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;background:var(--card);border:1px solid var(--border2);margin-top:32px;transition:border-color .2s}
-.story-founder:hover{border-color:var(--border)}
-.sf-avatar{width:52px;height:52px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(232,96,26,.35)}
-.sf-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-.sf-name{font-weight:700;font-size:14px}
-.sf-title{font-size:12px;color:var(--text2);margin-top:2px}
-
-/* Right: scrolling cards */
-.story-right{display:flex;flex-direction:column;gap:32px;padding-top:8px}
-.story-card{padding:36px;border-radius:16px;background:var(--card);border:1px solid var(--border2);transition:border-color .3s,background .3s}
-.story-card:hover{border-color:var(--border);background:var(--card2)}
-.sc-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:16px}
-.sc-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:12px}
-.sc-text{font-size:14px;color:var(--text2);line-height:1.75}
-.sc-img{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-top:20px;filter:brightness(.8) saturate(.9);transition:filter .3s}
-.story-card:hover .sc-img{filter:brightness(.92) saturate(1)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   IMPACT NUMBERS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#impact{padding:100px 6vw;background:var(--bg2);position:relative;overflow:hidden}
-#impact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(232,96,26,.07),transparent)}
-.impact-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-bottom:72px}
-.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2);border-radius:16px;overflow:hidden}
-.ig-item{padding:48px 32px;background:var(--bg2);position:relative;overflow:hidden;transition:background .3s}
-.ig-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.ig-item:hover{background:var(--bg3)}
-.ig-item:hover::before{transform:scaleX(1)}
-.ig-val{font-family:'Oswald',sans-serif;font-size:clamp(56px,6.5vw,88px);font-weight:700;letter-spacing:2px;line-height:1;background:linear-gradient(135deg,var(--text),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.ig-suffix{font-size:36px;font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:1px}
-.ig-lbl{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--text2);margin-top:12px;letter-spacing:1.5px;text-transform:uppercase}
-.ig-desc{font-size:13px;color:var(--text3);margin-top:6px;line-height:1.5}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   DIVISIONS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#divisions{background:var(--bg)}
-.div-head{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:40px;margin-bottom:48px;flex-wrap:wrap}
-
-/* Filter tabs */
-.filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
-.ftab{padding:8px 18px;border-radius:6px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;border:1px solid var(--border2);color:var(--text2);background:transparent;transition:all .2s}
-.ftab:hover{border-color:var(--border);color:var(--text)}
-.ftab.active{background:var(--amber);border-color:var(--amber);color:#fff}
-
-/* Division grid */
-.div-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.div-card{border-radius:18px;overflow:hidden;border:1px solid var(--border2);background:var(--bg2);transition:border-color .35s,transform .4s cubic-bezier(.16,1,.3,1),box-shadow .35s;position:relative;transform-style:preserve-3d}
-.div-card:hover{border-color:var(--border);transform:translateY(-8px);box-shadow:0 32px 64px var(--shadow),var(--glow)}
-.div-card.hidden{display:none}
-
-.dc-img-w{height:200px;overflow:hidden;position:relative;background:var(--bg3)}
-.dc-img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.8);transition:transform .55s cubic-bezier(.16,1,.3,1),filter .4s;display:block}
-.div-card:hover .dc-img{transform:scale(1.08);filter:brightness(.9) saturate(1)}
-
-/* Shine overlay */
-.dc-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
-.div-card:hover .dc-shine{opacity:1}
-
-.dc-cat{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:3px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.cat-a{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.35);color:#4ade80}
-.cat-c{background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.35);color:#7bb5f5}
-.cat-i{background:rgba(232,96,26,.18);border:1px solid rgba(232,96,26,.35);color:var(--amber2)}
-.cat-t{background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.35);color:#c084fc}
-
-.dc-body{padding:24px}
-.dc-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px}
-.dc-desc{font-size:13px;color:var(--text2);line-height:1.65}
-.dc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.dc-tag{padding:3px 9px;border-radius:3px;font-size:11px;background:var(--card2);border:1px solid var(--border2);color:var(--text2)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   STRAWBERRY FARM SPOTLIGHT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#strawberry{background:var(--bg2);overflow:hidden}
-.sf-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:580px}
-
-/* Left visual panel */
-.sf-visual{position:relative;overflow:hidden;min-height:500px}
-.sf-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(.9);transition:transform 8s ease}
-#strawberry:hover .sf-bg-img{transform:scale(1.04)}
-.sf-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,20,8,.85) 0%,rgba(8,28,12,.6) 50%,transparent 100%)}
-.sf-visual-content{position:relative;z-index:1;padding:56px 52px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
-.sf-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:4px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);color:#4ade80;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content}
-.sf-badge svg{width:12px;height:12px}
-.sf-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.sf-stat{padding:20px 18px;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.06)}
-.sf-stat:first-child{border-radius:12px 0 0 0}
-.sf-stat:nth-child(2){border-radius:0 12px 0 0}
-.sf-stat:nth-child(3){border-radius:0 0 0 12px}
-.sf-stat:last-child{border-radius:0 0 12px 0}
-.sf-stat-val{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:0;line-height:1}
-.sf-stat-val span{font-size:18px;color:#4ade80}
-.sf-stat-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.2px;text-transform:uppercase;margin-top:6px}
-
-/* Right content panel */
-.sf-content{padding:64px 60px;display:flex;flex-direction:column;justify-content:center;gap:0}
-.sf-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-.sf-eyebrow-line{width:32px;height:1px;background:#4ade80}
-.sf-eyebrow-txt{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4ade80}
-.sf-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,46px);font-weight:700;line-height:1.15;margin-bottom:20px}
-.sf-title em{color:#4ade80;font-style:italic}
-.sf-desc{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:36px}
-.sf-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
-.sf-feat{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-radius:10px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s}
-.sf-feat:hover{border-color:rgba(34,197,94,.3)}
-.sf-feat-icon{width:32px;height:32px;border-radius:8px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#4ade80}
-.sf-feat-icon svg{width:15px;height:15px}
-.sf-feat-body{}
-.sf-feat-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:2px}
-.sf-feat-desc{font-size:11px;color:var(--text2);line-height:1.5}
-.sf-exports{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--hr)}
-.sf-export-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--text2);text-transform:uppercase;margin-right:4px}
-.sf-flag{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:5px;background:var(--card);border:1px solid var(--border2);font-size:12px;font-weight:500;color:var(--text);transition:border-color .2s}
-.sf-flag:hover{border-color:rgba(34,197,94,.35)}
-.sf-flag img{height:14px;border-radius:2px;display:inline}
-
-@media(max-width:960px){
-  .sf-inner{grid-template-columns:1fr}
-  .sf-visual{min-height:340px}
-  .sf-visual-content{padding:32px}
-  .sf-content{padding:40px 32px}
-  .sf-stat-val{font-size:24px}
-}
-@media(max-width:640px){
-  .sf-features{grid-template-columns:1fr}
-  .sf-stat-grid{grid-template-columns:1fr 1fr}
+/* Weekly score circle */
+.score-circle-wrap{display:flex;align-items:center;gap:32px;padding:28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--border2);margin-bottom:20px}
+.score-circle{position:relative;width:120px;height:120px;flex-shrink:0}
+.score-circle svg{width:120px;height:120px;transform:rotate(-90deg)}
+.score-circle-bg{fill:none;stroke:var(--border2);stroke-width:8}
+.score-circle-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease,stroke .5s}
+.score-circle-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.score-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1}
+.score-of{font-size:10px;color:var(--text2);margin-top:2px}
+.score-details{flex:1}
+.score-week-title{font-family:'Noto Sans Ethiopic',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px}
+.score-grade-badge{display:inline-flex;padding:4px 12px;border-radius:5px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;margin-bottom:12px}
+.score-breakdown{font-size:13px;color:var(--text2);line-height:1.7}
+@media(max-width:600px){
+  .score-circle-wrap{flex-direction:column;text-align:center}
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FOUNDER QUOTE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#founder{padding:120px 6vw;background:var(--bg2);position:relative;overflow:hidden}
-.fq-bg{position:absolute;inset:0;background-image:url('https://nurhabusinessgroup.com/assets/galaryImages/19.jpg');background-size:cover;background-position:center;filter:brightness(.06) saturate(.3)}
-[data-theme="light"] .fq-bg{filter:brightness(.18) saturate(.4)}
-.fq-inner{position:relative;z-index:1;max-width:960px;margin:0 auto}
-.fq-layout{display:grid;grid-template-columns:320px 1fr;gap:80px;align-items:center}
-@media(max-width:900px){.fq-layout{grid-template-columns:1fr;text-align:center;gap:40px}}
+/* Charts */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.chart-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:22px}
+.chart-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px}
+.chart-canvas-wrap{position:relative;height:200px}
+@media(max-width:700px){.charts-grid{grid-template-columns:1fr}}
 
-/* Founder portrait */
-.fq-portrait-wrap{position:relative}
-.fq-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:20px;display:block;filter:grayscale(15%) brightness(.95);box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(232,96,26,.2)}
-.fq-photo-frame{position:absolute;inset:0;border-radius:20px;background:linear-gradient(to top,rgba(8,5,3,.8) 0%,transparent 50%);pointer-events:none}
-.fq-photo-accent{position:absolute;bottom:-12px;right:-12px;width:80px;height:80px;border-radius:14px;background:linear-gradient(135deg,var(--amber),var(--brown2));display:flex;align-items:center;justify-content:center}
-.fq-photo-accent svg{width:36px;height:36px;color:#fff;opacity:.9}
-.fq-photo-yr{position:absolute;top:16px;left:16px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:rgba(255,255,255,.6);text-transform:uppercase}
+/* Strengths/Weaknesses */
+.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.sw-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:20px}
+.sw-card.strength{border-color:rgba(16,185,129,.2)}
+.sw-card.weakness{border-color:rgba(239,68,68,.15)}
+.sw-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.sw-card.strength .sw-title{color:var(--primary2)}
+.sw-card.weakness .sw-title{color:var(--red2)}
+.sw-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)}
+.sw-item:last-child{border-bottom:none}
+.sw-item-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:12px;font-weight:600}
+.sw-item-score{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.sw-card.strength .sw-item-score{color:var(--primary2)}
+.sw-card.weakness .sw-item-score{color:var(--red2)}
+@media(max-width:600px){.sw-grid{grid-template-columns:1fr}}
 
-/* Quote text right side */
-.fq-text-side{display:flex;flex-direction:column;justify-content:center}
-.fq-open{font-family:'Playfair Display',serif;font-size:100px;line-height:.7;color:var(--amber);opacity:.4;display:block;margin-bottom:16px}
-.fq-quote{font-family:'Playfair Display',serif;font-size:clamp(20px,2.6vw,34px);font-weight:700;font-style:italic;line-height:1.5;color:var(--text);margin-bottom:36px}
-.fq-author{display:flex;align-items:center;gap:16px}
-@media(max-width:900px){.fq-author{justify-content:center}}
-.fq-line{width:40px;height:1px;background:var(--amber);flex-shrink:0}
-.fq-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--amber)}
-.fq-role{font-size:12px;color:var(--text2);margin-top:4px}
-.fq-stats{display:flex;gap:32px;margin-top:40px;padding-top:40px;border-top:1px solid var(--hr)}
-@media(max-width:900px){.fq-stats{justify-content:center}}
-.fqs-item{}
-.fqs-val{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:1px;color:var(--amber);line-height:1}
-.fqs-lbl{font-size:11px;color:var(--text2);margin-top:4px;letter-spacing:.5px;font-family:'Syne',sans-serif}
+/* Family verification */
+.family-panel{background:var(--card);border:1px solid rgba(245,158,11,.2);border-radius:var(--radius);padding:22px;margin-bottom:20px}
+.family-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent2);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.family-tasks{display:flex;flex-direction:column;gap:10px}
+.family-task{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2)}
+.family-task-info{flex:1}
+.family-task-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px}
+.family-task-en{font-size:11px;color:var(--text2)}
+.btn-approve{padding:8px 18px;border-radius:7px;font-weight:700;font-size:12px;border:none;transition:all .2s}
+.btn-approve.pending{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--accent2)}
+.btn-approve.pending:hover{background:rgba(245,158,11,.2)}
+.btn-approve.approved{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary2);cursor:default}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SECTORS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#sectors{background:var(--bg)}
-.sect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
-.sect-card{padding:40px 32px;border-radius:18px;background:var(--card);border:1px solid var(--border2);position:relative;overflow:hidden;transition:border-color .3s,transform .35s,box-shadow .35s}
-.sect-card:hover{border-color:var(--border);transform:translateY(-6px);box-shadow:0 28px 56px var(--shadow)}
-.sect-bg-num{position:absolute;right:-10px;bottom:-20px;font-family:'Playfair Display',serif;font-size:140px;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(232,96,26,.05);line-height:1;user-select:none;pointer-events:none}
-.sect-icon-wrap{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;z-index:1}
-.sect-icon-wrap svg{width:26px;height:26px}
-.si-a{background:rgba(34,197,94,.1)}
-.si-c{background:rgba(59,130,246,.1)}
-.si-i{background:rgba(232,96,26,.1)}
-.sect-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
-.sect-desc{font-size:14px;color:var(--text2);line-height:1.72;margin-bottom:22px;position:relative;z-index:1}
-.sect-list{list-style:none;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
-.sect-list li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
-.sect-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+/* 8-week progress grid */
+.progress-panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:22px;margin-bottom:20px}
+.progress-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px}
+.week-progress-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.wpg-item{text-align:center;cursor:pointer}
+.wpg-bar-wrap{height:80px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:6px}
+.wpg-bar{width:28px;border-radius:5px 5px 0 0;transition:height .6s ease,background .3s;min-height:3px}
+.wpg-week{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text2)}
+.wpg-score{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;margin-top:3px}
+.wpg-item.current .wpg-week{color:var(--primary2)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   TIMELINE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#timeline{background:var(--bg2);overflow:hidden}
-.tl-inner{position:relative;margin-top:64px}
-.tl-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--amber),var(--gold),transparent);transform:translateX(-50%)}
-.tl-items{display:flex;flex-direction:column;gap:0}
-.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:start;gap:0;padding:32px 0}
-.tl-item:nth-child(odd) .tl-left{text-align:right;padding-right:40px}
-.tl-item:nth-child(odd) .tl-right{padding-left:40px;visibility:hidden}
-.tl-item:nth-child(even) .tl-left{visibility:hidden;padding-right:40px}
-.tl-item:nth-child(even) .tl-right{padding-left:40px}
-.tl-dot{display:flex;align-items:center;justify-content:center;padding-top:4px}
-.tl-circle{width:14px;height:14px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(232,96,26,.15),0 0 20px rgba(232,96,26,.3);flex-shrink:0}
-.tl-year{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:6px}
-.tl-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px}
-.tl-desc{font-size:13px;color:var(--text2);line-height:1.65}
+/* Final grade */
+.final-panel{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(245,158,11,.05));border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:20px}
+.final-title{font-family:'Noto Sans Ethiopic',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.final-score{font-family:'Syne',sans-serif;font-size:64px;font-weight:900;line-height:1;color:var(--primary);margin:16px 0 4px}
+.final-grade{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent2);margin-bottom:20px}
+.btn-cert{padding:13px 32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#d97706);color:#fff;font-weight:700;font-size:14px;border:none;transition:all .2s}
+.btn-cert:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,158,11,.35)}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   GLOBAL REACH
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#reach{background:var(--bg);overflow:hidden}
-.reach-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.reach-markets{display:flex;flex-direction:column;gap:14px;margin-top:32px}
-.rm{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s,background .2s,transform .2s}
-.rm:hover{border-color:var(--border);background:var(--card2);transform:translateX(6px)}
-.rm-flag{width:40px;height:28px;border-radius:4px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.rm-flag img{width:100%;height:100%;object-fit:cover;display:block}
-.rm-flag svg{width:24px;height:24px;color:var(--amber)}
-.rm-name{font-weight:700;font-size:15px;margin-bottom:3px}
-.rm-detail{font-size:12px;color:var(--text2)}
-.reach-visual{position:relative}
-.reach-img{width:100%;height:480px;object-fit:cover;border-radius:20px;filter:brightness(.8) saturate(.85);box-shadow:0 40px 80px var(--shadow)}
-.reach-badge{position:absolute;bottom:-20px;right:-20px;padding:20px 24px;border-radius:14px;background:linear-gradient(135deg,var(--amber),var(--brown2));color:#fff;box-shadow:0 20px 40px rgba(232,96,26,.4);text-align:center}
-.rb-val{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;letter-spacing:2px;line-height:1}
-.rb-lbl{font-size:11px;opacity:.85;margin-top:4px;letter-spacing:.5px}
+/* ══════════ CERTIFICATE ═══════════════════════════ */
+#view-cert{background:var(--bg);min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+#view-cert.active{display:flex}
+.cert-paper{width:100%;max-width:720px;background:var(--bg2);border:2px solid var(--primary);border-radius:24px;padding:60px;text-align:center;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 80px rgba(16,185,129,.04)}
+.cert-corner{position:absolute;width:100px;height:100px;opacity:.12}
+.cert-corner.tl{top:0;left:0;border-top:3px solid var(--primary);border-left:3px solid var(--primary);border-radius:24px 0 0 0}
+.cert-corner.tr{top:0;right:0;border-top:3px solid var(--primary);border-right:3px solid var(--primary);border-radius:0 24px 0 0}
+.cert-corner.bl{bottom:0;left:0;border-bottom:3px solid var(--primary);border-left:3px solid var(--primary);border-radius:0 0 0 24px}
+.cert-corner.br{bottom:0;right:0;border-bottom:3px solid var(--primary);border-right:3px solid var(--primary);border-radius:0 0 24px 0}
+.cert-seal{font-size:48px;margin-bottom:16px}
+.cert-issued{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:24px}
+.cert-to{font-family:'Syne',sans-serif;font-size:12px;color:var(--text2);margin-bottom:8px}
+.cert-name{font-family:'Noto Sans Ethiopic',sans-serif;font-size:36px;font-weight:900;color:var(--text);margin-bottom:8px}
+.cert-score-line{font-family:'Syne',sans-serif;font-size:14px;color:var(--text2);margin-bottom:28px}
+.cert-score-big{color:var(--primary);font-weight:800;font-size:18px}
+.cert-grade-pill{display:inline-block;padding:8px 24px;border-radius:99px;border:2px solid var(--primary);color:var(--primary2);font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:28px}
+.cert-seal-line{width:80px;height:1px;background:var(--border);margin:28px auto}
+.cert-footer{font-size:12px;color:var(--text2)}
+.cert-actions{display:flex;gap:12px;justify-content:center;margin-top:32px}
+.btn-print{padding:12px 28px;border-radius:8px;background:var(--primary);color:#fff;font-weight:700;font-size:13px;border:none;transition:all .2s}
+.btn-back{padding:12px 28px;border-radius:8px;background:var(--card2);border:1px solid var(--border2);color:var(--text);font-weight:700;font-size:13px;transition:all .2s}
+@media print{.cert-actions{display:none}.cert-paper{box-shadow:none;border-color:#10b981}}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   GALLERY
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#gallery{background:var(--bg2)}
-.gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:220px 220px;gap:12px;margin-top:48px}
-.gal-grid-2{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;height:180px}
-.gal-item{border-radius:14px;overflow:hidden;position:relative}
-.gal-item:first-child{grid-row:span 2}
-.gal-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.8);transition:transform .55s cubic-bezier(.16,1,.3,1),filter .4s;display:block}
-.gal-item:hover img{transform:scale(1.07);filter:brightness(.9) saturate(1)}
-.gal-cap{position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(8,5,3,.9),transparent);font-size:12px;font-weight:600;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;font-family:'Syne',sans-serif;letter-spacing:.5px;text-transform:uppercase}
-.gal-item:hover .gal-cap{opacity:1;transform:translateY(0)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTACT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#contact{background:var(--bg)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.cinfo{display:flex;flex-direction:column;gap:16px;margin-top:36px}
-.ci{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border2);transition:border-color .2s,background .2s}
-.ci:hover{border-color:var(--border);background:var(--card2)}
-.ci-ico{width:44px;height:44px;border-radius:10px;background:rgba(232,96,26,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--amber)}
-.ci-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.ci-val{font-size:14px;font-weight:600;color:var(--text)}
-.ci-val a{color:var(--text);text-decoration:none;transition:color .2s}
-.ci-val a:hover{color:var(--amber)}
-.form-box{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:40px}
-.form-box h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:8px}
-.form-box p{font-size:14px;color:var(--text2);margin-bottom:28px}
-.fg{position:relative;margin-bottom:18px}
-.fg input,.fg textarea,.fg select{width:100%;padding:20px 16px 8px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
-.fg input:focus,.fg textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,96,26,.1)}
-.fg label{position:absolute;left:16px;top:14px;font-size:13px;color:var(--text3);pointer-events:none;transition:top .2s,font-size .2s,color .2s}
-.fg input:focus~label,.fg input:not(:placeholder-shown)~label,.fg textarea:focus~label,.fg textarea:not(:placeholder-shown)~label{top:5px;font-size:10px;color:var(--amber);letter-spacing:.5px;text-transform:uppercase;font-family:'Syne',sans-serif}
-.fg textarea{height:110px;resize:vertical}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fsub{width:100%;padding:15px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--amber),var(--brown2));color:#fff;font-weight:700;font-size:15px;transition:transform .25s,box-shadow .25s;box-shadow:0 8px 24px rgba(232,96,26,.35)}
-.fsub:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(232,96,26,.5)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   FOOTER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-footer{background:var(--bg2);border-top:1px solid var(--hr);padding:64px 6vw 32px}
-.foot-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
-.ft-brand img{height:52px;filter:var(--logo-f);margin-bottom:16px}
-.ft-brand p{font-size:13px;color:var(--text2);line-height:1.7;max-width:250px}
-.ft-col h4{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:18px}
-.ft-col a{display:block;font-size:13px;color:var(--text2);text-decoration:none;margin-bottom:10px;transition:color .2s}
-.ft-col a:hover{color:var(--amber)}
-.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--hr);font-size:12px;color:var(--text3);flex-wrap:wrap;gap:12px;font-family:'Syne',sans-serif}
-.ft-soc{display:flex;gap:10px}
-.ft-soc a{width:36px;height:36px;border-radius:8px;background:var(--card);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;color:var(--text2);transition:background .2s,border-color .2s,color .2s}
-.ft-soc a:hover{background:rgba(232,96,26,.12);border-color:var(--amber);color:var(--amber)}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RESPONSIVE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@media(max-width:1100px){
-  .story-inner{grid-template-columns:1fr;gap:56px}
-  .story-left{position:static}
-  .story-year{font-size:80px}
-  .impact-grid{grid-template-columns:1fr 1fr}
-  .foot-top{grid-template-columns:1fr 1fr;gap:32px}
-  .reach-inner{grid-template-columns:1fr;gap:48px}
-  .reach-visual{order:-1}
-  .tl-line{left:24px}
-  .tl-item{grid-template-columns:24px 1fr}
-  .tl-item:nth-child(odd) .tl-left,.tl-item:nth-child(even) .tl-left{visibility:visible;text-align:left;padding-right:0;padding-left:20px;grid-column:2}
-  .tl-item:nth-child(odd) .tl-right,.tl-item:nth-child(even) .tl-right{display:none}
-  .tl-dot{grid-column:1;grid-row:1;padding-top:6px}
-}
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr}
-  .hero-panel{flex-direction:row;gap:1px;min-width:0}
-  .hp-item{flex:1}
-  .hp-val{font-size:24px}
-  .div-grid{grid-template-columns:1fr 1fr}
-  .sect-grid{grid-template-columns:1fr 1fr;gap:16px}
-  .contact-grid{grid-template-columns:1fr;gap:40px}
-  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .gal-item:first-child{grid-row:span 1}
-  .page-dots{display:none}
-}
-@media(max-width:768px){
-  .c-dot,.c-ring{display:none !important}
-  body{cursor:auto}a,button{cursor:pointer}
-  section:not(.mq-sec){padding:80px 5vw}
-  .nav-center,.nav-cta{display:none}
-  .hamburger{display:flex}
-  nav{height:60px;padding:0 5vw}
-  .hero-panel{display:none}
-  .hero-stats-mob{display:flex !important;gap:20px;flex-wrap:wrap;margin-top:32px}
-  .hsm{text-align:center}
-  .hsm-val{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;letter-spacing:1.5px;color:var(--amber)}
-  .hsm-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;font-family:'Syne',sans-serif}
-  .div-grid{grid-template-columns:1fr}
-  .sect-grid{grid-template-columns:1fr}
-  .impact-grid{grid-template-columns:1fr 1fr}
-  .ig-item{padding:28px 20px}
-  .gal-grid{grid-template-columns:1fr;grid-template-rows:auto}
-  .hero-btns{flex-direction:column;align-items:stretch}
-  .btn-p,.btn-g{justify-content:center}
-}
-@media(max-width:480px){
-  .hero-h{letter-spacing:-1px}
-  .impact-grid{grid-template-columns:1fr 1fr}
-  .foot-top{grid-template-columns:1fr}
-  .form-row{grid-template-columns:1fr}
-  .filter-tabs{gap:4px}
-  .ftab{padding:6px 12px;font-size:11px}
-}
-@media(hover:none){
-  .div-card:hover{transform:none}
-  .sect-card:hover{transform:none}
-  .rm:hover{transform:none}
-}
+/* ══════════ UTILITIES ═════════════════════════════ */
+.hidden{display:none!important}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.text-green{color:var(--primary2)}
+.text-yellow{color:var(--accent2)}
+.text-red{color:var(--red2)}
+.grade-a{background:rgba(16,185,129,.15);color:var(--primary2)}
+.grade-b{background:rgba(34,211,153,.1);color:#6ee7b7}
+.grade-c{background:rgba(245,158,11,.12);color:var(--accent2)}
+.grade-d{background:rgba(251,191,36,.1);color:#fcd34d}
+.grade-f{background:rgba(239,68,68,.12);color:var(--red2)}
+.mt-8{margin-top:8px}
+.mt-16{margin-top:16px}
+.no-data{text-align:center;padding:40px;color:var(--text2);font-size:14px}
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div class="c-dot" id="cDot"></div>
-<div class="c-ring" id="cRing"></div>
-<div id="spb"></div>
+<!-- ══════════════ HOME VIEW ══════════════════════════ -->
+<div id="view-home" class="view active">
+  <div class="home-wrap">
+    <div class="home-hero">
+      <div class="home-badge"><span class="dot"></span><span class="am">ሲስተሙ ዝግጁ ነው · System Active</span></div>
+      <h1 class="home-title am">የክረምት ትምህርት ምዘና<br/>እና የወላጅ መከታተያ ሲስተም</h1>
+      <p class="home-subtitle">Winter Education Assessment & Parent Monitoring System</p>
+      <p class="home-desc am sec-sub">ይህ ሲስተም ሦስት ዋና ዋና አካላትን ያቀናጃል፡ የመምህሩ መተግበሪያ፣ ማዕከላዊ ዳታቤዝ እና የወላጅ መከታተያ ፖርታል። ለ 8 ሳምንታት የሚሰጥ ትምህርት ምዘና፣ ከ 100 ነጥብ ተሰልቶ ለወላጅ ሪፖርት ይደረጋል።</p>
+    </div>
 
-<!-- LOADER -->
-<div id="loader">
-  <img class="l-logo" src="https://nurhabusinessgroup.com/logo.png" alt="Nurha"/>
-  <div class="l-bar"></div>
-</div>
-
-<!-- BACK TO TOP -->
-<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
-
-<!-- PAGE DOTS -->
-<div class="page-dots" id="pageDots">
-  <div class="pd" data-sec="hero"></div>
-  <div class="pd" data-sec="story"></div>
-  <div class="pd" data-sec="impact"></div>
-  <div class="pd" data-sec="divisions"></div>
-  <div class="pd" data-sec="strawberry"></div>
-  <div class="pd" data-sec="sectors"></div>
-  <div class="pd" data-sec="timeline"></div>
-  <div class="pd" data-sec="reach"></div>
-  <div class="pd" data-sec="gallery"></div>
-  <div class="pd" data-sec="contact"></div>
-</div>
-
-<!-- MOBILE MENU -->
-<div class="mob-ov" id="mobOv" onclick="closeMob()"></div>
-<div class="mob-menu" id="mobMenu">
-  <button class="mob-x" id="mobX">✕</button>
-  <a href="#story"     onclick="closeMob()">Our Story</a>
-  <a href="#divisions"   onclick="closeMob()">Divisions</a>
-  <a href="#strawberry" onclick="closeMob()">Strawberry Farm</a>
-  <a href="#sectors"    onclick="closeMob()">Sectors</a>
-  <a href="#timeline"  onclick="closeMob()">Journey</a>
-  <a href="#reach"     onclick="closeMob()">Global Reach</a>
-  <a href="#contact"   onclick="closeMob()">Contact</a>
-  <a href="#contact" class="nav-cta" onclick="closeMob()">Get In Touch</a>
-</div>
-
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">
-    <img src="https://nurhabusinessgroup.com/logo.png" alt="Nurha Business Group"/>
-  </a>
-  <div class="nav-center">
-    <a href="#story">Our Story</a>
-    <a href="#divisions">Divisions</a>
-    <a href="#strawberry">Farm</a>
-    <a href="#sectors">Sectors</a>
-    <a href="#timeline">Journey</a>
-    <a href="#reach">Global</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="nav-right">
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
-      <span class="sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></span>
-      <span class="moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-    </button>
-    <a href="#contact" class="nav-cta">Get In Touch</a>
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<!-- ══════════════════ HERO ══════════════════ -->
-<section id="hero">
-  <div class="hero-bg">
-    <img src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg"
-         id="heroBgImg" alt="Nurha Real Estate Development"/>
-  </div>
-  <div class="hero-gradient"></div>
-  <div class="hero-accent"></div>
-
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-eyebrow"><span class="epulse"></span>Established 1996 · Addis Ababa, Ethiopia <img src="https://flagcdn.com/w20/et.png" alt="Ethiopia" style="display:inline;height:12px;border-radius:2px;vertical-align:middle;margin-left:4px" loading="lazy"/></div>
-      <h1 class="hero-h">
-        <span class="line">Built on</span>
-        <span class="line"><em>Excellence.</em></span>
-        <span class="line">Driven by Growth.</span>
-      </h1>
-      <p class="hero-sub">From a single vision to nine thriving companies — 28 years of relentless expansion across agriculture, real estate, mining and manufacturing across Ethiopia and the Horn of Africa.</p>
-      <div class="hero-btns">
-        <a href="#divisions" class="btn-p">Explore Our Companies →</a>
-        <a href="#story" class="btn-g">Our Story</a>
+    <div class="home-portals">
+      <div class="portal-card teacher" onclick="openModal('modal-teacher')">
+        <div class="portal-icon">📚</div>
+        <div class="portal-title am">የመምህሩ መተግበሪያ</div>
+        <div class="portal-title-en">Teacher Interface</div>
+        <p class="portal-desc am sec-sub">ሳምንታዊ ምዘና ተግባራትን ይምረጡ፣ ለእያንዳንዱ ተማሪ ነጥብ ያስገቡ እና አስተያየት ይጻፉ።</p>
+        <span class="portal-btn">🔐 <span class="am">ለመምህር ይግቡ</span></span>
       </div>
-      <!-- Mobile-only stats (hidden on desktop via JS below) -->
-      <div class="hero-stats-mob" style="display:none">
-        <div class="hsm"><div class="hsm-val">300+</div><div class="hsm-lbl">Employees</div></div>
-        <div class="hsm"><div class="hsm-val">9</div><div class="hsm-lbl">Companies</div></div>
-        <div class="hsm"><div class="hsm-val">28+</div><div class="hsm-lbl">Years</div></div>
-        <div class="hsm"><div class="hsm-val">4</div><div class="hsm-lbl">Awards</div></div>
+      <div class="portal-card parent" onclick="openModal('modal-parent')">
+        <div class="portal-icon">👨‍👩‍👧</div>
+        <div class="portal-title am">የወላጅ ፖርታል</div>
+        <div class="portal-title-en">Parent Dashboard</div>
+        <p class="portal-desc am sec-sub">የልጅዎን ሳምንታዊ ውጤት፣ ጥንካሬ እና መሻሻያ ያሉባቸውን ነጥቦች ይከታተሉ።</p>
+        <span class="portal-btn">👁 <span class="am">ለወላጅ ይግቡ</span></span>
       </div>
     </div>
 
-    <div class="hero-panel">
-      <div class="hp-item">
-        <div class="hp-val" data-count="300">0</div>
-        <div class="hp-lbl">Employees</div>
+    <div class="home-features">
+      <div class="hf-card">
+        <div class="hf-icon" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)">⚖️</div>
+        <div class="hf-title">Dynamic Scoring</div>
+        <p class="hf-desc am sec-sub">ሲስተሙ በሳምንቱ ያሉ ተግባራት ብዛት መሠረት ነጥቡን በራሱ ያስተካክላል — ሁልጊዜ ከ 100 ይሆናል።</p>
       </div>
-      <div class="hp-item">
-        <div class="hp-val" data-count="9">0</div>
-        <div class="hp-lbl">Companies</div>
+      <div class="hf-card">
+        <div class="hf-icon" style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)">📊</div>
+        <div class="hf-title">Parent Analytics</div>
+        <p class="hf-desc am sec-sub">ወላጅ የልጁን ጥንካሬ፣ ደካማ ጎን እና የ 8 ሳምንታት ዕድገት ግራፍ በቀላሉ ይከታተላል።</p>
       </div>
-      <div class="hp-item">
-        <div class="hp-val" data-count="28">0</div>
-        <div class="hp-lbl">Yrs Experience</div>
-      </div>
-      <div class="hp-item">
-        <div class="hp-val" data-count="4">0</div>
-        <div class="hp-lbl">Awards Won</div>
+      <div class="hf-card">
+        <div class="hf-icon" style="background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2)">🎓</div>
+        <div class="hf-title">Digital Certificate</div>
+        <p class="hf-desc am sec-sub">ትምህርቱ ሲጠናቀቅ ሲስተሙ ዲጂታል ሰርተፍኬት ያዘጋጃል። (720÷800)×100 = 90%</p>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="scroll-cue"><div class="sc-line"></div>Scroll to explore</div>
-</section>
-
-<!-- MARQUEE -->
-<div class="mq-sec">
-  <div class="mq-track">
-    <div class="mq-item"><span class="mq-dot"></span>Nurha Lift<span class="mq-dot"></span>Nurha Coal Mining<span class="mq-dot"></span>Raha Milk<span class="mq-dot"></span>Nurha Real Estate<span class="mq-dot"></span>Nurha Marble &amp; Granite<span class="mq-dot"></span>Addis Strawberry Farm<span class="mq-dot"></span>Raha Strawberry Jam<span class="mq-dot"></span>Nuredin Juice &amp; Jam<span class="mq-dot"></span>Humana Milk Ethiopia</div>
-    <div class="mq-item" aria-hidden="true"><span class="mq-dot"></span>Nurha Lift<span class="mq-dot"></span>Nurha Coal Mining<span class="mq-dot"></span>Raha Milk<span class="mq-dot"></span>Nurha Real Estate<span class="mq-dot"></span>Nurha Marble &amp; Granite<span class="mq-dot"></span>Addis Strawberry Farm<span class="mq-dot"></span>Raha Strawberry Jam<span class="mq-dot"></span>Nuredin Juice &amp; Jam<span class="mq-dot"></span>Humana Milk Ethiopia</div>
+<!-- ══════════════ TEACHER LOGIN MODAL ════════════════ -->
+<div id="modal-teacher" class="modal-bg hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-teacher')">✕</button>
+    <div class="modal-title am">📚 የመምህር መግቢያ</div>
+    <div class="modal-sub">Teacher Login · PIN: <strong>1234</strong></div>
+    <div class="field">
+      <label class="am">የመምህሩ ስም (Teacher Name)</label>
+      <input type="text" id="t-name" placeholder="e.g. Abdurahman Mohammed" value="Abdurahman Mohammed"/>
+    </div>
+    <div class="field">
+      <label>PIN</label>
+      <input type="password" id="t-pin" placeholder="Enter PIN" maxlength="6"/>
+      <div class="form-error" id="t-err">❌ Wrong PIN. Use 1234 for demo.</div>
+    </div>
+    <button class="btn-primary" onclick="teacherLogin()">🔐 Login as Teacher</button>
   </div>
 </div>
 
-<!-- ══════════════════ STORY ══════════════════ -->
-<section id="story">
-  <div class="story-inner">
-    <div class="story-left rev-l">
-      <div class="story-year">1996</div>
-      <span class="sec-label">Our Story</span>
-      <h2 class="sec-h">One philosophy.<br/>28 years strong.</h2>
-      <p class="sec-sub">Everything we do, however small or big, will be at the best quality. This single belief — held by founder Nuredin Hassen since 1996 — has been the engine behind everything Nurha Business Group has become.</p>
-      <div class="story-founder">
-        <div class="sf-avatar">
-          <img src="./nuredin.jpg" alt="Nuredin Hassen"
-               onerror="this.outerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#E8601A,#7B2A12);display:flex;align-items:center;justify-content:center;font-family:serif;font-size:22px;font-weight:900;color:#fff\'>N</div>'"/>
+<!-- ══════════════ PARENT LOGIN MODAL ════════════════ -->
+<div id="modal-parent" class="modal-bg hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-parent')">✕</button>
+    <div class="modal-title am">👨‍👩‍👧 የወላጅ መግቢያ</div>
+    <div class="modal-sub am sec-sub">የልጅዎን ስም ይምረጡ፣ ከዚያ ኮዱን ያስገቡ</div>
+    <div class="field">
+      <label class="am">የተማሪ ስም (Select Student)</label>
+      <select id="p-student"></select>
+    </div>
+    <div class="field">
+      <label>Parent Code <span style="color:var(--text2);font-size:11px">(P001–P008)</span></label>
+      <input type="text" id="p-code" placeholder="e.g. P001" maxlength="4"/>
+      <div class="form-error" id="p-err">❌ Wrong code. Try P001 for Ahmed.</div>
+    </div>
+    <button class="btn-primary" onclick="parentLogin()">👁 View My Child's Progress</button>
+  </div>
+</div>
+
+<!-- ══════════════ TEACHER VIEW ═══════════════════════ -->
+<div id="view-teacher" class="view">
+  <nav class="app-nav">
+    <div class="nav-brand">
+      <div class="nav-logo-mark">📚</div>
+      <div>
+        <div class="nav-brand-name">Teacher Portal</div>
+        <div class="nav-brand-sub am" id="teacher-name-display">—</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-week-badge am" id="t-week-badge">ሳምንት 1</div>
+      <button class="btn-logout" onclick="logout()">← Logout</button>
+    </div>
+  </nav>
+
+  <div class="teacher-wrap">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Week selector -->
+      <div class="panel">
+        <div class="panel-title am">ሳምንት ምረጥ · Select Week</div>
+        <div class="week-grid" id="week-grid"></div>
+      </div>
+
+      <!-- Task config -->
+      <div class="panel">
+        <div class="panel-title am">የሳምንቱ ተግባራት · Week Tasks</div>
+        <div id="task-config-list"></div>
+        <div class="weight-display mt-8">
+          <span class="am">እያንዳንዱ ተግባር ከ</span> <strong id="task-weight">10</strong> <span class="am">ነጥብ ይሆናል</span>
         </div>
+      </div>
+    </div>
+
+    <!-- Main roster -->
+    <div>
+      <div class="roster-header">
         <div>
-          <div class="sf-name">Nuredin Hassen</div>
-          <div class="sf-title">Founder &amp; Chairman, Nurha Business Group</div>
+          <div class="roster-title am">የተማሪዎች ዝርዝር · Student Roster</div>
+          <div class="sec-sub am mt-8" id="t-active-tasks-label" style="font-size:12px"></div>
         </div>
+        <button class="btn-save" onclick="saveScores()" id="save-btn">💾 <span class="am">አስቀምጥ</span></button>
       </div>
-    </div>
-
-    <div class="story-right">
-      <div class="story-card rev" style="--d:.05s">
-        <div class="sc-num">01 — ORIGIN</div>
-        <h3 class="sc-title">Started from the ground up</h3>
-        <p class="sc-text">What began as a single agricultural venture in Addis Ababa has grown over 28 years into a diversified conglomerate with nine independent companies, over 300 employees, and operations spanning farming, real estate, manufacturing, and mining.</p>
-        <img class="sc-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm" onerror="this.style.display='none'"/>
-      </div>
-
-      <div class="story-card rev" style="--d:.12s">
-        <div class="sc-num">02 — GROWTH</div>
-        <h3 class="sc-title">Expanding across sectors</h3>
-        <p class="sc-text">From Raha Milk's dairy products to Nurha Marble &amp; Granite's premium stone, each new company was built with the same commitment: if Nurha puts its name on it, it has to be the best. The group's portfolio now spans five distinct sectors across Ethiopia's fastest-growing industries.</p>
-        <img class="sc-img" src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Nurha Marble and Granite" onerror="this.style.display='none'"/>
-      </div>
-
-      <div class="story-card rev" style="--d:.2s">
-        <div class="sc-num">03 — TODAY</div>
-        <h3 class="sc-title">Building Ethiopia's future</h3>
-        <p class="sc-text">Today, Nurha Business Group stands as one of Ethiopia's most respected diversified conglomerates. From strawberry exports to Dubai and Djibouti, to high-rise real estate reshaping Addis Ababa's skyline — the group continues to grow, employing hundreds and contributing meaningfully to Ethiopia's economic development.</p>
-        <img class="sc-img" src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg" alt="Nurha Real Estate" onerror="this.style.display='none'"/>
-      </div>
+      <div id="student-roster"></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ══════════════════ IMPACT NUMBERS ══════════════════ -->
-<section id="impact">
-  <div class="impact-top">
-    <div class="rev-l">
-      <span class="sec-label">By The Numbers</span>
-      <h2 class="sec-h">The scale of<br/>our impact.</h2>
-    </div>
-    <p class="sec-sub rev-r" style="--d:.1s">Numbers tell a part of our story — the commitment behind them tells the rest.</p>
-  </div>
-  <div class="impact-grid">
-    <div class="ig-item rev" style="--d:.0s">
-      <div class="ig-val"><span id="n1">0</span><span class="ig-suffix">+</span></div>
-      <div class="ig-lbl">Employees</div>
-      <div class="ig-desc">Across all nine companies, supporting families across Ethiopia</div>
-    </div>
-    <div class="ig-item rev" style="--d:.08s">
-      <div class="ig-val"><span id="n2">0</span></div>
-      <div class="ig-lbl">Companies</div>
-      <div class="ig-desc">Each operating independently, united by one standard of excellence</div>
-    </div>
-    <div class="ig-item rev" style="--d:.16s">
-      <div class="ig-val"><span id="n3">0</span><span class="ig-suffix">yrs</span></div>
-      <div class="ig-lbl">In Business</div>
-      <div class="ig-desc">Continuous growth since the first day of operation in Addis Ababa</div>
-    </div>
-    <div class="ig-item rev" style="--d:.24s">
-      <div class="ig-val"><span id="n4">0</span></div>
-      <div class="ig-lbl">Countries Reached</div>
-      <div class="ig-desc">Exporting premium strawberries and products to Dubai, Djibouti &amp; Yemen</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ DIVISIONS ══════════════════ -->
-<section id="divisions">
-  <div class="div-head">
-    <div class="rev-l">
-      <span class="sec-label">Business Divisions</span>
-      <h2 class="sec-h">9 companies.<br/>One standard.</h2>
-    </div>
-    <div class="filter-tabs rev-r" style="--d:.1s" id="filterTabs">
-      <button class="ftab active" data-cat="all">All</button>
-      <button class="ftab" data-cat="agri">Agriculture</button>
-      <button class="ftab" data-cat="con">Real Estate</button>
-      <button class="ftab" data-cat="ind">Industrial</button>
-      <button class="ftab" data-cat="trade">Trade</button>
-    </div>
-  </div>
-
-  <div class="div-grid" id="divGrid">
-
-    <div class="div-card rev" data-cat="ind" style="--d:.04s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/nurha%20lift.png" alt="Nurha Lift" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#1a0e08,#3a1a08)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-i">Industrial</span>
+<!-- ══════════════ PARENT VIEW ════════════════════════ -->
+<div id="view-parent" class="view">
+  <nav class="app-nav">
+    <div class="nav-brand">
+      <div class="nav-logo-mark">👨‍👩‍👧</div>
+      <div>
+        <div class="nav-brand-name">Parent Portal</div>
+        <div class="nav-brand-sub am">የወላጅ ፖርታል</div>
       </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nurha Lift</h3>
-        <p class="dc-desc">Importing and installing premium building elevators for commercial and residential properties across Ethiopia. End-to-end solutions from specification to after-sales service.</p>
-        <div class="dc-tags"><span class="dc-tag">Elevators</span><span class="dc-tag">Import</span><span class="dc-tag">Installation</span></div>
+    </div>
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">← Logout</button>
+    </div>
+  </nav>
+
+  <div class="parent-wrap">
+    <!-- Student header -->
+    <div class="student-header">
+      <div class="sh-avatar" id="p-avatar">—</div>
+      <div class="sh-info">
+        <div class="sh-name am" id="p-student-name">—</div>
+        <div class="sh-meta" id="p-student-meta">—</div>
+      </div>
+      <div class="sh-week-nav">
+        <button onclick="parentPrevWeek()">‹</button>
+        <div class="sh-week-num am" id="p-week-label">ሳምንት 1</div>
+        <button onclick="parentNextWeek()">›</button>
       </div>
     </div>
 
-    <div class="div-card rev" data-cat="ind" style="--d:.08s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/nurha%20mining.png" alt="Nurha Coal Mining" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#0e0a08,#1e1410)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-i">Mining</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nurha Coal Mining</h3>
-        <p class="dc-desc">Efficient, sustainable coal extraction using cutting-edge technology. Environmentally responsible practices that meet international standards while powering Ethiopia's industrial growth.</p>
-        <div class="dc-tags"><span class="dc-tag">Coal</span><span class="dc-tag">Mining</span><span class="dc-tag">Energy</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="agri" style="--d:.12s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#041408,#082408)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-a">Agriculture</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Raha Milk</h3>
-        <p class="dc-desc">Pasteurized and homogenized dairy products trusted by Ethiopian families. From local farms to refrigerators — Raha Milk delivers the highest standard of freshness and nutrition.</p>
-        <div class="dc-tags"><span class="dc-tag">Dairy</span><span class="dc-tag">Pasteurized</span><span class="dc-tag">Nutrition</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="con" style="--d:.16s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/real%20estate%20nurha.png" alt="Nurha Real Estate" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#080c18,#101c30)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-c">Real Estate</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nurha Real Estate</h3>
-        <p class="dc-desc">Premium residential and commercial developments shaping Addis Ababa's skyline. Modern architectural design, quality construction, and sustainable urban living for Ethiopia's growing middle class.</p>
-        <div class="dc-tags"><span class="dc-tag">Residential</span><span class="dc-tag">Commercial</span><span class="dc-tag">Addis Ababa</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="con" style="--d:.2s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Nurha Marble and Granite" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#0e0e12,#1a1a20)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-c">Construction</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nurha Marble &amp; Granite</h3>
-        <p class="dc-desc">Top-tier natural stone for Ethiopia's most prestigious architectural projects. A diverse range of premium marble and granite sourced and finished to world-class specification.</p>
-        <div class="dc-tags"><span class="dc-tag">Marble</span><span class="dc-tag">Granite</span><span class="dc-tag">Architecture</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="agri" style="--d:.24s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#180808,#300e0e)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-a">Agriculture</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Addis Strawberry Farm</h3>
-        <p class="dc-desc">Ethiopia's premier strawberry cultivation operation — growing the finest berries using sustainable, innovative farming. Exports fresh strawberries to Dubai, Djibouti, and Yemen with 110+ employees, 93 of them women.</p>
-        <div class="dc-tags"><span class="dc-tag">Strawberry</span><span class="dc-tag">Export</span><span class="dc-tag">Sustainable</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="agri" style="--d:.28s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Strawberry Jam" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#1a0a08,#2e100e)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-a">Food</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Raha Strawberry Jam</h3>
-        <p class="dc-desc">Handcrafted using the ripest strawberries from Addis Farm — a recipe that perfectly balances natural sweetness and vibrant flavour. No shortcuts, no compromise.</p>
-        <div class="dc-tags"><span class="dc-tag">Jam</span><span class="dc-tag">Natural</span><span class="dc-tag">Premium</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="agri" style="--d:.32s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/nuredin%20juice.png" alt="Nuredin Juice" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#0e1008,#1c1e0a)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-a">Beverage</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nuredin Juice &amp; Jam</h3>
-        <p class="dc-desc">Premium fruit juices and preserves crafted from Ethiopia's finest produce — natural, wholesome, and full of authentic flavour from farm to bottle.</p>
-        <div class="dc-tags"><span class="dc-tag">Juice</span><span class="dc-tag">Jam</span><span class="dc-tag">Fruit</span></div>
-      </div>
-    </div>
-
-    <div class="div-card rev" data-cat="trade" style="--d:.36s">
-      <div class="dc-img-w">
-        <img class="dc-img" src="https://nurhabusinessgroup.com/humana%20pic.png" alt="Humana Milk" onerror="this.closest('.dc-img-w').style.background='linear-gradient(135deg,#081018,#0e1c2a)'"/>
-        <div class="dc-shine"></div>
-        <span class="dc-cat cat-t">Trade</span>
-      </div>
-      <div class="dc-body">
-        <h3 class="dc-title">Nurha / Humana Milk</h3>
-        <p class="dc-desc">Ethiopia's trusted distributor of Humana infant nutrition — a landmark 16+ year international partnership bringing world-class baby nutrition products to Ethiopian families.</p>
-        <div class="dc-tags"><span class="dc-tag">Humana</span><span class="dc-tag">Infant Nutrition</span><span class="dc-tag">16+ Years</span></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════ STRAWBERRY FARM SPOTLIGHT ══════════════════ -->
-<section id="strawberry">
-  <div class="sf-inner">
-
-    <!-- Visual Left -->
-    <div class="sf-visual rev-l">
-      <img class="sf-bg-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm fields"
-           onerror="this.closest('.sf-visual').style.background='linear-gradient(135deg,#061209,#0e2410)'"/>
-      <div class="sf-overlay"></div>
-      <div class="sf-visual-content">
-        <div class="sf-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="m9 12 2 2 4-4"/></svg>
-          Ethiopia's Premier Strawberry Farm
-        </div>
-        <div class="sf-stat-grid rev" style="--d:.15s">
-          <div class="sf-stat">
-            <div class="sf-stat-val">110<span>+</span></div>
-            <div class="sf-stat-lbl">Total Employees</div>
-          </div>
-          <div class="sf-stat">
-            <div class="sf-stat-val">93<span>%</span></div>
-            <div class="sf-stat-lbl">Women Workforce</div>
-          </div>
-          <div class="sf-stat">
-            <div class="sf-stat-val">3</div>
-            <div class="sf-stat-lbl">Export Countries</div>
-          </div>
-          <div class="sf-stat">
-            <div class="sf-stat-val">20<span>+</span></div>
-            <div class="sf-stat-lbl">Years Operating</div>
-          </div>
+    <!-- Score circle -->
+    <div class="score-circle-wrap">
+      <div class="score-circle">
+        <svg viewBox="0 0 120 120">
+          <circle class="score-circle-bg" cx="60" cy="60" r="52"/>
+          <circle class="score-circle-fill" id="p-circle" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="score-circle-val">
+          <div class="score-num" id="p-score-num">—</div>
+          <div class="score-of">/ 100</div>
         </div>
       </div>
-    </div>
-
-    <!-- Content Right -->
-    <div class="sf-content rev-r" style="--d:.08s">
-      <div class="sf-eyebrow">
-        <div class="sf-eyebrow-line"></div>
-        <span class="sf-eyebrow-txt">Addis Strawberry Farm</span>
-      </div>
-      <h2 class="sf-title">Ethiopia's finest<br/><em>strawberries,</em><br/>grown for the world.</h2>
-      <p class="sf-desc">Founded in 2004 and rooted in Addis Ababa, Addis Strawberry Farm has grown into Ethiopia's premier strawberry cultivation operation. Using sustainable, innovative farming methods, the farm produces the finest-grade berries — exported fresh to Dubai, Djibouti, and Yemen — and stands as a model of women-empowered agriculture.</p>
-
-      <div class="sf-features">
-        <div class="sf-feat rev" style="--d:.1s">
-          <div class="sf-feat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-          </div>
-          <div class="sf-feat-body">
-            <div class="sf-feat-name">Sustainable Farming</div>
-            <div class="sf-feat-desc">Eco-conscious cultivation with minimal chemical inputs and water-efficient irrigation systems</div>
-          </div>
-        </div>
-        <div class="sf-feat rev" style="--d:.14s">
-          <div class="sf-feat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div class="sf-feat-body">
-            <div class="sf-feat-name">Women-Empowered</div>
-            <div class="sf-feat-desc">93 of 110+ employees are women — transforming livelihoods in the Addis Ababa region</div>
-          </div>
-        </div>
-        <div class="sf-feat rev" style="--d:.18s">
-          <div class="sf-feat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div class="sf-feat-body">
-            <div class="sf-feat-name">International Export</div>
-            <div class="sf-feat-desc">Fresh strawberries shipped to Dubai, Djibouti &amp; Yemen — meeting international quality standards</div>
-          </div>
-        </div>
-        <div class="sf-feat rev" style="--d:.22s">
-          <div class="sf-feat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <div class="sf-feat-body">
-            <div class="sf-feat-name">Premium Quality</div>
-            <div class="sf-feat-desc">Hand-picked, graded, and cold-chain handled — from harvest to international markets within 24 hours</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sf-exports rev" style="--d:.28s">
-        <span class="sf-export-label">Exports to</span>
-        <div class="sf-flag"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" loading="lazy"/> Dubai, UAE</div>
-        <div class="sf-flag"><img src="https://flagcdn.com/w40/dj.png" alt="Djibouti" loading="lazy"/> Djibouti</div>
-        <div class="sf-flag"><img src="https://flagcdn.com/w40/ye.png" alt="Yemen" loading="lazy"/> Yemen</div>
+      <div class="score-details">
+        <div class="score-week-title am" id="p-score-week-title">ሳምንት 1 ውጤት</div>
+        <div class="score-grade-badge" id="p-grade-badge">—</div>
+        <div class="score-breakdown am sec-sub" id="p-score-breakdown"></div>
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ══════════════════ FOUNDER QUOTE ══════════════════ -->
-<section id="founder">
-  <div class="fq-bg"></div>
-  <div class="fq-inner">
-    <div class="fq-layout">
-
-      <!-- Portrait -->
-      <div class="fq-portrait-wrap rev-l">
-        <img class="fq-photo" src="./nuredin.jpg"
-             alt="Nuredin Hassen — Founder &amp; Chairman"
-             onerror="this.src='https://nurhabusinessgroup.com/assets/galaryImages/19.jpg';this.style.objectPosition='center center'"/>
-        <div class="fq-photo-frame"></div>
-        <div class="fq-photo-yr">Since 1996</div>
-        <div class="fq-photo-accent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
-        </div>
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title am">የተግባር ውጤቶች · Task Scores</div>
+        <div class="chart-canvas-wrap"><canvas id="chart-tasks"></canvas></div>
       </div>
-
-      <!-- Quote -->
-      <div class="fq-text-side">
-        <span class="fq-open rev">"</span>
-        <blockquote class="fq-quote rev" style="--d:.1s">
-          Everything we do, however small or big, will be at the best quality.
-        </blockquote>
-        <div class="fq-author rev" style="--d:.2s">
-          <div class="fq-line"></div>
-          <div>
-            <div class="fq-name">Nuredin Hassen</div>
-            <div class="fq-role">Founder &amp; Chairman, Nurha Business Group · Est. 1996</div>
-          </div>
-        </div>
-        <div class="fq-stats rev" style="--d:.3s">
-          <div class="fqs-item"><div class="fqs-val">28+</div><div class="fqs-lbl">Years in Business</div></div>
-          <div class="fqs-item"><div class="fqs-val">9</div><div class="fqs-lbl">Companies Built</div></div>
-          <div class="fqs-item"><div class="fqs-val">300+</div><div class="fqs-lbl">Livelihoods Created</div></div>
-        </div>
+      <div class="chart-card">
+        <div class="chart-title am">የ 8 ሳምንታት ዕድገት · Weekly Progress</div>
+        <div class="chart-canvas-wrap"><canvas id="chart-progress"></canvas></div>
       </div>
+    </div>
 
+    <!-- Strengths/Weaknesses -->
+    <div class="sw-grid">
+      <div class="sw-card strength">
+        <div class="sw-title">✅ <span class="am">ጥንካሬ (Strengths)</span></div>
+        <div id="strengths-list"></div>
+      </div>
+      <div class="sw-card weakness">
+        <div class="sw-title">⚠️ <span class="am">መሻሻያ ያለባቸው (Needs Improvement)</span></div>
+        <div id="weaknesses-list"></div>
+      </div>
+    </div>
+
+    <!-- Family verification -->
+    <div class="family-panel">
+      <div class="family-title">🏠 <span class="am">የቤተሰብ ስራ ማረጋገጫ · Family Task Verification</span></div>
+      <div class="family-tasks" id="family-tasks"></div>
+    </div>
+
+    <!-- 8-week progress bars -->
+    <div class="progress-panel">
+      <div class="progress-title am">8 ሳምንታት ጠቅላላ ዕድገት · 8-Week Overview</div>
+      <div class="week-progress-grid" id="week-progress-grid"></div>
+    </div>
+
+    <!-- Final grade (shown after week 8) -->
+    <div class="final-panel" id="final-panel" style="display:none">
+      <div class="final-title am">🎓 የክረምት ትምህርት ማጠቃለያ ውጤት</div>
+      <div class="final-score" id="final-score-num">—</div>
+      <div class="final-grade" id="final-grade-label">—</div>
+      <p class="sec-sub am" style="margin-bottom:20px">ለ 8 ሳምንታት ያካበቱት ጠቅላላ ነጥብ ሲስተሙ ወደ 100% ቀይሮ አሰልቶታል።</p>
+      <button class="btn-cert" onclick="showCert()">📄 <span class="am">ሰርተፍኬት ይውሰዱ</span></button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ══════════════════ SECTORS ══════════════════ -->
-<section id="sectors">
-  <div style="text-align:center;max-width:640px;margin:0 auto" class="rev">
-    <span class="sec-label">Business Sectors</span>
-    <h2 class="sec-h">Three pillars.<br/>One legacy.</h2>
-    <p class="sec-sub" style="margin:0 auto">Nurha's resilient portfolio spans three core sectors, creating a conglomerate that drives Ethiopia's economic forward.</p>
-  </div>
-  <div class="sect-grid">
-    <div class="sect-card rev" style="--d:.06s">
-      <div class="sect-bg-num">1</div>
-      <div class="sect-icon-wrap si-a" style="color:#4ade80">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-      </div>
-      <h3 class="sect-title">Agriculture &amp; Food</h3>
-      <p class="sect-desc">From farm to table — cultivated, processed, and distributed with Ethiopia's finest produce and an unwavering standard of quality.</p>
-      <ul class="sect-list">
-        <li>Addis Strawberry Farm — exports to 3 countries</li>
-        <li>Raha Milk — pasteurized dairy</li>
-        <li>Raha Strawberry Jam</li>
-        <li>Nuredin Juice &amp; Jam</li>
-        <li>Humana Infant Nutrition — 16+ year partnership</li>
-      </ul>
+<!-- ══════════════ CERTIFICATE VIEW ═══════════════════ -->
+<div id="view-cert" class="view">
+  <div class="cert-paper">
+    <div class="cert-corner tl"></div><div class="cert-corner tr"></div>
+    <div class="cert-corner bl"></div><div class="cert-corner br"></div>
+    <div class="cert-seal">🌟</div>
+    <div class="cert-issued am">የምስክር ወረቀት · CERTIFICATE OF ACHIEVEMENT</div>
+    <div style="width:80px;height:1px;background:var(--border);margin:0 auto 24px"></div>
+    <div class="cert-to am">ይህ ዲጂታል ሰርተፍኬት ለሚከተለው ተማሪ ተሰጥቷል</div>
+    <div class="cert-name am" id="cert-name">—</div>
+    <div class="cert-score-line am">
+      ለ 8 ሳምንታት (800 ከፍተኛ ነጥብ ውስጥ) <span class="cert-score-big" id="cert-raw">—</span> አምጥተዋል
     </div>
-    <div class="sect-card rev" style="--d:.12s">
-      <div class="sect-bg-num">2</div>
-      <div class="sect-icon-wrap si-c" style="color:#7bb5f5">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="9" height="14" rx="1"/><rect x="13" y="3" width="9" height="18" rx="1"/><path d="M2 21h20"/><path d="M5 10h3M5 13h3M5 16h3M16 7h3M16 10h3M16 13h3"/></svg>
-      </div>
-      <h3 class="sect-title">Construction &amp; Real Estate</h3>
-      <p class="sect-desc">Building Ethiopia's future — premium developments, natural stone solutions, and vertical mobility systems for modern urban living.</p>
-      <ul class="sect-list">
-        <li>Nurha Real Estate — residential &amp; commercial</li>
-        <li>Nurha Marble &amp; Granite — natural stone</li>
-        <li>Nurha Lift — elevator solutions</li>
-      </ul>
-    </div>
-    <div class="sect-card rev" style="--d:.18s">
-      <div class="sect-bg-num">3</div>
-      <div class="sect-icon-wrap si-i" style="color:var(--amber2)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5c0 1.5-1.5 4-2 5.5l-3 3c-1.5.5-4 2-5.5 2a2.5 2.5 0 0 1 0-5c.5 0 .8 0 1.4-.2l5.1-5.2C10.8 2 11.1 2 11.5 2a2.5 2.5 0 0 1 3 .5z"/><path d="m3 21 9-9"/><path d="M9.5 14.5 16 8l2.5 2.5-6.5 6.5-2.5-2.5z"/><path d="m18 8 2-2-2-2-4 4"/></svg>
-      </div>
-      <h3 class="sect-title">Industrial &amp; Mining</h3>
-      <p class="sect-desc">Sustainable resource extraction and industrial operations powering Ethiopia's growth with modern technology and environmental responsibility.</p>
-      <ul class="sect-list">
-        <li>Nurha Coal Mining — sustainable extraction</li>
-        <li>Modern processing technology</li>
-        <li>Environmentally responsible operations</li>
-      </ul>
+    <div class="cert-grade-pill am" id="cert-grade">—</div>
+    <div class="cert-seal-line"></div>
+    <div class="cert-footer am">
+      <strong>የክረምት ትምህርት ምዘና ሲስተም</strong><br/>
+      Winter Education Assessment · <span id="cert-date"></span>
     </div>
   </div>
-</section>
-
-<!-- ══════════════════ TIMELINE ══════════════════ -->
-<section id="timeline">
-  <div style="text-align:center;max-width:560px;margin:0 auto" class="rev">
-    <span class="sec-label">Our Journey</span>
-    <h2 class="sec-h">28 years of<br/>relentless growth.</h2>
+  <div class="cert-actions">
+    <button class="btn-print" onclick="window.print()">🖨 Print Certificate</button>
+    <button class="btn-back" onclick="showView('parent')">← Back to Dashboard</button>
   </div>
-  <div class="tl-inner">
-    <div class="tl-line"></div>
-    <div class="tl-items">
+</div>
 
-      <div class="tl-item rev" style="--d:.04s">
-        <div class="tl-left">
-          <div class="tl-year">1996</div>
-          <div class="tl-title">The Foundation</div>
-          <div class="tl-desc">Nuredin Hassen establishes the first Nurha venture in Addis Ababa with a single philosophy: uncompromising quality in everything.</div>
-        </div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right"></div>
-      </div>
-
-      <div class="tl-item rev" style="--d:.1s">
-        <div class="tl-left"></div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right">
-          <div class="tl-year">2004</div>
-          <div class="tl-title">Agricultural Expansion</div>
-          <div class="tl-desc">Launch of Addis Strawberry Farm — a pioneering operation that would eventually export to Dubai, Djibouti and Yemen, employing 110+ workers.</div>
-        </div>
-      </div>
-
-      <div class="tl-item rev" style="--d:.16s">
-        <div class="tl-left">
-          <div class="tl-year">2008</div>
-          <div class="tl-title">Real Estate &amp; Stone</div>
-          <div class="tl-desc">Kenmusa Real Estate established with 90 million ETB capital. Nurha Marble &amp; Granite launches, supplying premium natural stone to Ethiopia's booming construction sector.</div>
-        </div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right"></div>
-      </div>
-
-      <div class="tl-item rev" style="--d:.22s">
-        <div class="tl-left"></div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right">
-          <div class="tl-year">2009</div>
-          <div class="tl-title">Right Fresh Farm</div>
-          <div class="tl-desc">Right Fresh Farm established with 15 million ETB initial capital, expanding the group's agricultural footprint and food production capabilities.</div>
-        </div>
-      </div>
-
-      <div class="tl-item rev" style="--d:.28s">
-        <div class="tl-left">
-          <div class="tl-year">2012</div>
-          <div class="tl-title">Global Partnership</div>
-          <div class="tl-desc">Nurha becomes exclusive Ethiopian distributor for Humana infant nutrition — a partnership that has now spanned over 16 years, bringing world-class baby products to Ethiopian families.</div>
-        </div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right"></div>
-      </div>
-
-      <div class="tl-item rev" style="--d:.34s">
-        <div class="tl-left"></div>
-        <div class="tl-dot"><div class="tl-circle"></div></div>
-        <div class="tl-right">
-          <div class="tl-year">2024</div>
-          <div class="tl-title">Nine Companies Strong</div>
-          <div class="tl-desc">Nurha Business Group reaches nine companies, 300+ employees, and four awards — a testament to 28 years of unbroken commitment to excellence.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ GLOBAL REACH ══════════════════ -->
-<section id="reach">
-  <div class="reach-inner">
-    <div class="rev-l">
-      <span class="sec-label">Global Reach</span>
-      <h2 class="sec-h">Ethiopia grown.<br/>World delivered.</h2>
-      <p class="sec-sub">Nurha's agricultural products reach international markets — a testament to the quality of Ethiopian produce and the group's commitment to global standards.</p>
-      <div class="reach-markets">
-        <div class="rm rev" style="--d:.08s">
-          <div class="rm-flag"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" loading="lazy"/></div>
-          <div><div class="rm-name">Dubai, UAE</div><div class="rm-detail">Fresh strawberries &amp; premium agricultural exports</div></div>
-        </div>
-        <div class="rm rev" style="--d:.14s">
-          <div class="rm-flag"><img src="https://flagcdn.com/w40/dj.png" alt="Djibouti" loading="lazy"/></div>
-          <div><div class="rm-name">Djibouti</div><div class="rm-detail">Regular fresh produce shipments via Horn of Africa routes</div></div>
-        </div>
-        <div class="rm rev" style="--d:.2s">
-          <div class="rm-flag"><img src="https://flagcdn.com/w40/ye.png" alt="Yemen" loading="lazy"/></div>
-          <div><div class="rm-name">Yemen</div><div class="rm-detail">Agricultural exports supporting regional food supply</div></div>
-        </div>
-        <div class="rm rev" style="--d:.26s">
-          <div class="rm-flag"><img src="https://flagcdn.com/w40/et.png" alt="Ethiopia" loading="lazy"/></div>
-          <div><div class="rm-name">Ethiopia (Humana Partnership)</div><div class="rm-detail">16+ year exclusive distribution of world-class infant nutrition</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="reach-visual rev-r" style="--d:.1s">
-      <img class="reach-img" src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Addis Strawberry Farm" onerror="this.src='https://nurhabusinessgroup.com/assets/galaryImages/19.jpg'"/>
-      <div class="reach-badge">
-        <div class="rb-val">4</div>
-        <div class="rb-lbl">Countries &amp; Partners</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ GALLERY ══════════════════ -->
-<section id="gallery">
-  <div class="rev">
-    <span class="sec-label">Gallery</span>
-    <h2 class="sec-h">Our work,<br/>in pictures.</h2>
-  </div>
-  <div class="gal-grid rev" style="--d:.1s;margin-top:48px">
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/assets/galaryImages/19.jpg" alt="Nurha Real Estate" loading="lazy"/>
-      <div class="gal-cap">Real Estate Development</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/addis%20straw.png" alt="Strawberry Farm" loading="lazy"/>
-      <div class="gal-cap">Addis Strawberry Farm</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/raha%20milk.png" alt="Raha Milk" loading="lazy"/>
-      <div class="gal-cap">Raha Milk</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/nurha%20marble.png" alt="Marble & Granite" loading="lazy"/>
-      <div class="gal-cap">Nurha Marble &amp; Granite</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/raha%20jam.png" alt="Raha Jam" loading="lazy"/>
-      <div class="gal-cap">Raha Strawberry Jam</div>
-    </div>
-  </div>
-  <!-- Second row gallery -->
-  <div class="gal-grid-2 rev" style="--d:.2s;margin-top:12px">
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/assets/galaryImages/1.jpg" alt="Nurha Operations" loading="lazy"
-           onerror="this.closest('.gal-item').style.display='none'"/>
-      <div class="gal-cap">Operations</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/assets/galaryImages/2.jpg" alt="Nurha Projects" loading="lazy"
-           onerror="this.closest('.gal-item').style.display='none'"/>
-      <div class="gal-cap">Our Projects</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/nuredin%20juice.png" alt="Nuredin Juice" loading="lazy"/>
-      <div class="gal-cap">Nuredin Juice &amp; Jam</div>
-    </div>
-    <div class="gal-item">
-      <img src="https://nurhabusinessgroup.com/nurha%20lift.png" alt="Nurha Lift" loading="lazy"/>
-      <div class="gal-cap">Nurha Lift</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ CONTACT ══════════════════ -->
-<section id="contact">
-  <div class="contact-grid">
-    <div class="rev-l">
-      <span class="sec-label">Get In Touch</span>
-      <h2 class="sec-h">Let's build<br/>something great.</h2>
-      <p class="sec-sub">Whether you're seeking a business partnership, a quality product, or an investment opportunity — Nurha Business Group is ready to connect.</p>
-      <div class="cinfo">
-        <div class="ci">
-          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><div class="ci-lbl">Address</div><div class="ci-val">Sarbet Gebriel, Carl Square<br/>Addis Ababa, Ethiopia</div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-          <div><div class="ci-lbl">Phone</div><div class="ci-val"><a href="tel:+251911221155">+251 911 221 155</a></div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
-          <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a></div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg></div>
-          <div><div class="ci-lbl">Website</div><div class="ci-val"><a href="https://nurhabusinessgroup.com" target="_blank">nurhabusinessgroup.com</a></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="form-box rev-r" style="--d:.1s">
-      <h3>Send a Message</h3>
-      <p>We respond within 24 hours.</p>
-      <form onsubmit="handleForm(event)">
-        <div class="form-row">
-          <div class="fg"><input type="text" id="fn" placeholder=" " required/><label for="fn">Full Name</label></div>
-          <div class="fg"><input type="email" id="fe" placeholder=" " required/><label for="fe">Email Address</label></div>
-        </div>
-        <div class="fg"><input type="text" id="fs" placeholder=" "/><label for="fs">Subject</label></div>
-        <div class="fg"><input type="tel" id="fp" placeholder=" "/><label for="fp">Phone Number</label></div>
-        <div class="fg"><textarea id="fm" placeholder=" " required></textarea><label for="fm">Message</label></div>
-        <button type="submit" class="fsub">Send Message →</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ FOOTER ══════════════════ -->
-<footer>
-  <div class="foot-top">
-    <div class="ft-brand">
-      <img src="https://nurhabusinessgroup.com/logo.png" alt="Nurha Business Group"/>
-      <p>Excellence in everything we do — nine companies, one standard, 28 years of building Ethiopia's future.</p>
-    </div>
-    <div class="ft-col">
-      <h4>Divisions</h4>
-      <a href="#divisions">Nurha Lift</a>
-      <a href="#divisions">Nurha Real Estate</a>
-      <a href="#divisions">Nurha Marble &amp; Granite</a>
-      <a href="#divisions">Nurha Coal Mining</a>
-    </div>
-    <div class="ft-col">
-      <h4>Products</h4>
-      <a href="#divisions">Raha Milk</a>
-      <a href="#divisions">Raha Strawberry Jam</a>
-      <a href="#divisions">Nuredin Juice &amp; Jam</a>
-      <a href="#divisions">Humana Milk</a>
-    </div>
-    <div class="ft-col">
-      <h4>Contact</h4>
-      <a href="tel:+251911221155">+251 911 221 155</a>
-      <a href="mailto:rightfreshfarm@gmail.com">rightfreshfarm@gmail.com</a>
-      <a href="https://nurhabusinessgroup.com" target="_blank">nurhabusinessgroup.com</a>
-      <a href="#">Sarbet Gebriel, Addis Ababa</a>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <span>© 2025 Nurha Business Group. All rights reserved. · Addis Ababa, Ethiopia 🇪🇹</span>
-    <div class="ft-soc">
-      <a href="mailto:rightfreshfarm@gmail.com" title="Email">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      </a>
-      <a href="tel:+251911221155" title="Call">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      </a>
-      <a href="https://nurhabusinessgroup.com" target="_blank" title="Website">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg>
-      </a>
-    </div>
-  </div>
-</footer>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <script>
-/* ── Loader ── */
-window.addEventListener('DOMContentLoaded', () => {
+/* ════════════════════════════════════════════════
+   DATA MODEL
+════════════════════════════════════════════════ */
+const STUDENTS = [
+  {id:1, nameAm:'አህመድ አብዱረህማን', nameEn:'Ahmed Abdurahman', code:'P001', initial:'አ'},
+  {id:2, nameAm:'ፋቲማ መሐመድ',     nameEn:'Fatima Mohammed',  code:'P002', initial:'ፋ'},
+  {id:3, nameAm:'ዩሱፍ አሊ',         nameEn:'Yusuf Ali',        code:'P003', initial:'ዩ'},
+  {id:4, nameAm:'ኸዲጃ ሀሰን',        nameEn:'Khadija Hassan',   code:'P004', initial:'ኸ'},
+  {id:5, nameAm:'ዑመር ኢብራሂም',     nameEn:'Omar Ibrahim',     code:'P005', initial:'ዑ'},
+  {id:6, nameAm:'ዓኢሻ በቀለ',        nameEn:'Aisha Bekele',     code:'P006', initial:'ዓ'},
+  {id:7, nameAm:'ቢላል ተስፋዬ',       nameEn:'Bilal Tesfaye',    code:'P007', initial:'ቢ'},
+  {id:8, nameAm:'መርየም አለሙ',       nameEn:'Mariam Alemu',     code:'P008', initial:'መ'},
+];
+
+const TASKS = [
+  {id:'video',      am:'ቪዲዮ ማየት',              en:'Watching Videos',        type:'daily'},
+  {id:'family_talk',am:'ከቤተሰብ ጋር መወያየት',        en:'Family Discussion',      type:'daily', needsParent:true},
+  {id:'zikr',       am:'ዚክሮችን መሐፈዝ',           en:'Zikr Memorization',      type:'daily'},
+  {id:'behavior',   am:'የክፍል ውስጥ ባህሪ',          en:'Classroom Behavior',     type:'daily'},
+  {id:'essay',      am:'ፅሁፍ ማዘጋጀት',            en:'Essay Writing',          type:'weekly'},
+  {id:'visit',      am:'ጉብኝት',                  en:'Field Visit',            type:'weekly'},
+  {id:'family_visit',am:'ቤተሰብ ዚያራ',             en:'Family Visit (Ziyara)',  type:'weekly', needsParent:true},
+  {id:'presentation',am:'ፕረዘንቴሽን',              en:'Presentation',           type:'weekly'},
+  {id:'group_disc', am:'የቡድን ውይይት',             en:'Group Discussion',       type:'weekly'},
+  {id:'debate',     am:'ክርክር',                  en:'Debate',                 type:'weekly'},
+];
+
+const TEACHER_PIN = '1234';
+
+/* ── State ───────────────────────────────────────── */
+let state = {
+  currentWeek: 1,
+  parentWeek: 1,
+  currentParentStudent: null,
+  teacherName: '',
+  weekConfig: {},   // week → {activeTasks:[...]}
+  scores: {},       // week → studentId → {taskId: score, comment:''}
+  approvals: {},    // week → studentId → {family_talk:bool, family_visit:bool}
+};
+
+let chartTask = null, chartProgress = null;
+
+/* ── Persistence ─────────────────────────────────── */
+function save() {
+  localStorage.setItem('edu_v1', JSON.stringify({
+    weekConfig: state.weekConfig,
+    scores: state.scores,
+    approvals: state.approvals,
+  }));
+}
+function load() {
+  const d = localStorage.getItem('edu_v1');
+  if (!d) return;
+  const p = JSON.parse(d);
+  state.weekConfig = p.weekConfig || {};
+  state.scores     = p.scores     || {};
+  state.approvals  = p.approvals  || {};
+}
+
+/* ── Scoring Logic ───────────────────────────────── */
+function getActiveTasks(week) {
+  const cfg = state.weekConfig[week];
+  if (!cfg || !cfg.activeTasks || cfg.activeTasks.length === 0) {
+    return TASKS.map(t => t.id);
+  }
+  return cfg.activeTasks;
+}
+
+function getTaskWeight(week) {
+  const n = getActiveTasks(week).length;
+  return n ? +(100 / n).toFixed(2) : 10;
+}
+
+function getWeekScore(week, studentId) {
+  const active = getActiveTasks(week);
+  const n = active.length;
+  if (!n) return 0;
+  const weight = 100 / n;
+  const raw = state.scores[week]?.[studentId] || {};
+  let total = 0;
+  active.forEach(tid => {
+    const s = parseFloat(raw[tid] ?? 0);
+    total += (s / 10) * weight;
+  });
+  return Math.round(total * 10) / 10;
+}
+
+function getWeekScoreDetails(week, studentId) {
+  const active = getActiveTasks(week);
+  const weight = getTaskWeight(week);
+  const raw = state.scores[week]?.[studentId] || {};
+  return active.map(tid => {
+    const task = TASKS.find(t => t.id === tid);
+    const score = parseFloat(raw[tid] ?? 0);
+    const weighted = +((score / 10) * weight).toFixed(1);
+    return { task, score, weighted };
+  });
+}
+
+function getFinalGrade(studentId) {
+  let total = 0;
+  for (let w = 1; w <= 8; w++) total += getWeekScore(w, studentId);
+  return +((total / 800) * 100).toFixed(1);
+}
+
+function gradeLabel(pct) {
+  if (pct >= 90) return {label:'A — ከፍተኛ ውጤት', cls:'grade-a'};
+  if (pct >= 80) return {label:'B — ጥሩ', cls:'grade-b'};
+  if (pct >= 70) return {label:'C — አማካይ', cls:'grade-c'};
+  if (pct >= 60) return {label:'D — መሻሻል ያስፈልጋል', cls:'grade-d'};
+  return {label:'F — ደካማ', cls:'grade-f'};
+}
+
+function circleColor(pct) {
+  if (pct >= 80) return '#10b981';
+  if (pct >= 60) return '#f59e0b';
+  return '#ef4444';
+}
+
+/* ════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════ */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('view-' + name);
+  if (el) el.classList.add('active');
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.remove('hidden');
+  if (id === 'modal-parent') populateParentStudentList();
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+function logout() {
+  state.currentParentStudent = null;
+  closeModal('modal-teacher');
+  closeModal('modal-parent');
+  showView('home');
+}
+
+/* ════════════════════════════════════════════════
+   TEACHER INTERFACE
+════════════════════════════════════════════════ */
+function teacherLogin() {
+  const pin = document.getElementById('t-pin').value.trim();
+  const err = document.getElementById('t-err');
+  if (pin !== TEACHER_PIN) { err.style.display='block'; return; }
+  err.style.display = 'none';
+  state.teacherName = document.getElementById('t-name').value || 'Teacher';
+  closeModal('modal-teacher');
+  showView('teacher');
+  document.getElementById('teacher-name-display').textContent = state.teacherName;
+  renderTeacherView();
+}
+
+function renderTeacherView() {
+  renderWeekGrid();
+  renderTaskConfig();
+  renderRoster();
+  document.getElementById('t-week-badge').textContent = 'ሳምንት ' + state.currentWeek;
+}
+
+function renderWeekGrid() {
+  const el = document.getElementById('week-grid');
+  el.innerHTML = '';
+  for (let w = 1; w <= 8; w++) {
+    const btn = document.createElement('button');
+    btn.className = 'week-btn' + (w === state.currentWeek ? ' active' : '');
+    btn.innerHTML = `<span class="am">ሳ ${w}</span>`;
+    btn.onclick = () => { state.currentWeek = w; renderTeacherView(); };
+    el.appendChild(btn);
+  }
+}
+
+function renderTaskConfig() {
+  const week = state.currentWeek;
+  const active = getActiveTasks(week);
+  const el = document.getElementById('task-config-list');
+  el.innerHTML = '';
+  TASKS.forEach(task => {
+    const checked = active.includes(task.id);
+    const div = document.createElement('div');
+    div.className = 'task-item';
+    div.innerHTML = `
+      <input type="checkbox" class="task-check" id="tc_${task.id}" ${checked?'checked':''}
+        onchange="toggleTask('${task.id}')"/>
+      <div class="task-info">
+        <div class="task-name am">${task.am}</div>
+        <div class="task-name-en">${task.en}</div>
+      </div>
+      <span class="task-type-badge ${task.type}">${task.type==='daily'?'ዕለታዊ':'ሳምንታዊ'}</span>
+    `;
+    el.appendChild(div);
+  });
+  updateWeightDisplay();
+}
+
+function toggleTask(taskId) {
+  const week = state.currentWeek;
+  if (!state.weekConfig[week]) state.weekConfig[week] = {activeTasks: TASKS.map(t=>t.id)};
+  const arr = state.weekConfig[week].activeTasks;
+  const idx = arr.indexOf(taskId);
+  if (idx === -1) arr.push(taskId);
+  else arr.splice(idx, 1);
+  if (arr.length === 0) {
+    state.weekConfig[week].activeTasks = [taskId]; // keep at least 1
+    document.getElementById('tc_' + taskId).checked = true;
+  }
+  updateWeightDisplay();
+  renderRoster();
+  save();
+}
+
+function updateWeightDisplay() {
+  const w = getTaskWeight(state.currentWeek);
+  const n = getActiveTasks(state.currentWeek).length;
+  document.getElementById('task-weight').textContent = w;
+  document.getElementById('t-active-tasks-label').textContent =
+    n + ' ተግባራት ተመርጠዋል — እያንዳንዱ ከ ' + w + ' ነጥብ ተሰልቶ ወደ 100 ይቀየራል';
+}
+
+function renderRoster() {
+  const week = state.currentWeek;
+  const active = getActiveTasks(week);
+  const weight = getTaskWeight(week);
+  const el = document.getElementById('student-roster');
+  el.innerHTML = '';
+
+  STUDENTS.forEach(student => {
+    const weekScore = getWeekScore(week, student.id);
+    const scoreColor = weekScore >= 80 ? 'text-green' : weekScore >= 60 ? 'text-yellow' : 'text-red';
+    const raw = state.scores[week]?.[student.id] || {};
+
+    const card = document.createElement('div');
+    card.className = 'student-card';
+    card.id = 'sc_' + student.id;
+
+    const scoreInputs = active.map(tid => {
+      const task = TASKS.find(t => t.id === tid);
+      const val = raw[tid] ?? '';
+      return `
+        <div class="score-field">
+          <label class="am">${task.am}<br/><span style="font-size:9px;opacity:.7">${task.en}</span></label>
+          <div class="score-input-wrap">
+            <input type="number" class="score-input" min="0" max="10" step="0.5"
+              value="${val}" placeholder="0"
+              oninput="updateScore(${week},${student.id},'${tid}',this.value)"
+              onblur="clampScore(this)"/>
+            <span class="score-max am">/ 10</span>
+          </div>
+          <div class="score-weight">→ ×${weight} = ${val ? +((parseFloat(val)/10)*weight).toFixed(1) : 0} pts</div>
+        </div>
+      `;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="student-card-head" onclick="toggleCard(${student.id})">
+        <div class="student-avatar">${student.initial}</div>
+        <div class="student-name-wrap">
+          <div class="student-name am">${student.nameAm}</div>
+          <div class="student-name-en">${student.nameEn}</div>
+        </div>
+        <div class="student-weekly-score ${scoreColor}">${weekScore || '—'}</div>
+        <div class="student-expand-icon">▼</div>
+      </div>
+      <div class="student-card-body">
+        <div class="score-grid">${scoreInputs}</div>
+        <div class="comment-field">
+          <label class="am">💬 አስተያየት (Comment)</label>
+          <textarea rows="2" placeholder="e.g. ዛሬ በፕረዘንቴሽኑ ላይ በጣም ጎበዝ ነበር..."
+            oninput="updateComment(${week},${student.id},this.value)">${raw._comment||''}</textarea>
+        </div>
+      </div>
+    `;
+    el.appendChild(card);
+  });
+}
+
+function toggleCard(studentId) {
+  const card = document.getElementById('sc_' + studentId);
+  card.classList.toggle('open');
+}
+
+function updateScore(week, studentId, taskId, value) {
+  if (!state.scores[week]) state.scores[week] = {};
+  if (!state.scores[week][studentId]) state.scores[week][studentId] = {};
+  state.scores[week][studentId][taskId] = parseFloat(value) || 0;
+  const scoreEl = document.querySelector(`#sc_${studentId} .student-weekly-score`);
+  if (scoreEl) {
+    const ws = getWeekScore(week, studentId);
+    scoreEl.textContent = ws;
+    scoreEl.className = 'student-weekly-score ' + (ws>=80?'text-green':ws>=60?'text-yellow':'text-red');
+  }
+  // update weight display in this input's sibling
+  const active = getActiveTasks(week);
+  const weight = getTaskWeight(week);
+  document.querySelectorAll(`#sc_${studentId} .score-weight`).forEach((el, i) => {
+    const tid = active[i];
+    const rawVal = state.scores[week]?.[studentId]?.[tid] ?? 0;
+    el.textContent = `→ ×${weight} = ${+((rawVal/10)*weight).toFixed(1)} pts`;
+  });
+}
+
+function updateComment(week, studentId, value) {
+  if (!state.scores[week]) state.scores[week] = {};
+  if (!state.scores[week][studentId]) state.scores[week][studentId] = {};
+  state.scores[week][studentId]._comment = value;
+}
+
+function clampScore(input) {
+  let v = parseFloat(input.value);
+  if (isNaN(v)) v = 0;
+  if (v < 0) v = 0;
+  if (v > 10) v = 10;
+  input.value = v;
+}
+
+function saveScores() {
+  save();
+  const btn = document.getElementById('save-btn');
+  btn.classList.add('saved');
+  btn.innerHTML = '✅ <span class="am">ተቀምጧል</span>';
+  showToast('✅ ውጤቶቹ ተቀምጠዋል!');
   setTimeout(() => {
-    document.getElementById('loader').classList.add('done');
-    document.body.style.overflow = '';
-    initCounters();
-  }, 420);
-});
-document.body.style.overflow = 'hidden';
-
-/* ── Theme ── */
-const html = document.documentElement;
-const saved = localStorage.getItem('nurha-theme');
-if (saved) html.setAttribute('data-theme', saved);
-document.getElementById('themeBtn').addEventListener('click', () => {
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  const btn = document.getElementById('themeBtn').getBoundingClientRect();
-  const cx = btn.left + btn.width/2, cy = btn.top + btn.height/2;
-  const sz = Math.hypot(innerWidth, innerHeight) * 2.2;
-  const rpl = document.createElement('div');
-  rpl.style.cssText = `position:fixed;z-index:99990;border-radius:50%;pointer-events:none;left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;transform:translate(-50%,-50%) scale(0);background:${next==='light'?'#FDFAF6':'#080503'};transition:transform .6s cubic-bezier(.4,0,.2,1);`;
-  document.body.appendChild(rpl);
-  requestAnimationFrame(() => { rpl.style.transform = 'translate(-50%,-50%) scale(1)'; });
-  setTimeout(() => { html.setAttribute('data-theme', next); localStorage.setItem('nurha-theme', next); }, 230);
-  setTimeout(() => rpl.remove(), 700);
-});
-
-/* ── Cursor ── */
-const dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
-(function loop(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => { dot.classList.add('expand'); ring.classList.add('expand'); });
-  el.addEventListener('mouseleave', () => { dot.classList.remove('expand'); ring.classList.remove('expand'); });
-});
-
-/* ── Hero parallax ── */
-const heroBg = document.getElementById('heroBgImg');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (heroBg && y < innerHeight) heroBg.style.transform = `translateY(${y * 0.35}px)`;
-}, { passive: true });
-
-/* ── Nav + scroll ── */
-const navbar = document.getElementById('navbar');
-const btt = document.getElementById('btt');
-const spb = document.getElementById('spb');
-const sections = ['hero','story','impact','divisions','sectors','timeline','reach','gallery','contact'];
-const dots = document.querySelectorAll('.pd');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  navbar.classList.toggle('scrolled', y > 60);
-  btt.classList.toggle('show', y > 500);
-  spb.style.width = (y / (document.body.scrollHeight - innerHeight) * 100) + '%';
-  // Page dots
-  let active = 0;
-  sections.forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= innerHeight * 0.55) active = i;
-  });
-  dots.forEach((d, i) => d.classList.toggle('active', i === active));
-}, { passive: true });
-
-/* ── Dots click ── */
-dots.forEach((d, i) => {
-  d.addEventListener('click', () => {
-    const el = document.getElementById(sections[i]);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-/* ── Mobile menu ── */
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobMenu').classList.add('open');
-  document.getElementById('mobOv').classList.add('open');
-  document.body.style.overflow = 'hidden';
-});
-document.getElementById('mobX').addEventListener('click', closeMob);
-function closeMob() {
-  document.getElementById('mobMenu').classList.remove('open');
-  document.getElementById('mobOv').classList.remove('open');
-  document.body.style.overflow = '';
+    btn.classList.remove('saved');
+    btn.innerHTML = '💾 <span class="am">አስቀምጥ</span>';
+  }, 2000);
 }
 
-/* ── Reveal observer ── */
-const ro = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
-}, { threshold: .1 });
-document.querySelectorAll('.rev,.rev-l,.rev-r,.clip-reveal').forEach(el => ro.observe(el));
+/* ════════════════════════════════════════════════
+   PARENT INTERFACE
+════════════════════════════════════════════════ */
+function populateParentStudentList() {
+  const sel = document.getElementById('p-student');
+  sel.innerHTML = STUDENTS.map(s => `<option value="${s.id}">${s.nameAm} — ${s.nameEn}</option>`).join('');
+}
 
-/* ── Hero stat counters ── */
-function initCounters() {
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const t = parseInt(el.dataset.count);
-    if (!t) return;
-    let c = 0; const step = Math.max(1, Math.ceil(t/50));
-    const iv = setInterval(() => {
-      c = Math.min(c+step, t);
-      el.textContent = c + (t >= 100 ? '+' : t > 4 ? '+' : '');
-      if (c >= t) clearInterval(iv);
-    }, 24);
+function parentLogin() {
+  const sid = parseInt(document.getElementById('p-student').value);
+  const code = document.getElementById('p-code').value.trim().toUpperCase();
+  const student = STUDENTS.find(s => s.id === sid);
+  const err = document.getElementById('p-err');
+  if (!student || student.code !== code) { err.style.display='block'; return; }
+  err.style.display = 'none';
+  state.currentParentStudent = student;
+  state.parentWeek = 1;
+  closeModal('modal-parent');
+  showView('parent');
+  renderParentView();
+}
+
+function renderParentView() {
+  const student = state.currentParentStudent;
+  if (!student) return;
+  const week = state.parentWeek;
+
+  // Header
+  document.getElementById('p-avatar').textContent = student.initial;
+  document.getElementById('p-student-name').textContent = student.nameAm;
+  document.getElementById('p-student-meta').textContent = student.nameEn + ' · ' + student.code;
+  document.getElementById('p-week-label').textContent = 'ሳምንት ' + week;
+
+  // Score circle
+  const score = getWeekScore(week, student.id);
+  const g = gradeLabel(score);
+  const circle = document.getElementById('p-circle');
+  const circ = 2 * Math.PI * 52;
+  const offset = circ - (score / 100) * circ;
+  circle.style.strokeDasharray = circ;
+  circle.style.strokeDashoffset = offset;
+  circle.style.stroke = circleColor(score);
+  document.getElementById('p-score-num').textContent = score;
+  document.getElementById('p-score-num').style.color = circleColor(score);
+  document.getElementById('p-score-week-title').textContent = 'ሳምንት ' + week + ' ውጤት';
+  const badge = document.getElementById('p-grade-badge');
+  badge.textContent = g.label;
+  badge.className = 'score-grade-badge am ' + g.cls;
+
+  // Breakdown text
+  const active = getActiveTasks(week);
+  const weight = getTaskWeight(week);
+  document.getElementById('p-score-breakdown').innerHTML =
+    `<strong>${active.length}</strong> ተግባራት ተመርጠዋል • እያንዳንዱ ×<strong>${weight}</strong> ነጥብ ይዟል`;
+
+  // Task chart
+  renderTaskChart(week, student.id);
+
+  // Progress chart
+  renderProgressChart(student.id);
+
+  // S/W
+  renderStrengthsWeaknesses(week, student.id);
+
+  // Family verification
+  renderFamilyTasks(week, student.id);
+
+  // 8-week bars
+  renderWeekBars(student.id);
+
+  // Final grade
+  const allWeeksDone = [1,2,3,4,5,6,7,8].every(w => getWeekScore(w, student.id) > 0);
+  const finalPanel = document.getElementById('final-panel');
+  if (allWeeksDone) {
+    const fg = getFinalGrade(student.id);
+    const fg_g = gradeLabel(fg);
+    document.getElementById('final-score-num').textContent = fg + '%';
+    document.getElementById('final-score-num').style.color = circleColor(fg);
+    document.getElementById('final-grade-label').textContent = fg_g.label;
+    finalPanel.style.display = 'block';
+  } else {
+    finalPanel.style.display = 'none';
+  }
+}
+
+function renderTaskChart(week, studentId) {
+  const active = getActiveTasks(week);
+  const weight = getTaskWeight(week);
+  const raw = state.scores[week]?.[studentId] || {};
+
+  const labels = active.map(tid => TASKS.find(t=>t.id===tid)?.am || tid);
+  const data = active.map(tid => +((parseFloat(raw[tid]||0)/10)*weight).toFixed(1));
+  const maxData = active.map(() => weight);
+
+  const ctx = document.getElementById('chart-tasks').getContext('2d');
+  if (chartTask) chartTask.destroy();
+  chartTask = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {label:'ያገኙት',data,backgroundColor:'rgba(16,185,129,.7)',borderRadius:4},
+        {label:'ከፍተኛ',data:maxData,backgroundColor:'rgba(255,255,255,.05)',borderRadius:4},
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#6ee7b7',font:{size:10}}}},
+      scales:{
+        x:{ticks:{color:'#6ee7b7',font:{size:9}},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{ticks:{color:'#6ee7b7',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'},max:weight+1},
+      }
+    }
   });
 }
 
-/* ── Impact counters (on scroll) ── */
-const countMap = { n1:[300,'+'], n2:[9,''], n3:[28,'yrs'], n4:[4,''] };
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    Object.entries(countMap).forEach(([id,[target,sfx]]) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      let c = 0; const step = Math.max(1, Math.ceil(target/60));
-      const iv = setInterval(() => {
-        c = Math.min(c+step, target);
-        el.textContent = c + sfx;
-        if (c >= target) clearInterval(iv);
-      }, 22);
-    });
-    cObs.disconnect();
+function renderProgressChart(studentId) {
+  const labels = ['ሳ1','ሳ2','ሳ3','ሳ4','ሳ5','ሳ6','ሳ7','ሳ8'];
+  const data = [1,2,3,4,5,6,7,8].map(w => getWeekScore(w, studentId));
+  const ctx = document.getElementById('chart-progress').getContext('2d');
+  if (chartProgress) chartProgress.destroy();
+  chartProgress = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        label:'ሳምንታዊ ውጤት',data,
+        borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.1)',
+        pointBackgroundColor:'#10b981',pointRadius:4,tension:.35,fill:true
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#6ee7b7',font:{size:10}}}},
+      scales:{
+        x:{ticks:{color:'#6ee7b7',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{ticks:{color:'#6ee7b7',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'},min:0,max:100},
+      }
+    }
   });
-}, { threshold: .4 });
-const impactSec = document.getElementById('impact');
-if (impactSec) cObs.observe(impactSec);
-
-/* ── Division filter ── */
-document.getElementById('filterTabs').addEventListener('click', e => {
-  const btn = e.target.closest('.ftab');
-  if (!btn) return;
-  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const cat = btn.dataset.cat;
-  document.querySelectorAll('.div-card').forEach(c => {
-    const show = cat === 'all' || c.dataset.cat === cat;
-    c.classList.toggle('hidden', !show);
-    // Reapply reveal if showing
-    if (show && !c.classList.contains('vis')) { c.classList.add('vis'); }
-  });
-});
-
-/* ── 3D card tilt ── */
-document.querySelectorAll('.div-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5;
-    const y = (e.clientY - r.top) / r.height - .5;
-    card.style.transform = `translateY(-8px) perspective(600px) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;
-  });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-});
-
-/* ── Form submit ── */
-function handleForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.fsub');
-  btn.textContent = '✓ Message Sent';
-  btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
-  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3500);
 }
+
+function renderStrengthsWeaknesses(week, studentId) {
+  const details = getWeekScoreDetails(week, studentId);
+  const sorted = [...details].filter(d=>d.score>0).sort((a,b)=>b.weighted-a.weighted);
+  const top = sorted.slice(0,3);
+  const bottom = [...details].filter(d=>d.score<7 && d.score>=0).sort((a,b)=>a.weighted-b.weighted).slice(0,3);
+
+  const sl = document.getElementById('strengths-list');
+  const wl = document.getElementById('weaknesses-list');
+
+  sl.innerHTML = top.length ? top.map(d=>`
+    <div class="sw-item">
+      <span class="sw-item-name am">${d.task.am}</span>
+      <span class="sw-item-score">${d.score}/10</span>
+    </div>`).join('') : '<div class="no-data am" style="padding:16px">ውጤት አልተሞላም</div>';
+
+  wl.innerHTML = bottom.length ? bottom.map(d=>`
+    <div class="sw-item">
+      <span class="sw-item-name am">${d.task.am}</span>
+      <span class="sw-item-score">${d.score}/10</span>
+    </div>`).join('') : '<div class="no-data am" style="padding:16px;font-size:12px">✅ ሁሉም ጥሩ ነው!</div>';
+}
+
+function renderFamilyTasks(week, studentId) {
+  const familyTasks = TASKS.filter(t => t.needsParent);
+  const el = document.getElementById('family-tasks');
+  const weekApprovals = state.approvals[week]?.[studentId] || {};
+  el.innerHTML = '';
+  familyTasks.forEach(task => {
+    const approved = weekApprovals[task.id] === true;
+    const div = document.createElement('div');
+    div.className = 'family-task';
+    div.innerHTML = `
+      <div class="family-task-info">
+        <div class="family-task-name am">${task.am}</div>
+        <div class="family-task-en">${task.en}</div>
+      </div>
+      <button class="btn-approve ${approved?'approved':'pending'}"
+        onclick="approveTask(${week},${studentId},'${task.id}',this)"
+        ${approved?'disabled':''}>
+        ${approved ? '✅ ተረጋግጧል' : '👍 አረጋግጥ'}
+      </button>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function approveTask(week, studentId, taskId, btn) {
+  if (!state.approvals[week]) state.approvals[week] = {};
+  if (!state.approvals[week][studentId]) state.approvals[week][studentId] = {};
+  state.approvals[week][studentId][taskId] = true;
+  btn.className = 'btn-approve approved';
+  btn.textContent = '✅ ተረጋግጧል';
+  btn.disabled = true;
+  save();
+  showToast('✅ ተግባሩ ተረጋግጧል!');
+}
+
+function renderWeekBars(studentId) {
+  const el = document.getElementById('week-progress-grid');
+  el.innerHTML = '';
+  const scores = [1,2,3,4,5,6,7,8].map(w => getWeekScore(w, studentId));
+  const max = Math.max(...scores, 1);
+  scores.forEach((score, i) => {
+    const w = i + 1;
+    const height = (score / 100) * 76;
+    const color = score>=80?'#10b981':score>=60?'#f59e0b':score>0?'#ef4444':'rgba(255,255,255,.06)';
+    const div = document.createElement('div');
+    div.className = 'wpg-item' + (w === state.parentWeek ? ' current' : '');
+    div.onclick = () => { state.parentWeek = w; renderParentView(); };
+    div.innerHTML = `
+      <div class="wpg-bar-wrap">
+        <div class="wpg-bar" style="height:${height}px;background:${color}"></div>
+      </div>
+      <div class="wpg-week am">ሳ${w}</div>
+      <div class="wpg-score" style="color:${color}">${score||'—'}</div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function parentPrevWeek() {
+  if (state.parentWeek > 1) { state.parentWeek--; renderParentView(); }
+}
+function parentNextWeek() {
+  if (state.parentWeek < 8) { state.parentWeek++; renderParentView(); }
+}
+
+/* ════════════════════════════════════════════════
+   CERTIFICATE
+════════════════════════════════════════════════ */
+function showCert() {
+  const student = state.currentParentStudent;
+  if (!student) return;
+  const fg = getFinalGrade(student.id);
+  const g = gradeLabel(fg);
+  let rawTotal = 0;
+  for (let w=1;w<=8;w++) rawTotal += getWeekScore(w, student.id);
+
+  document.getElementById('cert-name').textContent = student.nameAm + ' (' + student.nameEn + ')';
+  document.getElementById('cert-raw').textContent = rawTotal.toFixed(1) + '/800 — ' + fg + '%';
+  document.getElementById('cert-grade').textContent = g.label;
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('am-ET');
+
+  showView('cert');
+}
+
+/* ════════════════════════════════════════════════
+   TOAST
+════════════════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
+load();
+document.getElementById('cert-date').textContent = new Date().toLocaleDateString();
 </script>
 </body>
 </html>
