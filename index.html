@@ -26,6 +26,21 @@
   --shadow-modal: 0 24px 48px rgba(0,0,0,.8);
 }
 
+[data-theme="light"] {
+  --bg: #F8F8F6;
+  --bg2: #EEEEED;
+  --bg3: #E5E5E3;
+  --text: #111111;
+  --text2: #666666;
+  --text3: #D0D0CE;
+  --border: rgba(0,0,0,.08);
+  --border-hover: rgba(0,0,0,.14);
+  --shadow-modal: 0 24px 48px rgba(0,0,0,.18);
+}
+[data-theme="light"] .cert-paper { border-color: rgba(0,0,0,.12); }
+[data-theme="light"] .cert-grade-pill { border-color: rgba(0,0,0,.12); }
+[data-theme="light"] .home-left { border-right-color: rgba(0,0,0,.08); }
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
@@ -291,6 +306,23 @@ img { display: block; max-width: 100%; }
   color: var(--text2); font-size: 12px; font-weight: 600; transition: all .2s;
 }
 .btn-logout:hover { border-color: var(--red2); color: var(--red2); }
+.theme-btn {
+  width: 32px; height: 32px; border-radius: 4px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text2); display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0;
+}
+.theme-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.theme-btn svg { width: 15px; height: 15px; }
+.theme-fab {
+  position: fixed; bottom: 28px; left: 28px; z-index: 888;
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--bg2); border: 1px solid var(--border-hover);
+  color: var(--text2); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s;
+}
+.theme-fab:hover { color: var(--text); border-color: var(--text2); }
+.theme-fab svg { width: 16px; height: 16px; }
 
 /* ══ TEACHER ═══════════════════════════════ */
 #view-teacher { background: var(--bg); }
@@ -301,6 +333,26 @@ img { display: block; max-width: 100%; }
   gap: 24px; align-items: start;
 }
 @media (max-width: 860px) { .t-wrap { grid-template-columns: 1fr; } }
+
+/* Teacher mobile tab bar */
+.t-tab-bar {
+  display: none; background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 0 5vw;
+}
+@media (max-width: 860px) { .t-tab-bar { display: flex; } }
+.t-tab-btn {
+  flex: 1; padding: 12px 0; border: none; background: transparent;
+  color: var(--text2); font-family: 'Syne', sans-serif;
+  font-size: 12px; font-weight: 700; border-bottom: 2px solid transparent;
+  transition: all .2s; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.t-tab-btn svg { width: 13px; height: 13px; }
+.t-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+@media (max-width: 860px) {
+  .sidebar.t-hidden { display: none !important; }
+  .t-main.t-hidden  { display: none !important; }
+}
 
 /* Sidebar */
 .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 68px; }
@@ -769,9 +821,21 @@ img { display: block; max-width: 100%; }
     </div>
     <div class="nav-actions">
       <div class="nav-week am" id="t-wk-badge">ሳምንት 1</div>
+      <button class="theme-btn" id="theme-btn-t" onclick="toggleTheme()" title="Toggle theme"></button>
       <button class="btn-logout" onclick="logout()">&larr; Logout</button>
     </div>
   </nav>
+
+  <div class="t-tab-bar">
+    <button class="t-tab-btn active" id="t-tab-students" onclick="switchTeacherTab('students')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span class="am">ተማሪዎች</span>
+    </button>
+    <button class="t-tab-btn" id="t-tab-config" onclick="switchTeacherTab('config')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      <span class="am">ቅንብር</span>
+    </button>
+  </div>
 
   <div class="t-wrap">
     <!-- Sidebar -->
@@ -790,7 +854,7 @@ img { display: block; max-width: 100%; }
     </div>
 
     <!-- Roster -->
-    <div>
+    <div id="t-main">
       <div class="roster-hd">
         <div>
           <div class="roster-title am">የተማሪዎች ዝርዝር</div>
@@ -819,6 +883,7 @@ img { display: block; max-width: 100%; }
       </div>
     </div>
     <div class="nav-actions">
+      <button class="theme-btn" id="theme-btn-p" onclick="toggleTheme()" title="Toggle theme"></button>
       <button class="btn-logout" onclick="logout()">&larr; Logout</button>
     </div>
   </nav>
@@ -921,6 +986,7 @@ img { display: block; max-width: 100%; }
 </div>
 
 <div class="toast" id="toast"></div>
+<button class="theme-fab" id="theme-fab" onclick="toggleTheme()" title="Toggle light/dark mode"></button>
 
 <script>
 /* ════════════════════════════════
@@ -980,6 +1046,28 @@ let S = {
 };
 
 let chartT = null, chartP = null;
+
+/* ── Theme ──────────────────── */
+const SUN_ICON  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+const MOON_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const isLight = theme === 'light';
+  ['t', 'p'].forEach(pfx => {
+    const btn = document.getElementById('theme-btn-' + pfx);
+    if (btn) btn.innerHTML = isLight ? SUN_ICON : MOON_ICON;
+  });
+  const fab = document.getElementById('theme-fab');
+  if (fab) fab.innerHTML = isLight ? SUN_ICON : MOON_ICON;
+}
+
+function toggleTheme() {
+  const current = document.documentElement.dataset.theme || 'dark';
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  localStorage.setItem('theme', next);
+}
 
 /* ── Persist ─────────────────── */
 function persist() {
@@ -1127,7 +1215,7 @@ function barColor(pct) {
   if (pct >= 80) return '#10b981';
   if (pct >= 60) return '#f59e0b';
   if (pct > 0)   return '#ef4444';
-  return 'rgba(255,255,255,.07)';
+  return document.documentElement.dataset.theme === 'light' ? 'rgba(0,0,0,.08)' : 'rgba(255,255,255,.07)';
 }
 
 /* ════════════════════════════════
@@ -1136,6 +1224,19 @@ function barColor(pct) {
 function showView(v) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
   document.getElementById('view-' + v).classList.add('active');
+  const fab = document.getElementById('theme-fab');
+  if (fab) fab.style.display = v === 'home' ? 'flex' : 'none';
+}
+
+function switchTeacherTab(tab) {
+  const sidebar = document.querySelector('#view-teacher .sidebar');
+  const main    = document.getElementById('t-main');
+  const btnS    = document.getElementById('t-tab-students');
+  const btnC    = document.getElementById('t-tab-config');
+  if (btnS) btnS.classList.toggle('active', tab === 'students');
+  if (btnC) btnC.classList.toggle('active', tab === 'config');
+  if (sidebar) sidebar.classList.toggle('t-hidden', tab !== 'config');
+  if (main)    main.classList.toggle('t-hidden',    tab !== 'students');
 }
 function openModal(id) {
   document.getElementById(id).classList.remove('hidden');
@@ -1162,6 +1263,7 @@ function teacherLogin() {
   showView('teacher');
   document.getElementById('t-name-disp').textContent = S.tName;
   renderTeacher();
+  switchTeacherTab('students');
 }
 
 function renderTeacher() {
@@ -1179,7 +1281,7 @@ function renderWkGrid() {
     const b = document.createElement('button');
     b.className = 'wk-btn' + (w === S.tWeek ? ' active' : '') + (hasData ? ' has-data' : '');
     b.innerHTML = `<span class="am">ሳ ${w}</span>`;
-    b.onclick = () => { S.tWeek = w; renderTeacher(); };
+    b.onclick = () => { S.tWeek = w; renderTeacher(); if (window.innerWidth <= 860) switchTeacherTab('students'); };
     el.appendChild(b);
   }
 }
@@ -1447,20 +1549,25 @@ function renderDetailPane(s, week) {
   const tData   = active.map(tid => +((parseFloat(raw[tid]||0)/10)*wt).toFixed(1));
   const tMax    = active.map(() => +wt.toFixed(1));
 
+  const isLight = document.documentElement.dataset.theme === 'light';
+  const gridC   = isLight ? 'rgba(0,0,0,.06)' : 'rgba(255,255,255,.04)';
+  const tickC   = isLight ? '#888888' : '#6B6B6B';
+  const maxBarC = isLight ? 'rgba(0,0,0,.06)' : 'rgba(255,255,255,.05)';
+
   const ctx1 = document.getElementById('c-tasks').getContext('2d');
   if (chartT) chartT.destroy();
   chartT = new Chart(ctx1, {
     type:'bar',
     data:{labels:tLabels, datasets:[
       {label:'ያገኙት', data:tData, backgroundColor:'rgba(16,185,129,.7)', borderRadius:2},
-      {label:'ከፍተኛ',  data:tMax,  backgroundColor:'rgba(255,255,255,.05)', borderRadius:2},
+      {label:'ከፍተኛ',  data:tMax,  backgroundColor:maxBarC, borderRadius:2},
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#6B6B6B',font:{size:10}}}},
+      plugins:{legend:{labels:{color:tickC,font:{size:10}}}},
       scales:{
-        x:{ticks:{color:'#6B6B6B',font:{size:8,family:'Noto Sans Ethiopic'}},grid:{color:'rgba(255,255,255,.04)'}},
-        y:{ticks:{color:'#6B6B6B',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'},max:+wt.toFixed(1)+1},
+        x:{ticks:{color:tickC,font:{size:8,family:'Noto Sans Ethiopic'}},grid:{color:gridC}},
+        y:{ticks:{color:tickC,font:{size:10}},grid:{color:gridC},max:+wt.toFixed(1)+1},
       }
     }
   });
@@ -1478,10 +1585,10 @@ function renderDetailPane(s, week) {
     }]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#6B6B6B',font:{size:10}}}},
+      plugins:{legend:{labels:{color:tickC,font:{size:10}}}},
       scales:{
-        x:{ticks:{color:'#6B6B6B',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},
-        y:{ticks:{color:'#6B6B6B',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'},min:0,max:100},
+        x:{ticks:{color:tickC,font:{size:10}},grid:{color:gridC}},
+        y:{ticks:{color:tickC,font:{size:10}},grid:{color:gridC},min:0,max:100},
       }
     }
   });
@@ -1659,6 +1766,12 @@ function showCert() {
 /* ════════════════════════════════
    BOOT
 ════════════════════════════════ */
+(function initTheme() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+  const fab = document.getElementById('theme-fab');
+  if (fab) fab.style.display = 'flex';
+})();
 hydrate();
 </script>
 </body>
