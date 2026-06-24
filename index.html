@@ -989,11 +989,94 @@ function persist() {
 }
 function hydrate() {
   const d = localStorage.getItem('edu2');
-  if (!d) return;
+  if (!d) { seed(); return; }
   const p = JSON.parse(d);
   S.weekCfg   = p.weekCfg   || {};
   S.scores    = p.scores    || {};
   S.approvals = p.approvals || {};
+}
+
+function seed() {
+  // Realistic weekly task configs — not all 10 tasks every week
+  const weekTasks = {
+    1: ['video','fam_talk','zikr','behavior','essay','presentation','group_disc'],
+    2: ['video','fam_talk','zikr','behavior','essay','visit','presentation','debate'],
+    3: ['video','fam_talk','zikr','behavior','fam_visit','presentation','group_disc','debate'],
+    4: ['video','fam_talk','zikr','behavior','essay','visit','fam_visit','presentation','group_disc','debate'],
+    5: ['video','fam_talk','zikr','behavior','essay','presentation','group_disc'],
+    6: ['video','fam_talk','zikr','behavior','visit','fam_visit','debate'],
+    7: ['video','fam_talk','zikr','behavior','essay','fam_visit','presentation','group_disc'],
+    8: ['video','fam_talk','zikr','behavior','essay','visit','fam_visit','presentation','group_disc','debate'],
+  };
+
+  // Per-student score profiles (base tendencies out of 10)
+  const profiles = {
+    1: {video:9,fam_talk:8,zikr:9,behavior:9,essay:8,visit:8,fam_visit:9,presentation:7,group_disc:8,debate:7},
+    2: {video:8,fam_talk:9,zikr:8,behavior:9,essay:9,visit:7,fam_visit:8,presentation:9,group_disc:9,debate:8},
+    3: {video:7,fam_talk:7,zikr:8,behavior:8,essay:6,visit:7,fam_visit:7,presentation:6,group_disc:7,debate:8},
+    4: {video:9,fam_talk:8,zikr:10,behavior:9,essay:8,visit:9,fam_visit:9,presentation:8,group_disc:8,debate:7},
+    5: {video:6,fam_talk:6,zikr:7,behavior:7,essay:6,visit:5,fam_visit:6,presentation:5,group_disc:6,debate:7},
+    6: {video:8,fam_talk:9,zikr:8,behavior:8,essay:9,visit:8,fam_visit:9,presentation:9,group_disc:8,debate:9},
+    7: {video:7,fam_talk:8,zikr:9,behavior:8,essay:7,visit:8,fam_visit:8,presentation:7,group_disc:8,debate:6},
+    8: {video:9,fam_talk:9,zikr:9,behavior:10,essay:9,visit:9,fam_visit:9,presentation:8,group_disc:9,debate:8},
+  };
+
+  // Teacher comments per student
+  const comments = {
+    1: 'ዛሬ በፕረዘንቴሽኑ ላይ ጎበዝ ነበር። ክርክሩ ላይ ተሳትፎ ያስፈልጋቸዋል።',
+    2: 'ፋቲማ ሁልጊዜ ጥሩ ምሳሌ ነች። ቡድን ውስጥ ትሰማለች።',
+    3: 'ጥቂት ተጨማሪ ጥረት ያስፈልጋቸዋል። አቅሙ ሲኖራቸው ጎበዝ ናቸው።',
+    4: 'ዚክሩን በፍጹም ይሐፈዛሉ። ክፍሉን ያሳፍሩናል!',
+    5: 'ወደፊት ማሻሻያ ያስፈልጋቸዋል። ቤት ውስጥ ድጋፍ ቢደረግ ጥሩ ይሆናል።',
+    6: 'ዓኢሻ ፅሁፏ በጣም ጥሩ ነበር። ለሁሉም ተምሳሌት ናት።',
+    7: 'ቢላል ዚክሩን ጥሩ ሐፈዘ። ፕረዘንቴሽን ላይ ድምፅ ያስፈልጋቸዋል።',
+    8: 'መርየም ለሁሉም ምሳሌ ናት። ሁሉም ተግባራት ፍጹም ናቸው።',
+  };
+
+  // Slight week-to-week variation (±1 point, keeps it realistic)
+  const vary = (base, week) => Math.min(10, Math.max(4, base + (week % 3 === 0 ? 1 : week % 3 === 1 ? -1 : 0)));
+
+  const weekCfg = {}, scores = {}, approvals = {};
+
+  for (let w = 1; w <= 8; w++) {
+    weekCfg[w] = { active: weekTasks[w] };
+    scores[w] = {};
+    approvals[w] = {};
+
+    STUDENTS.forEach(s => {
+      const entry = {};
+      weekTasks[w].forEach(tid => {
+        entry[tid] = vary(profiles[s.id][tid] || 7, w + s.id);
+      });
+      entry._comment = w === 1 ? (comments[s.id] || '') : '';
+      scores[w][s.id] = entry;
+
+      // Parent approvals for family tasks (weeks 1-6 approved, 7-8 pending)
+      const famEntry = {};
+      ['fam_talk', 'fam_visit'].forEach(tid => {
+        if (weekTasks[w].includes(tid)) {
+          if (w <= 6) {
+            famEntry[tid] = {
+              approved: true,
+              note: tid === 'fam_talk' && w === 1
+                ? (s.id === 1 ? 'ልጄ ስለ ትምህርቱ ጥሩ ብሎ ነገረኝ!' :
+                   s.id === 2 ? 'ፋቲማ ቤት ደርሳ ሁሉ ነገር አካፍላናለች።' :
+                   s.id === 6 ? 'ዓኢሻ ዛሬ ብዙ ጊዜ ወሰደች።' : '')
+                : '',
+            };
+          } else {
+            famEntry[tid] = { approved: false, note: '' };
+          }
+        }
+      });
+      approvals[w][s.id] = famEntry;
+    });
+  }
+
+  S.weekCfg   = weekCfg;
+  S.scores    = scores;
+  S.approvals = approvals;
+  persist();
 }
 
 /* ════════════════════════════════
