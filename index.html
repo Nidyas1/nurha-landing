@@ -371,6 +371,21 @@ img { display: block; max-width: 100%; }
 .wk-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 .wk-btn.has-data { border-color: rgba(16,185,129,.3); }
 
+/* Day grid */
+.day-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.day-btn {
+  padding: 9px 2px; border-radius: 4px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text2); font-family: 'DM Mono', monospace;
+  font-size: 9px; transition: all .2s; text-align: center; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+}
+.day-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.day-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.day-btn.has-data { border-color: rgba(245,158,11,.3); }
+.day-btn .day-am { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 9px; }
+.day-btn .day-en { font-size: 8px; opacity: .7; }
+
 /* Task list */
 .task-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
 .task-row:last-child { border-bottom: none; }
@@ -845,6 +860,10 @@ img { display: block; max-width: 100%; }
         <div class="wk-grid" id="t-wk-grid"></div>
       </div>
       <div class="panel">
+        <div class="panel-hd am">ቀን ምረጥ · Day</div>
+        <div class="day-grid" id="t-day-grid"></div>
+      </div>
+      <div class="panel">
         <div class="panel-hd am">የሳምንቱ ተግባራት</div>
         <div id="t-task-list"></div>
         <div class="weight-box" style="margin-top:12px">
@@ -1036,12 +1055,14 @@ const TASKS = [
 ════════════════════════════════ */
 let S = {
   tWeek: 1,
+  tDay: 1,
   pWeek: 1,
   pStudent: null,
   pView: 'summary',
   tName: '',
   weekCfg: {},
   scores: {},
+  comments: {},
   approvals: {},
 };
 
@@ -1071,23 +1092,22 @@ function toggleTheme() {
 
 /* ── Persist ─────────────────── */
 function persist() {
-  localStorage.setItem('edu3', JSON.stringify({
-    weekCfg: S.weekCfg, scores: S.scores, approvals: S.approvals
+  localStorage.setItem('edu4', JSON.stringify({
+    weekCfg: S.weekCfg, scores: S.scores, comments: S.comments, approvals: S.approvals
   }));
 }
 function hydrate() {
-  const d = localStorage.getItem('edu3');
+  const d = localStorage.getItem('edu4');
   if (!d) { seed(); return; }
   const p = JSON.parse(d);
   S.weekCfg   = p.weekCfg   || {};
   S.scores    = p.scores    || {};
+  S.comments  = p.comments  || {};
   S.approvals = p.approvals || {};
-  // Seed if data exists but scores are empty (stale state from earlier version)
   if (!Object.keys(S.scores).length) seed();
 }
 
 function seed() {
-  // Realistic weekly task configs — not all 10 tasks every week
   const weekTasks = {
     1: ['video','fam_talk','zikr','behavior','essay','presentation','group_disc'],
     2: ['video','fam_talk','zikr','behavior','essay','visit','presentation','debate'],
@@ -1099,7 +1119,6 @@ function seed() {
     8: ['video','fam_talk','zikr','behavior','essay','visit','fam_visit','presentation','group_disc','debate'],
   };
 
-  // Per-student score profiles (base tendencies out of 10)
   const profiles = {
     1: {video:9,fam_talk:8,zikr:9,behavior:9,essay:8,visit:8,fam_visit:9,presentation:7,group_disc:8,debate:7},
     2: {video:8,fam_talk:9,zikr:8,behavior:9,essay:9,visit:7,fam_visit:8,presentation:9,group_disc:9,debate:8},
@@ -1111,8 +1130,7 @@ function seed() {
     8: {video:9,fam_talk:9,zikr:9,behavior:10,essay:9,visit:9,fam_visit:9,presentation:8,group_disc:9,debate:8},
   };
 
-  // Teacher comments per student
-  const comments = {
+  const commentData = {
     1: 'ዛሬ በፕረዘንቴሽኑ ላይ ጎበዝ ነበር። ክርክሩ ላይ ተሳትፎ ያስፈልጋቸዋል።',
     2: 'ፋቲማ ሁልጊዜ ጥሩ ምሳሌ ነች። ቡድን ውስጥ ትሰማለች።',
     3: 'ጥቂት ተጨማሪ ጥረት ያስፈልጋቸዋል። አቅሙ ሲኖራቸው ጎበዝ ናቸው።',
@@ -1123,40 +1141,44 @@ function seed() {
     8: 'መርየም ለሁሉም ምሳሌ ናት። ሁሉም ተግባራት ፍጹም ናቸው።',
   };
 
-  // Slight week-to-week variation (±1 point, keeps it realistic)
-  const vary = (base, week) => Math.min(10, Math.max(4, base + (week % 3 === 0 ? 1 : week % 3 === 1 ? -1 : 0)));
+  // Per-day variation: seed changes slightly each day to feel realistic
+  const vary = (base, salt) => Math.min(10, Math.max(4, base + (salt % 3 === 0 ? 1 : salt % 3 === 1 ? -1 : 0)));
 
-  const weekCfg = {}, scores = {}, approvals = {};
+  const weekCfg = {}, scores = {}, comments = {}, approvals = {};
 
   for (let w = 1; w <= 8; w++) {
     weekCfg[w] = { active: weekTasks[w] };
     scores[w] = {};
+    comments[w] = {};
     approvals[w] = {};
 
-    STUDENTS.forEach(s => {
-      const entry = {};
-      weekTasks[w].forEach(tid => {
-        entry[tid] = vary(profiles[s.id][tid] || 7, w + s.id);
+    // Generate scores per day (Mon=1 … Fri=5)
+    for (let d = 1; d <= 5; d++) {
+      scores[w][d] = {};
+      STUDENTS.forEach(s => {
+        const entry = {};
+        weekTasks[w].forEach(tid => {
+          entry[tid] = vary(profiles[s.id][tid] || 7, w * 7 + d * 3 + s.id);
+        });
+        scores[w][d][s.id] = entry;
       });
-      entry._comment = w === 1 ? (comments[s.id] || '') : '';
-      scores[w][s.id] = entry;
+    }
+
+    STUDENTS.forEach(s => {
+      // Week-level comment (only week 1 pre-populated)
+      comments[w][s.id] = w === 1 ? (commentData[s.id] || '') : '';
 
       // Parent approvals for family tasks (weeks 1-6 approved, 7-8 pending)
       const famEntry = {};
       ['fam_talk', 'fam_visit'].forEach(tid => {
         if (weekTasks[w].includes(tid)) {
-          if (w <= 6) {
-            famEntry[tid] = {
-              approved: true,
-              note: tid === 'fam_talk' && w === 1
-                ? (s.id === 1 ? 'ልጄ ስለ ትምህርቱ ጥሩ ብሎ ነገረኝ!' :
-                   s.id === 2 ? 'ፋቲማ ቤት ደርሳ ሁሉ ነገር አካፍላናለች።' :
-                   s.id === 6 ? 'ዓኢሻ ዛሬ ብዙ ጊዜ ወሰደች።' : '')
-                : '',
-            };
-          } else {
-            famEntry[tid] = { approved: false, note: '' };
-          }
+          famEntry[tid] = w <= 6
+            ? { approved: true, note: tid === 'fam_talk' && w === 1
+                ? (s.id===1 ? 'ልጄ ስለ ትምህርቱ ጥሩ ብሎ ነገረኝ!' :
+                   s.id===2 ? 'ፋቲማ ቤት ደርሳ ሁሉ ነገር አካፍላናለች።' :
+                   s.id===6 ? 'ዓኢሻ ዛሬ ብዙ ጊዜ ወሰደች።' : '')
+                : '' }
+            : { approved: false, note: '' };
         }
       });
       approvals[w][s.id] = famEntry;
@@ -1165,6 +1187,7 @@ function seed() {
 
   S.weekCfg   = weekCfg;
   S.scores    = scores;
+  S.comments  = comments;
   S.approvals = approvals;
   persist();
 }
@@ -1178,17 +1201,23 @@ function getActive(week) {
   return TASKS.map(t => t.id);
 }
 
-function weekScore(week, sid) {
+function dayScore(week, day, sid) {
   const active = getActive(week);
   if (!active.length) return 0;
   const wt = 100 / active.length;
-  const raw = S.scores[week]?.[sid] || {};
+  const raw = S.scores[week]?.[day]?.[sid] || {};
   let total = 0;
   active.forEach(tid => {
     const v = parseFloat(raw[tid] ?? 0);
     total += (v / 10) * wt;
   });
   return Math.round(total * 10) / 10;
+}
+
+function weekScore(week, sid) {
+  let sum = 0;
+  for (let d = 1; d <= 5; d++) sum += dayScore(week, d, sid);
+  return Math.round(sum / 5 * 10) / 10;
 }
 
 function finalGrade(sid) {
@@ -1266,11 +1295,40 @@ function teacherLogin() {
   switchTeacherTab('students');
 }
 
+const DAY_NAMES = [
+  {am:'ሰኞ',   en:'Mon'},
+  {am:'ማክ',   en:'Tue'},
+  {am:'ረቡ',   en:'Wed'},
+  {am:'ሐሙ',   en:'Thu'},
+  {am:'አርብ',  en:'Fri'},
+];
+
 function renderTeacher() {
   renderWkGrid();
+  renderDayGrid();
   renderTaskList();
   renderRoster();
-  document.getElementById('t-wk-badge').textContent = 'ሳምንት ' + S.tWeek;
+  const dayName = DAY_NAMES[S.tDay - 1];
+  document.getElementById('t-wk-badge').textContent = `ሳ${S.tWeek} · ${dayName.am}`;
+}
+
+function renderDayGrid() {
+  const el = document.getElementById('t-day-grid');
+  if (!el) return;
+  el.innerHTML = '';
+  DAY_NAMES.forEach((d, i) => {
+    const day = i + 1;
+    const hasData = Object.keys(S.scores[S.tWeek]?.[day] || {}).length > 0;
+    const b = document.createElement('button');
+    b.className = 'day-btn' + (day === S.tDay ? ' active' : '') + (hasData ? ' has-data' : '');
+    b.innerHTML = `<span class="day-am am">${d.am}</span><span class="day-en">${d.en}</span>`;
+    b.onclick = () => {
+      S.tDay = day;
+      renderTeacher();
+      if (window.innerWidth <= 860) switchTeacherTab('students');
+    };
+    el.appendChild(b);
+  });
 }
 
 function renderWkGrid() {
@@ -1281,7 +1339,7 @@ function renderWkGrid() {
     const b = document.createElement('button');
     b.className = 'wk-btn' + (w === S.tWeek ? ' active' : '') + (hasData ? ' has-data' : '');
     b.innerHTML = `<span class="am">ሳ ${w}</span>`;
-    b.onclick = () => { S.tWeek = w; renderTeacher(); if (window.innerWidth <= 860) switchTeacherTab('students'); };
+    b.onclick = () => { S.tWeek = w; S.tDay = 1; renderTeacher(); if (window.innerWidth <= 860) switchTeacherTab('students'); };
     el.appendChild(b);
   }
 }
@@ -1337,8 +1395,9 @@ function renderRoster() {
 
   STUDENTS.forEach(s => {
     const ws = weekScore(week, s.id);
+    const ds = dayScore(week, S.tDay, s.id);
     const col = ws >= 80 ? 'var(--primary)' : ws >= 60 ? 'var(--accent)' : ws > 0 ? 'var(--red2)' : 'var(--text2)';
-    const raw = S.scores[week]?.[s.id] || {};
+    const raw = S.scores[week]?.[S.tDay]?.[s.id] || {};
     const approvals = S.approvals[week]?.[s.id] || {};
 
     const daily  = active.filter(id => TASKS.find(t=>t.id===id)?.type==='daily');
@@ -1353,7 +1412,7 @@ function renderRoster() {
           <label class="am">${task.am}<br/><span style="font-size:9px;opacity:.65">${task.en}</span></label>
           <div class="score-row">
             <input type="number" class="score-in" min="0" max="10" step="0.5" value="${val}" placeholder="—"
-              oninput="onScore(${week},${s.id},'${tid}',this)"
+              oninput="onScore(${week},${S.tDay},${s.id},'${tid}',this)"
               onblur="this.value=Math.min(10,Math.max(0,parseFloat(this.value)||0))"/>
             <span class="score-cap am">/ 10</span>
           </div>
@@ -1396,7 +1455,7 @@ function renderRoster() {
           <div class="s-name am">${s.am}</div>
           <div class="s-name-en">${s.en}</div>
         </div>
-        <div class="s-wscore" style="color:${col}">${ws || '—'}</div>
+        <div class="s-wscore" style="color:${col}">${ds || '—'}<span style="font-size:10px;color:var(--text2);margin-left:3px">/ ${ws||'—'}wk</span></div>
         <div class="s-arrow">&#9660;</div>
       </div>
       <div class="s-card-body">
@@ -1405,7 +1464,7 @@ function renderRoster() {
         <div class="comment-wrap" style="margin-bottom:12px">
           <label class="am">አስተያየት (Teacher Comment)</label>
           <textarea rows="2" placeholder="ለምሳሌ: ዛሬ በፕረዘንቴሽኑ ላይ ጎበዝ ነበር..."
-            oninput="onComment(${week},${s.id},this.value)">${raw._comment||''}</textarea>
+            oninput="onComment(${week},${s.id},this.value)">${S.comments[week]?.[s.id]||''}</textarea>
         </div>
         ${fbHtml}
       </div>`;
@@ -1417,26 +1476,30 @@ function toggleSCard(sid) {
   document.getElementById('sc_' + sid).classList.toggle('open');
 }
 
-function onScore(week, sid, tid, input) {
+function onScore(week, day, sid, tid, input) {
   let v = parseFloat(input.value);
   if (isNaN(v)) v = 0;
   if (!S.scores[week]) S.scores[week] = {};
-  if (!S.scores[week][sid]) S.scores[week][sid] = {};
-  S.scores[week][sid][tid] = v;
+  if (!S.scores[week][day]) S.scores[week][day] = {};
+  if (!S.scores[week][day][sid]) S.scores[week][day][sid] = {};
+  S.scores[week][day][sid][tid] = v;
   const wt = +(100 / getActive(week).length).toFixed(1);
   const wtd = +((v/10)*wt).toFixed(1);
   const wtEl = document.getElementById(`wt_${week}_${sid}_${tid}`);
   if (wtEl) wtEl.textContent = `→ ${wtd} pts`;
+  const ds = dayScore(week, day, sid);
   const ws = weekScore(week, sid);
   const col = ws>=80?'var(--primary)':ws>=60?'var(--accent)':ws>0?'var(--red2)':'var(--text2)';
   const scoreEl = document.querySelector(`#sc_${sid} .s-wscore`);
-  if (scoreEl) { scoreEl.textContent = ws || '—'; scoreEl.style.color = col; }
+  if (scoreEl) {
+    scoreEl.innerHTML = `${ds || '—'}<span style="font-size:10px;color:var(--text2);margin-left:3px">/ ${ws||'—'}wk</span>`;
+    scoreEl.style.color = col;
+  }
 }
 
 function onComment(week, sid, val) {
-  if (!S.scores[week]) S.scores[week] = {};
-  if (!S.scores[week][sid]) S.scores[week][sid] = {};
-  S.scores[week][sid]._comment = val;
+  if (!S.comments[week]) S.comments[week] = {};
+  S.comments[week][sid] = val;
 }
 
 function saveAll() {
